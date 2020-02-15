@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##MYAPP
 
-Things you may want to cover:
 
-* Ruby version
+##OVERVIEW
 
-* System dependencies
 
-* Configuration
+##USAGE
 
-* Database creation
+```$ git clone https://github.com/yoshikouki/haito_notice.git
+$ cd haito_notice
+$ bundle install --without production
+$ rails db:create
+$ rails db:migrate
+$ rails s
+>> http://localhost:3000```
 
-* Database initialization
 
-* How to run the test suite
+##AUTHOR
 
-* Services (job queues, cache servers, search engines, etc.)
+Yoshiko
 
-* Deployment instructions
+[Github](https://github.com/yoshikouki "Github")
+[Twitter](https://twitter.com/K2_Yoshiko)
 
-* ...
+
+

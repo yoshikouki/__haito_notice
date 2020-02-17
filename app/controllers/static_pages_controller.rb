@@ -7,8 +7,8 @@ class StaticPagesController < ApplicationController
     # WebAPIからXMLを取得
     # TDnet（適時開示情報）のWEB-APIプロジェクト（非公式）by Yanoshin
     # https://webapi.yanoshin.jp/tdnet/
-    data = {
-      "limit": 5,
+    data = { "limit": 30, 
+             #"hasXBRL": 0,
     }
     query = data.to_query
     uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/recent.xml?" + query)
@@ -17,11 +17,8 @@ class StaticPagesController < ApplicationController
     req = Net::HTTP::Get.new(uri)
     res = http.request(req)
     # XMLをデコード、ハッシュ型に変換
-    res_date = Hash.from_xml(res.body)
-
-
-
-    @xml = 
-    @tds = 
+    @res_hash = Hash.from_xml(res.body)
+    @tds = @res_hash["TDnetList"]["items"]["item"]
+    
   end
 end

@@ -1,21 +1,20 @@
+<h1><%= @res_hash["TDnetList"]["condition_desc"] %></h1>
+<p>取得件数: <%= @res_hash["TDnetList"]["total_count"] %>件</p>
 
-<h1>Home</h1>
-
-<!--  -->
-
-
-<!-- Split button -->
-<div class="btn-group">
-  <button type="button" class="btn btn-primary">Default</button>
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">メニュー1</a></li>
-    <li><a href="#">メニュー2</a></li>
-    <li><a href="#">メニュー3</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">メニュー4</a></li>
-  </ul>
-</div>
+<!-- TDnet情報を表示 -->
+<ul class="tds">
+  <% @tds.each do |td| %>
+    <div class="td">
+      <h2 class="inc">
+        <%= td["Tdnet"]["company_name"] %>
+        【<%= td["Tdnet"]["company_code"].chop %>】
+        <span class="market">/<%= td["Tdnet"]["markets_string"] %></span>
+      </h2>
+      <ul class="doc-info">
+        <li class="td-item"><%= link_to(td["Tdnet"]["title"], 
+                                        URI.parse(td["Tdnet"]["document_url"]).query ) %></li>
+        <li class="td-item"><%= td["Tdnet"]["pubdate"] %></li>
+      </ul>
+    </div>
+  <% end %>
+</ul>

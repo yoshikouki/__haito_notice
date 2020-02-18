@@ -1,28 +1,8 @@
-<h1><%= @res_hash["TDnetList"]["condition_desc"] %></h1>
+<!-- 銘柄コード検索フォーム -->
+<%= render 'shared/ts_search' %>
+
+<h1><%= @title %></h1>
 <p>取得件数: <%= @res_hash["TDnetList"]["total_count"] %>件</p>
 
 <!-- TDnet情報を表示 -->
-<ul class="tds">
-  <% @tds.each do |td| %>
-    <div class="td">
-      <h2 class="company-name"><%= td["Tdnet"]["company_name"] %></h2>
-      <div class="company-symbol">
-        <span class="company-ticker">
-          <%= td["Tdnet"]["company_code"].chop %>
-        </span>
-        <span class="company-market">
-          <%= td["Tdnet"]["markets_string"] %>
-        </span>
-      </div>
-      <ul class="doc-info">
-        <li class="td-item doc-title">
-          <%= link_to(td["Tdnet"]["title"], 
-          URI.parse(td["Tdnet"]["document_url"]).query ) %>
-        </li>
-        <li class="td-item pub-date">
-          <%= td["Tdnet"]["pubdate"] %>
-        </li>
-      </ul>
-    </div>
-  <% end %>
-</ul>
+<%= render 'shared/td_list' %>

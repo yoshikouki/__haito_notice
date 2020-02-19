@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   require 'net/https'
-  require 'URI'
+  require 'uri'
 
   # WebAPIからXML取得後、Hash化
   # TDnet（適時開示情報）のWEB-APIプロジェクト（非公式）by Yanoshin

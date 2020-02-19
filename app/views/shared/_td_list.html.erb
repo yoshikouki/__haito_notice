@@ -1,28 +1,42 @@
-<!-- TDnet情報をリスト表示 -->
-<!-- tds_hash()から取得 -->
-<ul class="tds">
+<%# TDnet情報をリスト表示 %>
+<%# tds_hash()から取得 %>
+<table class="tds table table-hover">
   <% @tds.each do |td| %>
-    <div class="td">
-      <div class="company-info">
-        <h2 class="company-name"><%= td["Tdnet"]["company_name"] %></h2>
-        <div class="company-symbol">
-          <span class="company-ticker">
-            <%= td["Tdnet"]["company_code"].chop %>
-          </span>
-          <span class="company-market">
-            <%= td["Tdnet"]["markets_string"] %>
-          </span>
-        </div>
-      </div>
-      <ul class="doc-info">
-        <li class="td-item doc-title">
-          <%= link_to(td["Tdnet"]["title"], 
-          URI.parse(td["Tdnet"]["document_url"]).query ) %>
-        </li>
-        <li class="td-item pub-date">
-          <%= td["Tdnet"]["pubdate"] %>
-        </li>
-      </ul>
-    </div>
+      <tr class="company-info table-sm table-active">
+        <td class="position-relative">
+          <%= link_to(controller: 'companys', 
+                      action: 'show', 
+                      id: td["Tdnet"]["company_code"].chop,
+                      class: "stretched-link") do %>
+            <div class="company td-item">
+              <span class="company-name">
+                <%= td["Tdnet"]["company_name"] %>
+              </span>
+              <span class="company-symbol">
+                <span class="company-ticker">
+                  <%= td["Tdnet"]["company_code"].chop %>
+                </span>
+                <span class="company-market">
+                  <%= td["Tdnet"]["markets_string"] %>
+                </span>
+              </span>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="doc-info">
+        <td class="position-relative">
+          <%= link_to(URI.parse(td["Tdnet"]["document_url"]).query,
+                      target: "_blank",
+                      class: "stretched-link" ) do %>
+            <div class="td-item doc-title">
+              <%= td["Tdnet"]["title"] %>
+            </div>
+            <div class="td-item pub-date caption-text">
+              <%= td["Tdnet"]["pubdate"] %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
   <% end %>
-</ul>
+</table>

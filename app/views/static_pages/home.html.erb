@@ -1,8 +1,8 @@
-<!-- 銘柄コード検索フォーム -->
+<%# 銘柄コード検索フォーム %>
 <%= render 'shared/ts_search' %>
 
-<h1><%= @title %></h1>
+<h1><%= @page_title %></h1>
 <p>取得件数: <%= @res_hash["TDnetList"]["total_count"] %>件</p>
 
-<!-- TDnet情報を表示 -->
+<%# TDnet情報を表示 %>
 <%= render 'shared/td_list' %>

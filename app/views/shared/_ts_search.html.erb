@@ -1,13 +1,16 @@
-<!-- 銘柄コードの検索フォーム -->
-<!-- WebAPIに直接GETする。200218現在 -->
-<div class="ts_seatch">
-  <%= form_tag("/search", method: :get,
-                          class:  "input-group mb-3") do %>
-    <%= text_field_tag :ticker_symbol,  "",
-                                        class: "form-control ts_search_bar",
-                                        placeholder: "銘柄コード（４桁）" %>
-    <div class="input-group-append">
-      <%= submit_tag "適時開示情報", class: "btn btn-outline-secondary ts_seatch_submit" %>
+<%# 銘柄コードの検索フォーム %>
+<%# WebAPIに直接GETする。200218現在 %>
+<div class="ts-search col-xs-12">
+  <%= form_with(url: "/search", method: :get,
+                                local: true) do |form| %>
+    <div class="input-group mb-3">
+      <%= form.text_field :ticker_symbol, 
+                          class: "form-control ts_search_bar",
+                          placeholder: "銘柄コード（４桁）" %>
+      <span class="input-group-append">
+        <%= form.submit "適時開示情報", 
+                        class: "btn btn-outline-secondary ts_seatch_submit" %>
+      </span>
     </div>
   <% end %>
 </div>

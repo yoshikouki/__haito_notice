@@ -1,8 +1,7 @@
 # ペパボのTDnet情報
 # https://webapi.yanoshin.jp/webapi/tdnet/list/3633.xml?limit=5
 
-{
-  "TDnetList" => 
+{ "TDnetList" => 
   { "total_count" => "185", 
     "condition_desc" => "3633の適時開示情報一覧", 
     "items" => 

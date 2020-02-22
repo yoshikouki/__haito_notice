@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_name: MyString
+  local_code: 1
+  market_division: MyString
+  tsi_code: 1
+  topix_sector_indices: MyString
+  t17_code: 1
+  topix_17: MyString
+  sc_code: 1
+  size_classification: MyString
+  pub_date: 1
+
+two:
+  company_name: MyString
+  local_code: 1
+  market_division: MyString
+  tsi_code: 1
+  topix_sector_indices: MyString
+  t17_code: 1
+  topix_17: MyString
+  sc_code: 1
+  size_classification: MyString
+  pub_date: 1

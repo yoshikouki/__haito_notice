@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
-  get '/search', to: 'companys#search'
-  resources :companys
+  get '/search', to: 'companies#search'
+  resources :companies
   
 
 

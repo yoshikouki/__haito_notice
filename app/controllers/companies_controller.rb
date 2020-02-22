@@ -1,4 +1,4 @@
-class CompanysController < ApplicationController
+class CompaniesController < ApplicationController
 
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
@@ -8,6 +8,7 @@ class CompanysController < ApplicationController
   
   # 銘柄コード検索で呼び出し
   def search
-    redirect_to "/companys/#{params['ticker_symbol']}"
+    redirect_to "/companiess/#{params['ticker_symbol']}"
   end
 end
+

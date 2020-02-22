@@ -8,7 +8,7 @@ class CompaniesController < ApplicationController
   
   # 銘柄コード検索で呼び出し
   def search
-    redirect_to "/companiess/#{params['ticker_symbol']}"
+    redirect_to "/companies/#{params['ticker_symbol']}"
   end
 end
 

@@ -4,7 +4,7 @@
   <% @tds.each do |td| %>
       <tr class="company-info table-sm table-active">
         <td class="position-relative">
-          <%= link_to(controller: 'companys', 
+          <%= link_to(controller: 'companies', 
                       action: 'show', 
                       id: td["Tdnet"]["company_code"].chop,
                       class: "stretched-link") do %>

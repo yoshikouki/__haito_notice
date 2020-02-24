@@ -14,6 +14,9 @@ gem 'jbuilder',     '2.7.0'
 gem 'rufo'
 # 開発・テスト環境のDBもpostgresへ移行
 gem 'pg', '0.20.0'
+# Excel,CSVを開くことが可能
+gem 'roo'
+gem 'roo-xls'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

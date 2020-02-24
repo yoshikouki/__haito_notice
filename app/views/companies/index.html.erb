@@ -1,0 +1,36 @@
+<%# 銘柄コード検索フォーム %>
+<%= render 'shared/ts_search' %>
+
+<%# 企業一覧を表示 %>
+<h1>企業一覧</h1>
+
+<%= form_tag import_from_companies_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "インポート" %>
+<% end %>
+
+<ol class="table table-hover">
+  <% @companies.each do |com| %>
+    <li class="table-active position-relative">
+      <div class="company td-item">
+        <%= link_to(controller: 'companies', 
+                    action: 'show', 
+                    id: com.local_code,
+                    class: "stretched-link") do %>
+          <span class="company-name">
+            <%= com.company_name %>
+          </span>
+          <span class="company-symbol">
+            <span class="company-ticker">
+              <%= com.local_code %>
+            </span>
+            <span class="company-market">
+              <%= com.market_division %>
+            </span>
+          </span>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+

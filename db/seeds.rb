@@ -7,3 +7,28 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+Company.create!(
+  pub_date: 20200131,
+  local_code: 1301,
+  company_name: "極洋",
+  market_division: "市場第一部（内国株）",
+  tsi_code: 50,
+  topix_sector_indices: "水産・農林業",
+  t17_code: 1,
+  topix_17: "食品",
+  sc_code: 7,
+  size_classification: "TOPIX Small 2"
+)
+
+Company.create!(
+  pub_date: "20200131",
+  local_code: "3622",
+  company_name: "ＧＭＯペパボ",
+  market_division: "市場第二部（内国株）",
+  tsi_code: "5250",
+  topix_sector_indices: "情報・通信業",
+  t17_code: "10",
+  topix_17: "情報通信・サービスその他 ",
+  sc_code: "-",
+  size_classification: "-"
+)

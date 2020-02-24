@@ -6,10 +6,10 @@
 #
 default: &default
   adapter: postgresql
-  encoding: utf8
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: yoshikouki
-  password: pass
+  username: haito_notice
+  password: 
   host: localhost
   timeout: 5000
   #adapter: sqlite3
@@ -31,5 +31,6 @@ test:
 
 production:
   <<: *default
-  database: hn_production
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  #database: hn_production
   #database: db/production.sqlite3

@@ -1,8 +1,16 @@
 class Company < ApplicationRecord
+
+  validates :local_code,    presence: true,
+                            numericality: { only_integer: true }
+  validates :company_name, :market_division, :pub_date, presence: true
+  
+  
   require 'rails/all'
   require 'csv'
   require 'roo'
   require 'roo-xls'
+
+
 
   # 企業一覧Excel（東証）のヘッダーとテーブルカラム名の対応表
   HEADER_TO_SYM_MAP = {

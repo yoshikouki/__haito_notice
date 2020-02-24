@@ -30,7 +30,7 @@ class CompaniesController < ApplicationController
   private
 
     def fileupload_param(params)
-      params.require(:import_from).permit(:file)
+      params.require(:company).permit(:file)
     end
 end
 

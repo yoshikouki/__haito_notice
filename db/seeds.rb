@@ -1,34 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
+require "csv"
 
-Company.create!(
-  pub_date: 20200131,
-  local_code: 1301,
-  company_name: "極洋",
-  market_division: "市場第一部（内国株）",
-  tsi_code: 50,
-  topix_sector_indices: "水産・農林業",
-  t17_code: 1,
-  topix_17: "食品",
-  sc_code: 7,
-  size_classification: "TOPIX Small 2"
-)
+CSV.foreach('db/data/company/db_init_20200224.csv', headers: true) do |row|
+  Company.create!(
+    pub_date: row['pub_date'],
+    local_code: row['local_code'],
+    company_name: row['company_name'],
+    market_division: row['market_division'],
+    tsi_code: row['tsi_code'],
+    topix_sector_indices: row['topix_sector_indices'],
+    t17_code: row['t17_code'],
+    topix_17: row['topix_17'],
+    sc_code: row['sc_code'],
+    size_classification: row['size_classification']
+  )
+end
 
-Company.create!(
-  pub_date: "20200131",
-  local_code: "3622",
-  company_name: "ＧＭＯペパボ",
-  market_division: "市場第二部（内国株）",
-  tsi_code: "5250",
-  topix_sector_indices: "情報・通信業",
-  t17_code: "10",
-  topix_17: "情報通信・サービスその他 ",
-  sc_code: "-",
-  size_classification: "-"
-)

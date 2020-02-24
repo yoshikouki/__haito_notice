@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
   def index
-    @companies = Company.all
+    @companies = Company.order(:tsi_code).page(params[:page]).per(50)
   end
 
   def show

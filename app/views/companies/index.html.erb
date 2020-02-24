@@ -4,10 +4,12 @@
 <%# 企業一覧を表示 %>
 <h1>企業一覧</h1>
 
-<%= form_tag import_from_companies_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "インポート" %>
-<% end %>
+<%#= form_tag import_from_companies_path, multipart: true do %>
+  <%#= file_field_tag :file %>
+  <%#= submit_tag "インポート" %>
+<%# end %>
+
+<%= paginate @companies %>
 
 <ol class="table table-hover">
   <% @companies.each do |com| %>
@@ -33,4 +35,6 @@
     </li>
   <% end %>
 </ol>
+
+<%= paginate @companies %>
 

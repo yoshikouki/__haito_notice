@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails',        '5.1.6'
 gem 'rufo'
 gem 'bootstrap', '~> 4.4.1'
+gem 'font-awesome-sass', '~> 5.4.1'
 gem 'jquery-rails', '4.3.1'
 gem 'puma',         '3.9.1'
 gem 'sass-rails',   '5.0.6'
@@ -17,6 +18,8 @@ gem 'pg', '0.20.0'
 # Excel,CSVを開くことが可能
 gem 'roo'
 gem 'roo-xls'
+# paginate用のGem
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

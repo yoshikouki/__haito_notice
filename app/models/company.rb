@@ -17,6 +17,9 @@ class Company < ApplicationRecord
     "規模コード" => :sc_code, 
     "規模区分" => :size_classification
   }
+
+  # paginateの表示件数
+  paginates_per 50
   
   def self.import(file)
     # ExcelファイルをRooを使用して開く

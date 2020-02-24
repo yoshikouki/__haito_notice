@@ -1,0 +1,23 @@
+<header class="sticky-top navbar-light bg-light">
+  <div class="container">
+    <nav class="navbar navbar-expand-sm">
+      <%= link_to "配当ノーティス", 
+                  '/', 
+                  id: "logo",
+                  class: "navbar-brand"%>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="nav nav-pills mb-3">
+          <li class="nav-item">
+            <%= link_to "Home", '/', class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "企業一覧", '/companies', class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>

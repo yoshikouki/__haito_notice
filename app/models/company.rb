@@ -39,7 +39,7 @@ class Company < ApplicationRecord
       # CSVからデータを取得し、設定する
       company.attributes = row.to_hash.slice(*updatable_attributes)
       # 保存する
-      #company.save
+      company.save
     end
   end
 

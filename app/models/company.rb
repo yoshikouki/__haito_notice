@@ -9,13 +9,7 @@ class Company < ApplicationRecord
   require 'csv'
   require 'roo'
   require 'roo-xls'
-<<<<<<< HEAD
-
-
-
-=======
   
->>>>>>> company-model
   # 企業一覧Excel（東証）のヘッダーとテーブルカラム名の対応表
   HEADER_TO_SYM_MAP = {
     "日付" => :pub_date, 

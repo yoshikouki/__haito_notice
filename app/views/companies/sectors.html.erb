@@ -1,5 +1,8 @@
 <div class="content-title">
-  <h1>企業一覧 ： 全て</h1>
+  <h1> 
+    <%= @companies[0][:topix_sector_indices] == "-" ? "未分類" : @companies[0][:topix_sector_indices] %>
+    <span class="h1-small">の企業</span>
+  </h1>
 </div>
 
 <%# 銘柄コード検索フォーム %>
@@ -10,12 +13,4 @@
 
 <%# 企業一覧を表示 %>
 <%= render 'companies/company_list' %>
-
-
-<%# 企業一覧インポート機能 %>
-<%#= form_tag import_from_companies_path, multipart: true do %>
-  <%#= file_field_tag :file %>
-  <%#= submit_tag "インポート" %>
-<%# end %>
-
 

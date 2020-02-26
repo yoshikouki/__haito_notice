@@ -1,0 +1,20 @@
+<%# セクターをリスト表示 %>
+<div class="container">
+<ul class="sector-list row list-inline">
+  <% @tsi.each do |v| %>
+    <%# リストアイテム %>
+    <%= link_to sectors_path(v[:tsi_code]), class: "m-1" do %>
+      <li class="sector-list-item btn btn-outline-secondary">
+        <%# セクター名 %>
+        <div class="sector-name">
+          <%= v[:topix_sector_indices] == "-" ? "未分類" : v[:topix_sector_indices] %>
+        </div>
+        <%# セクターに属している企業数 %>
+        <div class="sector-count">
+          <%= @tsi_count[v[:topix_sector_indices]] %>
+        </div>
+      </li>
+    <% end %> 
+  <% end %>
+</ul>
+</div>

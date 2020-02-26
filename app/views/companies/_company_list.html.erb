@@ -1,0 +1,22 @@
+<%# 企業一覧を表示 %>
+<%= paginate @companies %>
+
+<ul class="list-group list-group-flush">
+  <% @companies.each do |com| %>
+    <%= link_to( { controller: 'companies', 
+                    action: 'show', 
+                    id: com.local_code },
+                    class: "list-group-item list-group-item-action flex-column align-items-start") do %>
+      <span class="company-name">
+          <b><%= com.company_name %></b>
+      </span>
+      <div>
+        <%= render partial: 'shared/company_symbol', 
+                    locals: { local_code: com.local_code, 
+                              market_division: com.market_division } %>
+      </div>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= paginate @companies %>

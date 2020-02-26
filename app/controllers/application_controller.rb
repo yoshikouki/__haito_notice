@@ -24,13 +24,16 @@ class ApplicationController < ActionController::Base
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     res = http.request(get)
-    # XMLをデコード、ハッシュ型に変換
-    @res_hash = Hash.from_xml(res.body)
-
-    # h1タイトル
-    @page_title = @res_hash["TDnetList"]["condition_desc"]
-    # TDnet情報リスト
-    @tds = @res_hash["TDnetList"]["items"]["item"]
+    if res.body == "Invalid Request"
+      return false
+    else
+      # XMLをデコード、ハッシュ型に変換
+      @res_hash = Hash.from_xml(res.body)
+      # h1タイトル
+      @page_title = @res_hash["TDnetList"]["condition_desc"]
+      # TDnet情報リスト
+      @tds = @res_hash["TDnetList"]["items"]["item"]
+    end
   end
   
   

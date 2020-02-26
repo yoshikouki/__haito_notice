@@ -8,8 +8,9 @@
                           class: "form-control ts_search_bar",
                           placeholder: "銘柄コード（４桁）" %>
       <span class="input-group-append">
-        <%= form.submit "適時開示情報", 
-                        class: "btn btn-outline-secondary ts_seatch_submit" %>
+        <%= button_tag type: "submit", class: "btn btn-outline-secondary ts_seatch_submit" do %>
+          <%= icon( 'fas', 'search') %>
+        <% end %>
       </span>
     </div>
   <% end %>

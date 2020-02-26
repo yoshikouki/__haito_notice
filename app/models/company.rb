@@ -9,9 +9,13 @@ class Company < ApplicationRecord
   require 'csv'
   require 'roo'
   require 'roo-xls'
+<<<<<<< HEAD
 
 
 
+=======
+  
+>>>>>>> company-model
   # 企業一覧Excel（東証）のヘッダーとテーブルカラム名の対応表
   HEADER_TO_SYM_MAP = {
     "日付" => :pub_date, 
@@ -25,7 +29,7 @@ class Company < ApplicationRecord
     "規模コード" => :sc_code, 
     "規模区分" => :size_classification
   }
-  
+
   def self.import(file)
     # ExcelファイルをRooを使用して開く
     data = open_spreadsheet(file)
@@ -37,11 +41,9 @@ class Company < ApplicationRecord
     header = Array.new
     # ヘッダー行を、対応するテーブルカラム名に変換
     header_jp.each{ |jp| header << HEADER_TO_SYM_MAP[jp]}
-    
     (2..data.last_row).each do |i|
       # {カラム名 => 値, ...} のハッシュを作成する
       row = Hash[[header, data.row(i)].transpose]
-
       # local_codeが見つかればレコードを呼び出し、見つからなければ作成
       company = find_by(local_code: row[:local_code].to_int) || new
       # CSVからデータを取得し、設定する
@@ -53,20 +55,20 @@ class Company < ApplicationRecord
 
   private
 
-  # Gem Rooを使ってアップロードしたファイルを開く
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-    when '.csv'  then Roo::Csv.new(file.path)
-    when '.xls'  then Roo::Excel.new(file.path)
-    when '.xlsx' then Roo::Excelx.new(file.path)
-    when '.ods'  then Roo::OpenOffice.new(file.path)
-    else raise "Unknown file type: #{file.original_filename}"
+    # Gem Rooを使ってアップロードしたファイルを開く
+    def self.open_spreadsheet(file)
+      case File.extname(file.original_filename)
+      when '.csv'  then Roo::Csv.new(file.path)
+      when '.xls'  then Roo::Excel.new(file.path)
+      when '.xlsx' then Roo::Excelx.new(file.path)
+      when '.ods'  then Roo::OpenOffice.new(file.path)
+      else raise "Unknown file type: #{file.original_filename}"
+      end
     end
-  end
 
-  # 更新を許可するカラムを定義
-  def self.updatable_attributes
-    HEADER_TO_SYM_MAP.keys
-  end
+    # 更新を許可するカラムを定義
+    def self.updatable_attributes
+      HEADER_TO_SYM_MAP.keys
+    end
 
 end

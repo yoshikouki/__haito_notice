@@ -1,42 +1,48 @@
 <%# TDnet情報をリスト表示 %>
 <%# tds_hash()から取得 %>
-<table class="tds table table-hover">
+<section class="tds-list list">
   <% @tds.each do |td| %>
-      <tr class="company-info table-sm table-active">
-        <td class="position-relative">
-          <%= link_to(controller: 'companies', 
+    <% # 情報抽出 
+      local_code = td["Tdnet"]["company_code"].chop 
+      company_name = Company.where(local_code: local_code).pluck(:company_name)[0]
+    %>
+
+    <%# リストアイテム %>
+    <div class="list-item border-bottom">
+      <%# 企業情報 %>
+      <div class="company-info position-relative">
+        <%= link_to( { controller: 'companies', 
                       action: 'show', 
-                      id: td["Tdnet"]["company_code"].chop,
-                      class: "stretched-link") do %>
-            <div class="company td-item">
-              <span class="company-name">
-                <%= td["Tdnet"]["company_name"] %>
-              </span>
-              <span class="company-symbol">
-                <span class="company-ticker">
-                  <%= td["Tdnet"]["company_code"].chop %>
-                </span>
-                <span class="company-market">
-                  <%= td["Tdnet"]["markets_string"] %>
-                </span>
-              </span>
-            </div>
-          <% end %>
-        </td>
-      </tr>
-      <tr class="doc-info">
-        <td class="position-relative">
-          <%= link_to(URI.parse(td["Tdnet"]["document_url"]).query,
-                      target: "_blank",
-                      class: "stretched-link" ) do %>
-            <div class="td-item doc-title">
-              <%= td["Tdnet"]["title"] %>
-            </div>
-            <div class="td-item pub-date caption-text">
-              <%= td["Tdnet"]["pubdate"] %>
-            </div>
-          <% end %>
-        </td>
-      </tr>
+                      id: local_code },
+                      class: "stretched-link text-decoration-none" ) do %>
+          <div class="company td-item">
+            <%# 企業名 %>
+            <span class="company-name font-weight-bold">
+              <%= company_name %>
+            </span>
+            <%# メタ情報 %>
+            <%= render 'shared/company_symbol', 
+                        local_code: local_code,
+                        market_division: td["Tdnet"]["markets_string"] %>
+          </div>
+        <% end %>
+      </div>
+
+      <%# ドキュメント情報 %>
+      <div class="doc-info  position-relative">
+        <%= link_to(URI.parse(td["Tdnet"]["document_url"]).query,
+                    target: "_blank",
+                    class: "stretched-link text-decoration-none p-1" ) do %>
+          <%# ドキュメント名 %>
+          <div class="td-item doc-title">
+            <%= td["Tdnet"]["title"] %> <%= icon("far", "window-restore") %>
+          </div>
+          <%# 公開日時 %>
+          <div class="td-item pub-date caption-text">
+            <%= td["Tdnet"]["pubdate"] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-</table>
+</section>

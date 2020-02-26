@@ -1,12 +1,14 @@
 <%# 企業一覧を表示 %>
-<%= paginate @companies %>
+<div class="mt-5 mb-4">
+  <%= paginate @companies %>
+</div>
 
-<ul class="list-group list-group-flush">
+<ul class="list-group list-group-flush border-top">
   <% @companies.each do |com| %>
     <%= link_to( { controller: 'companies', 
                     action: 'show', 
                     id: com.local_code },
-                    class: "list-group-item list-group-item-action flex-column align-items-start") do %>
+                    class: "list-group-item list-group-item-action flex-column align-items-start px-2") do %>
       <span class="company-name">
           <b><%= com.company_name %></b>
       </span>
@@ -19,4 +21,6 @@
   <% end %>
 </ul>
 
-<%= paginate @companies %>
+<div class="my-4">
+  <%= paginate @companies %>
+</div>

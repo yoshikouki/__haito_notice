@@ -1,6 +1,6 @@
 <%# TDnet情報をリスト表示 %>
 <%# tds_hash()から取得 %>
-<section class="tds-list list">
+<section class="list border-top">
   <% @tds.each do |td| %>
     <% # 情報抽出 
       local_code = td["Tdnet"]["company_code"].chop 
@@ -8,16 +8,16 @@
     %>
 
     <%# リストアイテム %>
-    <div class="list-item border-bottom">
+    <div class="border-bottom">
       <%# 企業情報 %>
-      <div class="company-info position-relative">
+      <div class="company-info position-relative bg-light">
         <%= link_to( { controller: 'companies', 
                       action: 'show', 
                       id: local_code },
                       class: "stretched-link text-decoration-none" ) do %>
-          <div class="company td-item">
+          <div class="company py-2 px-2">
             <%# 企業名 %>
-            <span class="company-name font-weight-bold">
+            <span class="company-name font-weight-bold text-secondary">
               <%= company_name %>
             </span>
             <%# メタ情報 %>
@@ -29,17 +29,20 @@
       </div>
 
       <%# ドキュメント情報 %>
-      <div class="doc-info  position-relative">
+      <div class="doc-info position-relative">
         <%= link_to(URI.parse(td["Tdnet"]["document_url"]).query,
                     target: "_blank",
-                    class: "stretched-link text-decoration-none p-1" ) do %>
-          <%# ドキュメント名 %>
-          <div class="td-item doc-title">
-            <%= td["Tdnet"]["title"] %> <%= icon("far", "window-restore") %>
-          </div>
-          <%# 公開日時 %>
-          <div class="td-item pub-date caption-text">
-            <%= td["Tdnet"]["pubdate"] %>
+                    class: "stretched-link text-decoration-none" ) do %>
+          <div class="document py-2 px-2">
+            <%# ドキュメント名 %>
+            <div class="doc-title text-primary">
+              <%= td["Tdnet"]["title"] %>  
+              <%= icon("far", "window-restore", class: "caption-text") %>
+            </div>
+            <%# 公開日時 %>
+            <div class="pub-date caption-text">
+              <%= td["Tdnet"]["pubdate"] %>
+            </div>
           </div>
         <% end %>
       </div>

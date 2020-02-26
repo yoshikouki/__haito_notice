@@ -8,10 +8,10 @@ class CompaniesController < ApplicationController
 
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
-    ticker_symbol = params["id"]
-    unless get_tds(ticker_symbol, 30)
+    unless get_tds(params["id"], 30)
       redirect_to controller: 'static_pages', action: 'home' 
     end
+    @company = Company.where(local_code: params["id"])
   end
   
   # 銘柄コード検索で呼び出し

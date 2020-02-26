@@ -1,5 +1,5 @@
 <%# ヘッダー %>
-<header class="sticky-top navbar-light bg-light">
+<header class="sticky-top navbar-light bg-light mb-4">
   <div class="container">
     <nav class="navbar navbar-expand-sm">
       <%# サービスロゴの表示 %>
@@ -9,10 +9,12 @@
                   class: "navbar-brand" %>
       
       <%# 通常メニュー %>
-      <div class="navbar-nav nav-pills mb-3 justify-content-end">
-          <%= link_to "企業一覧", '/companies', 
-                      class: "nav-item nav-link navbar-text" %>
-      </div>
+      <ul class="nav justify-content-end h-100">
+        <li class="text-center align-middle">
+          <%= link_to icon( "fas", "th-list"), '/companies', 
+                      class: "nav-item nav-link" %>
+        </li>
+      </ul>
 
       <!--%# メニューボタン（ハンバーガーメニュー）の表示 %>
       <button class="navbar-toggler" 

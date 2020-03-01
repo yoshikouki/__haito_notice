@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails',        '5.1.6'
-gem 'rufo'
 gem 'bootstrap', '~> 4.4.1'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'jquery-rails', '4.3.1'
@@ -20,6 +19,8 @@ gem 'roo'
 gem 'roo-xls'
 # paginate用のGem
 gem 'kaminari'
+# ハッシュ化する
+gem 'bcrypt',         '3.1.12'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

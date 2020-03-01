@@ -4,7 +4,9 @@
   <% @tds.each do |td| %>
     <% # 情報抽出 
       local_code = td["Tdnet"]["company_code"].chop 
-      company_name = Company.where(local_code: local_code).pluck(:company_name)[0]
+      unless company_name = Company.where(local_code: local_code).pluck(:company_name)[0]
+        company_name = td["Tdnet"]["company_name"]
+      end
     %>
 
     <%# リストアイテム %>

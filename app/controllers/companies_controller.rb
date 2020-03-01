@@ -9,6 +9,7 @@ class CompaniesController < ApplicationController
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
     unless get_tds(params["id"], 30)
+      flash[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
     end
     @company = Company.where(local_code: params["id"])
@@ -23,7 +24,10 @@ class CompaniesController < ApplicationController
   def sectors
     tsi_code = params[:id]
     @companies = Company.where(tsi_code: tsi_code).page(params[:page]).per(50)
-    redirect_to companies_url if @companies.empty?
+    if @companies.empty?
+      flash[:warning] = "セクターコードが不正です"
+      redirect_to companies_url 
+    end
   end
 
   # CompaniesDBをCSV(Excel)で更新
@@ -33,7 +37,7 @@ class CompaniesController < ApplicationController
     if uploaded_file.original_filename == "data_j.xls"
       Company.import(uploaded_file)
     else
-      @error = "ファイルが不正です。"
+      flash[:danger] = "ファイルが不正です。"
     end
     redirect_to companies_url
   end

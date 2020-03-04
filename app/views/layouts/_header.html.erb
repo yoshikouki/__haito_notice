@@ -10,10 +10,18 @@
       
       <%# 通常メニュー %>
       <ul class="nav justify-content-end h-100">
-        <li class="text-center align-middle">
-          <%= link_to icon( "fas", "th-list"), '/companies', 
-                      class: "nav-item nav-link" %>
-        </li>
+        <%= link_to '/companies', 
+                      class: "nav-item nav-link" do %>
+          <li class="text-center align-middle">
+            <%= icon( "fas", "globe") %>
+          </li>
+        <% end %>
+        <%= link_to '/users', 
+                      class: "nav-item nav-link" do %>
+          <li class="text-center align-middle">
+            <%= icon( "fas", "user") %>
+          </li>
+        <% end %>
       </ul>
 
       <!--%# メニューボタン（ハンバーガーメニュー）の表示 %>

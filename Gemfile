@@ -21,6 +21,8 @@ gem 'roo-xls'
 gem 'kaminari'
 # ハッシュ化する
 gem 'bcrypt',         '3.1.12'
+# フェイク文の配置
+gem 'faker',          '1.7.3'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

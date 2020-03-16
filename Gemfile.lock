@@ -107,7 +107,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     pg (0.20.0)
     popper_js (1.16.0)
-    puma (3.9.1)
+    puma (3.12.4)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -216,7 +216,7 @@ DEPENDENCIES
   kaminari
   listen (= 3.1.5)
   pg (= 0.20.0)
-  puma (= 3.9.1)
+  puma (= 3.12.4)
   rails (= 5.1.6)
   roo
   roo-xls

@@ -1,11 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.page(params[:page]).per(50)
-  end
+  before_action :logged_in_user,  only: [ :edit, :update, :destroy]
+  
   
   # GET /users/new
   def new
@@ -22,15 +17,14 @@ class UsersController < ApplicationController
         #@user.send_activation_email
         # メッセージを作成
         #flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
-        flash[:info] = 'ご登録ありがとうございます！ 配当ノーティスをお楽しみください'
-        
+        flash[:info] = 'ご登録ありがとうございます！'
         format.html { redirect_to root_url }
-        #format.html { redirect_to @user, notice: 'User was successfully created.' }
-        #format.json { render :show, status: :created, location: @user }
+        # format.html { redirect_to @user, notice: 'User was successfully created.' }
+        # format.json { render :show, status: :created, location: @user }
       else
         flash[:danger] = 'アカウントの作成に失敗しました。入力内容をお確かめの上、再度実行してください'
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        # format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

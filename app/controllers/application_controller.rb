@@ -1,13 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  
+  # ログイン機能
   include SessionsHelper
   
-  require 'net/https'
-  require 'uri'
-
+  
   # WebAPIからXML取得後、Hash化
   # TDnet（適時開示情報）のWEB-APIプロジェクト（非公式）by Yanoshin
   # https://webapi.yanoshin.jp/tdnet/
+  require 'net/https'
+  require 'uri'
   def get_tds(ticker_symbol = "recent", limit = 30)
     # 銘柄コード（もしくは条件）とオプションをまとめる
     params = {  company:  ticker_symbol,
@@ -36,6 +38,13 @@ class ApplicationController < ActionController::Base
       @tds = @res_hash["TDnetList"]["items"]["item"]
     end
   end
-  
-  
+
+  private
+    # ログインしていない場合、ログインページにリダイレクト
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
 end

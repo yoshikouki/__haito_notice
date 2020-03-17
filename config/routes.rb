@@ -9,14 +9,14 @@ Rails.application.routes.draw do
 
   # usersコントローラー
   get '/signup', to: 'users#new'
-  get '/mypage', to: 'users#show'
+  get '/mypage', to: 'users#mypage'
 
   # ログイン機能
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
-  resources :users
+  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :account_activations, only: [:edit]
 
   resources :companies do

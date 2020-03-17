@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user,  only: [ :edit, :update, :destroy]
+  before_action :logged_in_user,  only: [:show, :edit, :update, :destroy, :mypage]
+  before_action :set_user,  only: [:show, :edit, :update, :destroy]
   
   
   # GET /users/new
@@ -64,6 +65,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def mypage
+  end
+
   private
     # 操作するユーザーを取り出す
     def set_user
@@ -72,7 +76,7 @@ class UsersController < ApplicationController
 
     # StrongParameters（マスアサインメントの脆弱性対策）
     def user_params
-      params.require(:user).permit(:name, 
+      params.require(:user).permit( :name, 
                                     :email, 
                                     :password, 
                                     :password_confirmation)

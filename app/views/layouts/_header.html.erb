@@ -20,6 +20,20 @@
                       class: "nav-item nav-link" do %>
           <li class="text-center align-middle">
             <%= icon( "fas", "user") %>
+            <%= logged_in? ? @current_user.name : "無ログイン" %>
+          </li>
+        <% end %>
+        <%= link_to '/login', 
+                      class: "nav-item nav-link" do %>
+          <li class="text-center align-middle">
+            <%= icon( "fas", "sign-in-alt") %>
+          </li>
+        <% end %>
+        <%= link_to '/logout', 
+                      class: "nav-item nav-link",
+                      method: :delete do %>
+          <li class="text-center align-middle">
+            <%= icon( "fas", "sign-out-alt") %>
           </li>
         <% end %>
       </ul>

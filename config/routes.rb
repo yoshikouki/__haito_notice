@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
   root 'static_pages#home'
   
   # companiesコントローラー
@@ -8,6 +9,12 @@ Rails.application.routes.draw do
 
   # usersコントローラー
   get '/signup', to: 'users#new'
+  get '/mypage', to: 'users#show'
+
+  # ログイン機能
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
   
   resources :users
   resources :account_activations, only: [:edit]

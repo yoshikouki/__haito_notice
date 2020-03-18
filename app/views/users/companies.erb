@@ -1,0 +1,37 @@
+<% provide(:title, 'ウォッチリストに登録中の企業') %>
+
+<div class="my-4">
+  
+  <%# アカウント名 %>
+  <h1 class="h5"><%= @user.name %></h1>
+
+  <%# ウォッチリスト登録中の企業 %>
+  <div class="mb-4">
+    <div class="mb-4">
+      <span class="badge badge-pill badge-secondary">
+        ウォッチリスト
+      </span>
+      <%= @user.watchlists.count %>社
+    </div>
+
+    <ul class="list-group list-group-flush border-top">
+      <% @lcs.each do |lc| %>
+        <% com = Company.find_by(local_code: lc) %>
+        <%= link_to( { controller: 'companies', 
+                        action: 'show', 
+                        id: com.local_code },
+                        class: "list-group-item list-group-item-action flex-column align-items-start px-2") do %>
+          <span class="company-name">
+              <b><%= com.company_name %></b>
+          </span>
+          <div>
+            <%= render partial: 'shared/company_symbol', 
+                        locals: { local_code: com.local_code, 
+                                  market_division: com.market_division } %>
+          </div>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+</div>

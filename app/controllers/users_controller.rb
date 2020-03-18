@@ -77,8 +77,16 @@ class UsersController < ApplicationController
 
   # GET /mypage
   def mypage
-    @user = @current_user
-    correct_user
+    @user = current_user
+    @lcs = []
+    @user.watchlists.each{|w| @lcs << w[:local_code] }
+  end
+
+  # GET /watchlist/companies
+  def companies
+    @user = current_user
+    @lcs = []
+    @user.watchlists.each{|w| @lcs << w[:local_code] }
   end
 
   private

@@ -1,25 +1,27 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
   root 'static_pages#home'
   
-  # companiesコントローラー
+  # 企業一覧・検索
   get '/search', to: 'companies#search'
   get '/sectors/:id', to: 'companies#sectors', as: 'sectors'
 
-  # usersコントローラー
+  # ユーザー機能
   get '/signup', to: 'users#new'
   get '/mypage', to: 'users#mypage'
-
-  # ログイン機能
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  # ウォッチリスト
+  get '/watchlist', to: 'users#watchlist'
+  get '/watchlist/companies', to: 'users#companies'
+
   
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :account_activations, only: [:edit]
 
-  resources :companies do
+  resources :companies, only: [:index, :show] do
     # Companyテーブルのインポート機能のため
     collection { post :import_from }
   end

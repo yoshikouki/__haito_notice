@@ -1,11 +1,14 @@
 <% provide(:title, 'マイページ') %>
 
 <div class="my-4">
+  
+  <%# アカウント名 %>
   <h1 class="h5"><%= @user.name %></h1>
 
-  <div>
+  <%# 登録情報 %>
+  <div class="mb-4">
     <div class="email">
-      <span class="badge badge-pill badge-secondary font-weight-normal">
+      <span class="badge badge-pill badge-secondary">
         Email
       </span>
       <%= @user.email %>
@@ -18,7 +21,19 @@
     </div>
   </div>
 
-  <div class="destroy-content my-4">
+  <%# ウォッチリスト登録中の企業 %>
+  <div class="mb-4">
+    <div class="mb-4">
+      <%= link_to '/watchlist/companies' do %>
+      <span class="badge badge-pill badge-secondary">
+        ウォッチリスト
+      </span>
+      <%= @user.watchlists.count %>社
+      <% end %>
+    </div>
+
+  <%# ログアウト・アカウント削除 %>
+  <div class="destroy-content mb-4">
     <%= link_to '/logout', 
                 class: "btn btn-secondary btn-block btn-sm",
                 method: :delete,

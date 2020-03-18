@@ -21,7 +21,7 @@ User.create!(name:  "駄味小太郎",
   email: "example@email.com",
   password:              "password",
   password_confirmation: "password",
-  admin:     true,
+  admin:     false,
   activated: true,
   activated_at: Time.zone.now)
 User.create!(name:  "yoshiko",
@@ -38,7 +38,7 @@ user1 = User.first
 user2 = User.last
 companies = Company.all
 watchlists1 = companies[1..50]
-watchlists2 = companies[0..-50]
+watchlists2 = companies[-1..-50]
 watchlists1.each{ |c| user1.watch(c) }
 watchlists2.each{ |c| user2.watch(c) }
 

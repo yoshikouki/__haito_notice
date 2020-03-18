@@ -48,6 +48,17 @@ class User < ApplicationRecord
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  # (remember_me) 永続セッションのためにユーザーをデータベースに記憶
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  # 永続セッションを破棄。ログアウト時
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+
   private
     # emailを全て小文字化
     def downcase_email

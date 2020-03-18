@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, 'マイページ') %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="my-4">
+  <h1 class="h5"><%= @user.name %></h1>
+  
+<%= link_to users_path, 
+            class: "btn btn-secondary btn-block btn-sm",
+            method: :delete,
+            role: "button" do %>
+      <%= icon( "fas", "angle-left") %>
+      一覧へ戻る
+    <% end %>

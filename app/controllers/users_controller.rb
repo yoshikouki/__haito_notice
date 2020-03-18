@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user,  only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user,  only: [:show, :edit, :update, :destroy, :mypage]
+  before_action :correct_user,  only: [:show, :edit, :update, :destroy]
+  before_action :logged_out_user,  only: [:new, :create]
 
+  
   # GET /users
-  # GET /users.json
   def index
     @users = User.page(params[:page]).per(50)
   end
@@ -22,15 +25,14 @@ class UsersController < ApplicationController
         #@user.send_activation_email
         # メッセージを作成
         #flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
-        flash[:info] = 'ご登録ありがとうございます！ 配当ノーティスをお楽しみください'
-        
+        flash.now[:info] = 'ご登録ありがとうございます！'
         format.html { redirect_to root_url }
-        #format.html { redirect_to @user, notice: 'User was successfully created.' }
-        #format.json { render :show, status: :created, location: @user }
+        # format.html { redirect_to @user, notice: 'User was successfully created.' }
+        # format.json { render :show, status: :created, location: @user }
       else
-        flash[:danger] = 'アカウントの作成に失敗しました。入力内容をお確かめの上、再度実行してください'
+        flash[:danger] = 'アカウントの作成に失敗しました。'
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        # format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,21 +40,21 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to mypage_path
   end
   
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
   end
   
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        flash.now[:success] = '変更は正常に保存されました。'
+        format.html { render :mypage }
+        format.json { render :mypage, status: :ok, location: @user }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -65,9 +67,16 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      flash.now[:info] = 'ユーザーは削除されました。'
+      format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  # GET /mypage
+  def mypage
+    @user = @current_user
+    correct_user
   end
 
   private
@@ -78,9 +87,17 @@ class UsersController < ApplicationController
 
     # StrongParameters（マスアサインメントの脆弱性対策）
     def user_params
-      params.require(:user).permit(:name, 
+      params.require(:user).permit( :name, 
                                     :email, 
                                     :password, 
                                     :password_confirmation)
+    end
+
+    # 正しいユーザーかどうかの確認
+    def correct_user
+      unless current_user?(@user)
+        flash[:danger] = 'アカウントが不正です。'
+        redirect_to(root_url) 
+      end
     end
 end

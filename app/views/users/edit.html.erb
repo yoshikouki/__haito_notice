@@ -1,6 +1,10 @@
-<h1>Editing User</h1>
+
+<% provide(:title, 'アカウント変更') %>
+
+<%# formパーシャル用 %>
+<% provide(:button_text, '保存') %>
+
+<h1 class="h5 pb-4">アカウント変更</h1>
 
 <%= render 'form', user: @user %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>

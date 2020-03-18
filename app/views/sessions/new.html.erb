@@ -2,7 +2,7 @@
 <h1 class="h5 pb-4">ログイン</h1>
 
 <%= form_with( scope: :session, url: login_path,  local: true) do |form| %>
-  <%#= render 'form_errors', user: user %>
+  <%#= render '/users/form_errors', user: user %>
 
   <div class="mb-4">
     <%= form.label :email, "メールアドレス" %>
@@ -14,15 +14,15 @@
     <%= form.password_field :password, id: :user_password, class: 'form-control' %>
   </div>
 
-  <div class="mb-4">
-    <%= form.label :remember_me, class: "checkbox inline" do %>
-      <%= form.check_box :remember_me %>
+  <div class="form-check mb-4">
+    <%= form.label :remember_me, class: "form-check-label" do %>
+      <%= form.check_box :remember_me, class: "form-check-input" %>
       <span>ログインを記憶する</span>
     <% end %>
   </div>
 
-  <div class="my-5">
-    <%= form.submit "ログイン", class: "btn btn-primary btn-block btn-lg" %>
+  <div class="mb-3">
+    <%= form.submit "ログイン", class: "btn btn-primary btn-block" %>
   </div>
 <% end %>
 

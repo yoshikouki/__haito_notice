@@ -8,56 +8,34 @@
                   id: "logo",
                   class: "navbar-brand p-0" %>
       
-      <%# 通常メニュー %>
+      <%# ナビゲーションメニュー %>
       <ul class="nav justify-content-end h-100">
-        <%= link_to '/companies', 
-                      class: "nav-item nav-link" do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "globe") %>
-          </li>
-        <% end %>
-        <%= link_to '/users', 
-                      class: "nav-item nav-link" do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "user") %>
-            <%= logged_in? ? @current_user.name : "無ログイン" %>
-          </li>
-        <% end %>
-        <%= link_to '/login', 
-                      class: "nav-item nav-link" do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "sign-in-alt") %>
-          </li>
-        <% end %>
-        <%= link_to '/logout', 
-                      class: "nav-item nav-link",
-                      method: :delete do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "sign-out-alt") %>
-          </li>
+          <%= link_to '/companies', 
+                        class: "nav-item nav-link" do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "globe") %>
+            </li>
+          <% end %>
+        <% if logged_in? %>
+        <%# ログイン時 %>
+          <%= link_to '/mypage', 
+                        class: "nav-item nav-link" do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "user") %>
+            <%= @current_user.name %>
+            </li>
+          <% end %>
+        <% else %>
+        <%# ログアウト時 %>
+          <%= link_to '/login', 
+                        class: "nav-item nav-link" do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "sign-in-alt") %>
+              ログイン
+            </li>
+          <% end %>
         <% end %>
       </ul>
-
-      <!--%# メニューボタン（ハンバーガーメニュー）の表示 %>
-      <button class="navbar-toggler" 
-              type="button" 
-              data-toggle="collapse" 
-              data-target="#navbarNav" 
-              aria-controls="navbarNav" 
-              aria-expanded="false" 
-              aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <%# ナビリンクのリスト %>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <div class="navbar-nav nav-pills mb-3">
-            <%= link_to "Home", '/', 
-                        class: "nav-item nav-link navbar-text" %>
-            <%= link_to "企業一覧", '/companies', 
-                        class: "nav-item nav-link navbar-text" %>
-        </div>
-      </div-->
     </nav>
   </div>
 </header>

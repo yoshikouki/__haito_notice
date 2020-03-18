@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :logged_out_user,  only: [:new, :create]
+  
   def new
   end
 
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
         # ログイン後にユーザー情報のページにリダイレクトする
         log_in @user
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-        redirect_back_or user_url(@user)
+        redirect_back_or root_url
       # else
       #   message =   "アカウントが有効化されていません。"
       #   message +=  "有効化メールをご確認いただき、アカウントを有効化してください"

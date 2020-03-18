@@ -1,0 +1,37 @@
+<% provide(:title, 'マイページ') %>
+
+<div class="my-4">
+  <h1 class="h5"><%= @user.name %></h1>
+
+  <div>
+    <div class="email">
+      <span class="badge badge-pill badge-secondary font-weight-normal">
+        Email
+      </span>
+      <%= @user.email %>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <%= link_to '登録情報を変更', edit_user_path(@user),
+                                    class: "inline-block btn btn-outline-secondary btn-sm",
+                                    role: "button" %>
+    </div>
+  </div>
+
+  <div class="destroy-content my-4">
+    <%= link_to '/logout', 
+                class: "btn btn-secondary btn-block btn-sm",
+                method: :delete,
+                role: "button" do %>
+      <%= icon( "fas", "sign-out-alt") %>
+      ログアウト
+    <% end %>
+    <%= link_to @user, 
+                method: :delete,
+                class: "btn btn-outline-danger btn-block btn-sm",
+                role: "button",
+                data: { confirm: "本当にアカウントを削除しますか？この操作はやり直すことができません。" } do %>
+      アカウントを削除
+    <% end %>
+  </div>
+</div>

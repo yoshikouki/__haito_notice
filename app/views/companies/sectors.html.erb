@@ -8,7 +8,16 @@
 </div>
 
 <%# セクターをリスト表示 %>
-<%= render 'shared/sector_list' %>
+<button class="btn btn-outline-secondary btn-block btn-sm"
+  data-toggle="collapse"
+  data-target="#sector-list"
+  aria-expand="false"
+  aria-controls="sector-list">
+  セクター一覧
+</button>
+<div id="sector-list" class="collapse pt-3">
+    <%= render 'shared/sector_list' %>
+</div>
 
 <%# 企業一覧を表示 %>
 <%= render 'companies/company_list' %>

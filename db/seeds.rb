@@ -1,7 +1,7 @@
 
+# 企業（東証公表資料から）
 require "csv"
-
-CSV.foreach('db/data/company/db_init_20200224.csv', headers: true) do |row|
+CSV.foreach('db/data/company/db_init.csv', headers: true) do |row|
   Company.create!(
     pub_date: row['pub_date'],
     local_code: row['local_code'],
@@ -16,23 +16,29 @@ CSV.foreach('db/data/company/db_init_20200224.csv', headers: true) do |row|
   )
 end
 
+# ユーザー
 User.create!(name:  "駄味小太郎",
   email: "example@email.com",
-  password:              "foobar",
-  password_confirmation: "foobar",
+  password:              "password",
+  password_confirmation: "password",
+  admin:     true,
+  activated: true,
+  activated_at: Time.zone.now)
+User.create!(name:  "yoshiko",
+  email: "yoshikouki@gmail.com",
+  password:              "password",
+  password_confirmation: "password",
   admin:     true,
   activated: true,
   activated_at: Time.zone.now)
 
-99.times do |n|
-name  = Faker::Name.name
-email = "example-#{n+1}@email.com"
-password = "password"
-User.create!(name:  name,
-              email: email,
-              password:              password,
-              password_confirmation: password,
-              activated: true,
-              activated_at: Time.zone.now)
-end
+
+# リレーションシップ
+user1 = User.first
+user2 = User.last
+companies = Company.all
+watchlists1 = companies[1..50]
+watchlists2 = companies[0..-50]
+watchlists1.each{ |c| user1.watch(c) }
+watchlists2.each{ |c| user2.watch(c) }
 

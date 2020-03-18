@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   
+  has_many :watchlists, dependent: :destroy
+
   # コールバック
   before_save :downcase_email
   before_create :create_activation_digest
@@ -59,6 +61,17 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  # 企業をWatchlistに登録する
+  def watch(company)
+    w = Watchlist.new(local_code: company.local_code)
+    watchlists << w
+  end
+
+  # 企業をWatchlistから解除する
+  def unwatch(company)
+    watchlists.find_by(local_code: company.local_code).destroy
+  end
+  
   private
     # emailを全て小文字化
     def downcase_email

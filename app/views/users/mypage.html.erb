@@ -1,14 +1,21 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, 'マイページ') %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @current_user.name %>
-</p>
+<div class="my-4">
+  <h1 class="h5"><%= @user.name %></h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @current_user.email %>
-</p>
+  <div>
+    <div class="email">
+      <span class="badge badge-pill badge-secondary font-weight-normal">
+        Email
+      </span>
+      <%= @user.email %>
+    </div>
 
-<%= link_to 'Edit', edit_user_path(@current_user) %> |
-<%= link_to 'Back', users_path %>
+    <div class="d-flex justify-content-end">
+      <%= link_to '登録情報を変更', edit_user_path(@user),
+                                    class: "inline-block btn btn-outline-secondary btn-sm",
+                                    role: "button" %>
+    </div>
+  </div>
+</div>
+

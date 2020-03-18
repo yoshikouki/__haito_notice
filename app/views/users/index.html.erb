@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Users</h1>
+<%= link_to 'New User', new_user_path %>
+
+<div class="my-4">
+  <%= paginate @users %>
+</div>
 
 <table>
   <thead>
@@ -24,6 +29,6 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New User', new_user_path %>
+<div class="my-4">
+  <%= paginate @users %>
+</div>

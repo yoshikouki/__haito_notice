@@ -9,7 +9,7 @@ class CompaniesController < ApplicationController
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
     unless get_tds(params["id"], 30)
-      flash[:warning] = "銘柄コードが不正です"
+      flash.now[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
     end
     @company = Company.where(local_code: params["id"])
@@ -37,7 +37,7 @@ class CompaniesController < ApplicationController
     if uploaded_file.original_filename == "data_j.xls"
       Company.import(uploaded_file)
     else
-      flash[:danger] = "ファイルが不正です。"
+      flash.now[:danger] = "ファイルが不正です。"
     end
     redirect_to companies_url
   end

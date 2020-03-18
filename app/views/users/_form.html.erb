@@ -31,6 +31,9 @@
 
   <div class="my-5">
     <%= form.submit yield(:button_text), 
-                    class: "btn btn-primary btn-block btn-lg" %>
+                    class: "btn btn-primary btn-block" %>
+    <%= link_to 'キャンセル', logged_in? ? mypage_path : root_url,
+                              class: "btn btn-outline-secondary btn-block",
+                              role: "button" %>
   </div>
 <% end %>

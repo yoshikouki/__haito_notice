@@ -1,12 +1,13 @@
 
   <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2>以下の項目をご確認の上、再度実行してください</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+    <div id="error_explanation" class="alert alert-danger">
+      <p class="alert-heading">
+        入力値が不正です。以下の項目をご確認ください。
+      </p>
+      <ul class="my-0 py-0">
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>

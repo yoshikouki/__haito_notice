@@ -14,15 +14,15 @@
     <%= form.password_field :password, id: :user_password, class: 'form-control' %>
   </div>
 
-  <div class="mb-4">
-    <%= form.label :remember_me, class: "checkbox inline" do %>
-      <%= form.check_box :remember_me %>
+  <div class="form-check mb-4">
+    <%= form.label :remember_me, class: "form-check-label" do %>
+      <%= form.check_box :remember_me, class: "form-check-input" %>
       <span>ログインを記憶する</span>
     <% end %>
   </div>
 
   <div class="my-5">
-    <%= form.submit "ログイン", class: "btn btn-primary btn-block btn-lg" %>
+    <%= form.submit "ログイン", class: "btn btn-primary btn-block" %>
   </div>
 <% end %>
 

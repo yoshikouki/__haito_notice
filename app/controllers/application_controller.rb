@@ -43,8 +43,16 @@ class ApplicationController < ActionController::Base
     # ログインしていない場合、ログインページにリダイレクト
     def logged_in_user
       unless logged_in?
-        flash[:danger] = "Please log in."
+        flash.now[:warning] = "ご利用のページはログインが必要です。"
         redirect_to login_url
+      end
+    end
+
+    # ログインしる場合、マイページにリダイレクト
+    def logged_out
+      if logged_in?
+        flash.now[:info] = "ログアウトしてから再度お試しください。"
+        redirect_to mypage_url
       end
     end
 end

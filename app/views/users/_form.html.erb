@@ -15,7 +15,7 @@
                         class: 'form-control' %>
   </div>
 
-  <div class="mb-4">
+  <div class="mb-2">
     <%= form.label :password, "パスワード" %>
     <%= form.password_field :password, 
                             id: :user_password, 
@@ -29,9 +29,9 @@
                             class: 'form-control' %>
   </div>
 
-  <div class="my-5">
+  <div class="mb-5">
     <%= form.submit yield(:button_text), 
-                    class: "btn btn-primary btn-block" %>
+                    class: "btn btn-primary btn-block mb-2" %>
     <%= link_to 'キャンセル', logged_in? ? mypage_path : root_url,
                               class: "btn btn-outline-secondary btn-block",
                               role: "button" %>

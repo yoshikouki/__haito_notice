@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user,  only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user,  only: [:show, :edit, :update, :destroy, :mypage]
-  before_action :correct_user,  only: [:edit, :update, :destroy]
+  before_action :correct_user,  only: [:show, :edit, :update, :destroy]
   before_action :logged_out_user,  only: [:new, :create]
 
   
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         # format.json { render :show, status: :created, location: @user }
       else
-        flash.now[:danger] = 'アカウントの作成に失敗しました。入力内容をお確かめください。'
+        flash[:danger] = 'アカウントの作成に失敗しました。'
         format.html { render :new }
         # format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -40,6 +40,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to mypage_path
   end
   
   # GET /users/1/edit
@@ -95,7 +96,7 @@ class UsersController < ApplicationController
     # 正しいユーザーかどうかの確認
     def correct_user
       unless current_user?(@user)
-        flash.now[:danger] = 'アカウントが不正です。'
+        flash[:danger] = 'アカウントが不正です。'
         redirect_to(root_url) 
       end
     end

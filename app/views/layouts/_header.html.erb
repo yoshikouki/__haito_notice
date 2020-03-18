@@ -8,33 +8,41 @@
                   id: "logo",
                   class: "navbar-brand p-0" %>
       
-      <%# 通常メニュー %>
+      <%# ナビゲーションメニュー %>
       <ul class="nav justify-content-end h-100">
-        <%= link_to '/companies', 
-                      class: "nav-item nav-link" do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "globe") %>
-          </li>
-        <% end %>
-        <%= link_to '/mypage', 
-                      class: "nav-item nav-link" do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "user") %>
-            <%= logged_in? ? @current_user.name : "無ログイン" %>
-          </li>
-        <% end %>
-        <%= link_to '/login', 
-                      class: "nav-item nav-link" do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "sign-in-alt") %>
-          </li>
-        <% end %>
-        <%= link_to '/logout', 
-                      class: "nav-item nav-link",
-                      method: :delete do %>
-          <li class="text-center align-middle">
-            <%= icon( "fas", "sign-out-alt") %>
-          </li>
+          <%= link_to '/companies', 
+                        class: "nav-item nav-link" do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "globe") %>
+            </li>
+          <% end %>
+
+        <% if logged_in? %>
+        <%# ログイン時 %>
+          <%= link_to '/mypage', 
+                        class: "nav-item nav-link" do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "user") %>
+              <%= logged_in? ? @current_user.name : "無ログイン" %>
+            </li>
+          <% end %>
+          <%= link_to '/logout', 
+                        class: "nav-item nav-link",
+                        method: :delete do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "sign-out-alt") %>
+              ログアウト
+            </li>
+          <% end %>
+        <% else %>
+        <%# ログアウト時 %>
+          <%= link_to '/login', 
+                        class: "nav-item nav-link" do %>
+            <li class="text-center align-middle">
+              <%= icon( "fas", "sign-in-alt") %>
+              ログイン
+            </li>
+          <% end %>
         <% end %>
       </ul>
 

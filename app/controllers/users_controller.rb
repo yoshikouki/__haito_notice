@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user,  only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user,  only: [:show, :edit, :update, :destroy, :mypage]
   before_action :correct_user,  only: [:edit, :update, :destroy]
-  before_action :logged_out,  only: [:new, :create]
+  before_action :logged_out_user,  only: [:new, :create]
 
   
   # GET /users

@@ -17,5 +17,22 @@
                                     role: "button" %>
     </div>
   </div>
-</div>
 
+<div class="destroy-content my-4">
+  <%= link_to '/logout', 
+              class: "btn btn-secondary btn-block btn-sm",
+              method: :delete,
+              role: "button" do %>
+    <%= icon( "fas", "sign-out-alt") %>
+    ログアウト
+  <% end %>
+  <%= link_to @user, 
+              method: :delete,
+              class: "btn btn-outline-danger btn-block btn-sm",
+              role: "button",
+              data: { confirm: "本当にアカウントを削除しますか？この操作はやり直すことができません。" } do %>
+    アカウントを削除
+  <% end %>
+  <%#= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+</div>

@@ -25,7 +25,9 @@ class UsersController < ApplicationController
         #@user.send_activation_email
         # メッセージを作成
         #flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
-        flash.now[:info] = 'ご登録ありがとうございます！'
+        @user.activate
+        log_in @user
+        flash[:info] = 'ご登録ありがとうございます！'
         format.html { redirect_to root_url }
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         # format.json { render :show, status: :created, location: @user }
@@ -68,7 +70,7 @@ class UsersController < ApplicationController
     @user.destroy
     respond_to do |format|
       flash.now[:info] = 'ユーザーは削除されました。'
-      format.html { redirect_to users_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

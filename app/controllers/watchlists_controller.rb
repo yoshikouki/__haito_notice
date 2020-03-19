@@ -7,7 +7,7 @@ class WatchlistsController < ApplicationController
     current_user.watch(@company)
     respond_to do |format|
       format.html { redirect_to company_path(params[:local_code]) }
-      # format.js
+      format.js { redirect_to company_path(params[:local_code]) }
     end
   end
 

@@ -11,8 +11,9 @@ class CompaniesController < ApplicationController
     unless get_tds(params["id"], 30)
       flash.now[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
+    else
+      @company = Company.find_by(local_code: params["id"])
     end
-    @company = Company.find_by(local_code: params["id"])
   end
   
   # 銘柄コード検索で呼び出し

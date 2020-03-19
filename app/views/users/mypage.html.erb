@@ -23,18 +23,34 @@
 
   <%# ウォッチリスト登録中の企業 %>
   <div class="mb-4">
-    <div class="mb-4">
-      <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block ",
-                                          role: "button" do %>
-        ウォッチリスト
-        <span class="badge badge-pill badge-light">
-        <%= @user.watchlists.count %>社
-        </span>
-      <% end %>
-    </div>
+    <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block ",
+                                        role: "button" do %>
+      <%= icon 'fas', 'building' %>
+      ウォッチリスト
+      <span class="badge badge-pill badge-light">
+      <%= @user.watchlists.count %>社
+      </span>
+    <% end %>
+  </div>
+
+  <%# TDリスト（ウォッチリスト） %>
+  <div class="mb-4">
+    <%= link_to feed_path, class: "btn btn-secondary btn-block mb-2",
+                            role: "button" do %>
+      <%= icon 'fas', 'rss' %>
+      TDフィード
+    <% end %>
+
+    <%= render 'shared/td_list' %>
+    
+    <%= link_to feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle" do %>
+      <span class="small mr-1">もっと見る</span>
+      <%= icon 'fas', 'angle-right' %>
+    <% end %>
+  </div>
 
   <%# ログアウト・アカウント削除 %>
-  <div class="destroy-content mb-4">
+  <div class="destroy-content mt-5 mb-4">
     <%= link_to '/logout', 
                 class: "btn btn-secondary btn-block btn-sm",
                 method: :delete,

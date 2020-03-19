@@ -78,19 +78,44 @@ class UsersController < ApplicationController
   # GET /mypage
   def mypage
     @user = current_user
+    # ウォッチリスト登録されている企業のTD情報を取得
+    lcs = []
+    wls = @user.watchlists
+    if wls.empty?
+      @tds = false
+    else
+      wls.each{ |wl| lcs << wl[:local_code] }
+      ticker_symbol = lcs.join("-")
+      get_tds(ticker_symbol, 3)
+    end
   end
 
-  # GET /watchlist
+  # GET /feed
   def feed
-
+    @user = current_user
+    # ウォッチリスト登録されている企業のTD情報を取得
+    lcs = []
+    wls = @user.watchlists
+    if wls.empty?
+      @tds = false
+    else
+      wls.each{ |wl| lcs << wl[:local_code] }
+      ticker_symbol = lcs.join("-")
+      get_tds(ticker_symbol, 30)
+    end
   end
 
-  # GET /watchlist/companies
+  # GET /feed/watchlist
   def watchlist
     @user = current_user
     lcs = []
-    @user.watchlists.each{|w| lcs << w[:local_code] }
-    @companies = Company.where(local_code: lcs).page(params[:page])
+    wls = @user.watchlists
+    if wls.empty?
+      @companies = false
+    else
+      wls.each{|wl| lcs << wl[:local_code] }
+      @companies = Company.where(local_code: lcs).page(params[:page])
+    end
   end
 
   private

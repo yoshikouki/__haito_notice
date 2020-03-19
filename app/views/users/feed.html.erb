@@ -1,0 +1,48 @@
+<% provide(:title, '適時開示情報（ウォッチ中）') %>
+
+<div class="my-4">
+  
+  <%# アカウント・ページ名 %>
+  <%= link_to mypage_path, class: 'text-decoration-none' do %>
+      <div class="h5 inline mb-4">
+        <%= icon 'fas', 'angle-left mr-1' %>
+        <%= @user.name %>
+      </div>
+    <% end %>
+
+  <div class="mb-4">
+    <h1 class="h5 d-inline-block">
+      適時開示情報（ウォッチ中）
+    </h1>
+    <span class="badge badge-pill badge-secondary">
+      <%= @user.watchlists.count %>社
+    </span>
+  </div>
+  <div class="mb-4">
+    <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block",
+                                role: "button" do %>
+      <%= icon 'fas', 'building' %>
+      ウォッチリスト
+    <% end %>
+  </div>
+
+  <%# TDリスト（ウォッチリスト） %>
+  <div class="mb-4">
+    <%= render 'shared/td_list' %>
+  </div>
+
+  <%# 下部ナビゲーション %>
+  <div class="foot-nav">
+    <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block",
+                                role: "button" do %>
+      <%= icon 'fas', 'building' %>
+      ウォッチリスト
+    <% end %>
+    <%= link_to mypage_path, class: "btn btn-outline-secondary btn-block",
+                                role: "button" do %>
+      <%= icon 'fas', 'angle-left' %>
+      マイページ
+    <% end %>
+  </div>
+
+</div>

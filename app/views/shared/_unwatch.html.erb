@@ -1,0 +1,6 @@
+<%= form_with( url: watchlist_path,
+                method: :delete ) do |f| %>
+  <%= button_tag :type => "submit", :class =>"btn btn-secondary" do %>
+    <i class="fa fa-eye-slash"></i>
+  <% end %>
+<% end %>

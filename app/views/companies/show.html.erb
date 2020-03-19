@@ -1,16 +1,19 @@
 <%# 企業の個別ページ %>
 
 <h1 class="h5">適時開示情報（企業別）</h1>
+  
 
 <h2 class="font-weight-bold">
   <%= @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["company_name"] %>
 </h2>
 
-<div class="mb-3">
-  <%= render 'shared/watch_form' %>
+<div class="mb-3 float-left">
   <%= render 'shared/company_symbol', 
               local_code: params[:id],
               market_division: @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["markets_string"] %>
+</div>
+<div class="mb-4 d-flex justify-content-end">
+<%= render 'shared/watch_form' %>
 </div>
 
 <%# TDnet情報を表示 %>

@@ -78,15 +78,19 @@ class UsersController < ApplicationController
   # GET /mypage
   def mypage
     @user = current_user
-    @lcs = []
-    @user.watchlists.each{|w| @lcs << w[:local_code] }
+  end
+
+  # GET /watchlist
+  def feed
+
   end
 
   # GET /watchlist/companies
-  def companies
+  def watchlist
     @user = current_user
-    @lcs = []
-    @user.watchlists.each{|w| @lcs << w[:local_code] }
+    lcs = []
+    @user.watchlists.each{|w| lcs << w[:local_code] }
+    @companies = Company.where(local_code: lcs).page(params[:page])
   end
 
   private

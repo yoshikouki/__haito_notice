@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
       flash.now[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
     end
-    @company = Company.where(local_code: params["id"])
+    @company = Company.find_by(local_code: params["id"])
   end
   
   # 銘柄コード検索で呼び出し

@@ -1,0 +1,15 @@
+<div id="watch_form">
+  <% if current_user.watching?(@company) %>
+    <%= form_for(current_user.unwatch.find_by(local_code: @company.local_code),
+                html: { method: :delete },
+                remote: true) do |f| %>
+      <%= f.submit "外す", class: "btn" %>
+    <% end %>
+
+  <% else %>
+    <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+      <div><%= hidden_field_tag :followed_id, @user.id %></div>
+      <%= f.submit "Follow", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+</div>

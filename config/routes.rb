@@ -14,12 +14,13 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   # ウォッチリスト
-  get '/watchlist', to: 'users#watchlist'
-  get '/watchlist/companies', to: 'users#companies'
+  get '/feed', to: 'users#feed'
+  get '/feed/watchlist', to: 'users#watchlist'
 
   
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :account_activations, only: [:edit]
+  resources :watchlists, only: [:create, :destroy]
 
   resources :companies, only: [:index, :show] do
     # Companyテーブルのインポート機能のため

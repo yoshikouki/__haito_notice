@@ -24,11 +24,12 @@
   <%# ウォッチリスト登録中の企業 %>
   <div class="mb-4">
     <div class="mb-4">
-      <%= link_to '/watchlist/companies' do %>
-      <span class="badge badge-pill badge-secondary">
+      <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block ",
+                                          role: "button" do %>
         ウォッチリスト
-      </span>
-      <%= @user.watchlists.count %>社
+        <span class="badge badge-pill badge-light">
+        <%= @user.watchlists.count %>社
+        </span>
       <% end %>
     </div>
 

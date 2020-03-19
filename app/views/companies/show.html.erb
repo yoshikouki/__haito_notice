@@ -7,9 +7,10 @@
 </h2>
 
 <div class="mb-3">
-<%= render 'shared/company_symbol', 
-            local_code: params[:id],
-            market_division: @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["markets_string"] %>
+  <%= render 'shared/watch_form' %>
+  <%= render 'shared/company_symbol', 
+              local_code: params[:id],
+              market_division: @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["markets_string"] %>
 </div>
 
 <%# TDnet情報を表示 %>

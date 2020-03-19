@@ -66,12 +66,17 @@ class User < ApplicationRecord
     w = Watchlist.new(local_code: company.local_code)
     watchlists << w
   end
-
+  
   # 企業をWatchlistから解除する
   def unwatch(company)
     watchlists.find_by(local_code: company.local_code).destroy
   end
   
+  # 企業がWatchlistに登録されていたらtrue
+  def watching?(company)
+    !watchlists.where(local_code: company.local_code).empty?
+  end
+
   private
     # emailを全て小文字化
     def downcase_email

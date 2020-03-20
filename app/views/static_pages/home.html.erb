@@ -4,10 +4,20 @@
 <%# TDリスト（ウォッチリスト） %>
 <div class="mb-5">
   <h1 class="h5 mb-4">適時開示情報（ウォッチ中）</h1>
-  <%= render 'shared/td_list', tds: @feed %>
-  <%= link_to feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle" do %>
-    <span class="small mr-1">もっと見る</span>
-    <%= icon 'fas', 'angle-right' %>
+  <% if logged_in? %>
+    <%= render 'shared/td_list', tds: @feed %>
+    <%= link_to feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle" do %>
+      <span class="small mr-1">もっと見る</span>
+      <%= icon 'fas', 'angle-right' %>
+    <% end %>
+  <% else %>
+    <%= link_to '/login', 
+                class: "text-center" do %>
+      <div class="btn btn-outline-primary btn-block">
+        <%= icon( "fas", "eye", class: 'mr-1') %>
+        ログインしてウォッチ
+      </div>
+    <% end %>
   <% end %>
 </div>
 

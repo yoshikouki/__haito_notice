@@ -7,13 +7,20 @@
   <%= @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["company_name"] %>
 </h2>
 
-<div class="mb-3 float-left">
-  <%= render 'shared/company_symbol', 
-              local_code: params[:id],
-              market_division: @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["markets_string"] %>
-</div>
-<div class="mb-4 d-flex justify-content-end">
-  <%= render 'shared/watch_form' %>
+<div class="mb-4 cleafix">
+  <div class="float-left">
+    <%= render 'shared/company_symbol', 
+                local_code: params[:id],
+                market_division: @res_hash["TDnetList"]["items"]["item"][0]["Tdnet"]["markets_string"] %>
+  </div>
+
+  <div class="d-flex justify-content-end ">
+    <% if logged_in? %>
+      <%= render 'shared/watch_form' %>
+    <% else %>
+      <div class="btn btn-outline-primary"><span class="small">ログインしてウォッチ</span></div>
+    <% end %>
+  </div>
 </div>
 
 <%# TDnet情報を表示 %>

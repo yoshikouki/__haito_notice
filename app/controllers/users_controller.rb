@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     lcs = []
     wls = @user.watchlists
     if wls.empty?
-      @tds = false
+      @tds = []
     else
       wls.each{ |wl| lcs << wl[:local_code] }
       ticker_symbol = lcs.join("-")

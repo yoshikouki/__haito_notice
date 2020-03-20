@@ -101,6 +101,7 @@ class UsersController < ApplicationController
     else
       wls.each{ |wl| lcs << wl[:local_code] }
       ticker_symbol = lcs.join("-")
+      $limit = params[:limit] ? 
       get_tds(ticker_symbol, 30)
     end
   end

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'tds/daily'
+
   root 'static_pages#home'
   
   # 企業一覧・検索
@@ -16,6 +18,9 @@ Rails.application.routes.draw do
   # ウォッチリスト
   get '/feed', to: 'users#feed'
   get '/feed/watchlist', to: 'users#watchlist'
+
+  # TDコントローラー
+  get '/daily', to: 'tds#daily'
 
   
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]

@@ -1,0 +1,21 @@
+<%# マイページのフィードとウォッチリストに表示するナビゲーション %>
+
+<div class="row bg-light rounded-lg p-1">
+  <%# フィードへのナビボタン %>
+  <%= link_to feed_path, 
+              class: "btn btn-sm col 
+              btn-#{controller.action_name == 'feed' ? 'secondary' : 'light' }",
+              role: "button" do %>
+    <%= icon 'fas', 'rss' %>
+    TDフィード
+  <% end %>
+  
+  <%# ウォッチリストへのナビボタン %>
+  <%= link_to '/feed/watchlist', 
+              class: "btn btn-sm col
+              btn-#{controller.action_name == 'watchlist' ? 'secondary' : 'light' }",
+              role: "button" do %>
+    <%= icon 'fas', 'building' %>
+    ウォッチリスト
+  <% end %>
+</div>

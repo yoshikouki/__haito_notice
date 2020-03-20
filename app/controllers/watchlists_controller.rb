@@ -7,15 +7,15 @@ class WatchlistsController < ApplicationController
     current_user.watch(@company)
     respond_to do |format|
       format.html { redirect_to company_path(params[:local_code]) }
-      format.js { redirect_to company_path(params[:local_code]) }
+      format.js
     end
   end
 
   def destroy
-    @company = Company.find_by(local_code: params[:id])
+    @company = Company.find_by(local_code: params[:local_code])
     current_user.unwatch(@company)
     respond_to do |format|
-      format.html { redirect_to company_path(params[:id]) }
+      format.html { redirect_to company_path(params[:local_code]) }
       format.js 
     end
   end

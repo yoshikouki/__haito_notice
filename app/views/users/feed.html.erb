@@ -18,12 +18,9 @@
       <%= @user.watchlists.count %>社
     </span>
   </div>
-  <div class="mb-4">
-    <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block",
-                                role: "button" do %>
-      <%= icon 'fas', 'building' %>
-      ウォッチリスト
-    <% end %>
+  <%# フィードナビ %>
+  <div class="container mb-4">
+    <%= render 'users/feed_nav' %>
   </div>
 
   <%# TDリスト（ウォッチリスト） %>
@@ -33,11 +30,12 @@
 
   <%# 下部ナビゲーション %>
   <div class="foot-nav">
-    <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block",
-                                role: "button" do %>
-      <%= icon 'fas', 'building' %>
-      ウォッチリスト
-    <% end %>
+    <%# フィードナビ %>
+    <div class="container mb-4">
+      <%= render 'users/feed_nav' %>
+    </div>
+    
+    <%# マイページ %>
     <%= link_to mypage_path, class: "btn btn-outline-secondary btn-block",
                                 role: "button" do %>
       <%= icon 'fas', 'angle-left' %>

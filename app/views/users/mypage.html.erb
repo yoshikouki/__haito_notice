@@ -20,7 +20,7 @@
                                     role: "button" %>
     </div>
   </div>
-
+  
   <%# ウォッチリスト登録中の企業 %>
   <div class="mb-4">
     <%= link_to '/feed/watchlist', class: "btn btn-secondary btn-block ",
@@ -35,14 +35,15 @@
 
   <%# TDリスト（ウォッチリスト） %>
   <div class="mb-4">
-    <%= link_to feed_path, class: "btn btn-secondary btn-block mb-2",
-                            role: "button" do %>
-      <%= icon 'fas', 'rss' %>
-      TDフィード
+    <%= link_to feed_path do %>
+      <div class="w-auto p-2 border-top rounded-top text-white bg-secondary text-center">
+        <%= icon 'fas', 'rss' %>
+        TDフィード
+      </div>
     <% end %>
 
     <%= render 'shared/td_list' %>
-    
+
     <%= link_to feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle" do %>
       <span class="small mr-1">もっと見る</span>
       <%= icon 'fas', 'angle-right' %>
@@ -52,7 +53,7 @@
   <%# ログアウト・アカウント削除 %>
   <div class="destroy-content mt-5 mb-4">
     <%= link_to '/logout', 
-                class: "btn btn-secondary btn-block btn-sm",
+                class: "btn btn-outline-secondary btn-block btn-sm mb-4",
                 method: :delete,
                 role: "button" do %>
       <%= icon( "fas", "sign-out-alt") %>
@@ -60,8 +61,7 @@
     <% end %>
     <%= link_to @user, 
                 method: :delete,
-                class: "btn btn-outline-danger btn-block btn-sm",
-                role: "button",
+                class: "text-danger small",
                 data: { confirm: "本当にアカウントを削除しますか？この操作はやり直すことができません。" } do %>
       アカウントを削除
     <% end %>

@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :account_activations, only: [:edit]
-  resources :watchlists, only: [:create, :destroy]
+
+  post 'watchlists/:id', to: 'watchlists#create', as: 'watch'
+  delete 'watchlists/:id', to: 'watchlists#destroy', as: 'unwatch'
 
   resources :companies, only: [:index, :show] do
     # Companyテーブルのインポート機能のため

@@ -21,20 +21,17 @@
       </span>
     </div>
 
-    <div class="mb-4">
-      <%= link_to feed_path, class: "btn btn-secondary btn-block",
-                                  role: "button" do %>
-        <%= icon 'fas', 'rss' %>
-        TDフィード
-      <% end %>
+    <%# 上部ナビゲーション・フィードナビ %>
+    <div class="container mb-4">
+      <%= render 'users/feed_nav' %>
     </div>
 
+
+    <%# 企業リスト %>
     <% if @companies %>
       <div class="my-4">
         <%= paginate @companies %>
       </div>
-
-      <%# 企業リスト %>
       <ul class="list-group list-group-flush border-top">
         <% @companies.each do |com| %>
           <%= link_to( { controller: 'companies', 
@@ -56,6 +53,7 @@
       <div class="my-4">
         <%= paginate @companies %>
       </div>
+    <%# ウォッチリストに登録がなかった場合 %>
     <% else %>
       <%= link_to '/companies', 
                   class: "text-center" do %>
@@ -69,11 +67,12 @@
 
   <%# 下部ナビゲーション %>
   <div class="foot-nav">
-    <%= link_to feed_path, class: "btn btn-secondary btn-block",
-                                role: "button" do %>
-      <%= icon 'fas', 'rss' %>
-      TDフィード
-    <% end %>
+    <%# フィードナビ %>
+    <div class="container mb-4">
+      <%= render 'users/feed_nav' %>
+    </div>
+    
+    <%# マイページ %>
     <%= link_to mypage_path, class: "btn btn-outline-secondary btn-block",
                                 role: "button" do %>
       <%= icon 'fas', 'angle-left' %>

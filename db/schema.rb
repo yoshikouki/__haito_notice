@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200228001935) do
+ActiveRecord::Schema.define(version: 20200318101600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20200228001935) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name"
+  end
+
+  create_table "watchlists", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "local_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["local_code"], name: "index_watchlists_on_local_code"
+    t.index ["user_id", "local_code"], name: "index_watchlists_on_user_id_and_local_code", unique: true
+    t.index ["user_id"], name: "index_watchlists_on_user_id"
   end
 
 end

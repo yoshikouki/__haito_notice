@@ -1,35 +1,44 @@
 <!-- Footer -->
-<footer class="page-footer font-small">
+<footer class="page-footer font-small my-5">
   <!-- Footer Elements -->
   <div class="container">
     <!-- Grid row-->
-    <div class="row">
-      <!-- Grid column -->
-      <div class="col-md-12 py-5">
-        <div class="mb-5 flex-center">
-          <!-- Facebook -->
-          <a class="fb-ic">
-            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
-          <!-- Twitter -->
-          <a class="tw-ic">
-            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-          </a>
-          <!--GitHub-->
-          <%= link_to("https://github.com/yoshikouki",
-                      class: "github-ic") {
-                        icon('fab', 'github',
-                                class: "fa-lg white-text mr-md-5 mr-3 fa-2x") } %>
-          </a>
-        </div>
+    <div class="row align-items-center py-4">
+      <div class="col"></div>
+      <!-- Twitter -->
+      <div class="col text-center">
+        <%= link_to "https://twitter.com/K2_Yoshiko",
+                    class: "tw-ic" do %>
+          <%= icon('fab', 'twitter',
+                  target: "_blank",
+                  class: "white-text fa-2x") %>
+        <% end %>
       </div>
-      <!-- Grid column -->
+      <!--GitHub-->
+      <div class="col text-center">
+        <%= link_to "https://github.com/yoshikouki",
+                    class: "github-ic" do %>
+          <%= icon('fab', 'github',
+                  target: "_blank",
+                  class: "white-text fa-2x") %>
+        <% end %>
+      </div>
+      <!-- Facebook -->
+      <div class="col text-center">
+        <%= link_to "https://www.facebook.com/koki.yoshimoto.9",
+                    class: "fb-ic" do %>
+          <%= icon('fab', 'facebook-f',
+                  target: "_blank",
+                  class: "white-text fa-2x") %>
+        <% end %>
+      </div>
+      <div class="col"></div>
     </div>
     <!-- Grid row-->
   </div>
   <!-- Footer Elements -->
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 yoshiko</div>
+  <div class="footer-copyright text-center pt-4">© 2020 yoshiko</div>
   <!-- Copyright -->
 </footer>
 <!-- Footer -->

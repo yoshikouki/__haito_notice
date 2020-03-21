@@ -18,7 +18,13 @@
     <% if logged_in? %>
       <%= render 'shared/watch_form' %>
     <% else %>
-      <div class="btn btn-outline-primary"><span class="small">ログインしてウォッチ</span></div>
+      <%= link_to '/login', 
+                  class: "text-center" do %>
+        <div class="btn btn-outline-primary btn-block">
+          <%= icon( "fas", "eye", class: 'mr-1') %>
+          ログインしてウォッチ
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

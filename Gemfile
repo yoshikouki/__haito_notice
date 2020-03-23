@@ -26,6 +26,12 @@ gem 'faker',          '1.7.3'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri
+  # 
+  # gem 'rspec-rails'
+  # コード解析・整形
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-performance'
 end
 
 group :development do

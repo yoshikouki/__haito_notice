@@ -1,0 +1,27 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-performance
+  # - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - "bin/*"
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "tmp/**/*"
+    - "config/initializers/*"
+    - "db/migrate/*.rb"
+  DisplayCopNames: true
+  TargetRubyVersion: 2.6.3
+
+# Rails特有の構文チェック
+Rails:
+  Enabled: true
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+

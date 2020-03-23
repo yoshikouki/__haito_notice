@@ -1,17 +1,17 @@
 # README
 
-##配当ノーティス Haito Notice
+## 配当ノーティス Haito Notice
 
-[](https://haito-notice.herokuapp.com)
+https://haito-notice.herokuapp.com
 
 
-##概略 OVERVIEW
+## 概略 OVERVIEW
 
 配当ノーティスは、上場企業が公表している適時開示情報を収集・閲覧できるWebアプリケーションです。
 現在は、ベータ版です。
 
 
-##特徴 FEATURES
+## 特徴 FEATURES
 
 このアプリでは、次のことができます。
 - 最新の適時開示情報を確認できます。
@@ -20,7 +20,7 @@
 - ウォッチ中の企業が公表した適時開示情報をフィード表示できます。
 
 
-##使用方法 USAGE
+## 使用方法 USAGE
 
 ```Terminal
 $ git clone https://github.com/yoshikouki/haito_notice.git
@@ -35,13 +35,13 @@ $ rails s
 ブラウザでhttp://localhost:3000にアクセス。
 
 
-##環境 REQUIREMENT
+## 環境 REQUIREMENT
 
 - Ruby 2.6.3
 - Rails 5.1.6
 
 
-##AUTHOR
+## AUTHOR
 
 Yoshiko
 
@@ -52,7 +52,7 @@ Yoshiko
 [Twitter](https://twitter.com/K2_Yoshiko)
 
 
-##今後の予定 PLANS
+## 今後の予定 PLANS
 
 - ユーザー機能をより充実させます
 - 企業検索をより便利にします

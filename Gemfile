@@ -42,7 +42,9 @@ group :development do
   gem 'spring-watcher-listen', '2.0.1'
 end
 
-
+group :test do
+  gem 'rspec_junit_formatter'
+end
 
 # Windows環境ではtzinfo-dataというgemを含める必要がある
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

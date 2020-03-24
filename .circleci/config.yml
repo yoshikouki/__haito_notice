@@ -25,7 +25,7 @@ jobs:
           RAILS_ENV: test
       # データベースイメージ
       # $ psql -vで確認したバージョンと合わせる。-alpineが軽量版のため望ましい
-      - image: circleci/postgres:1-alpine 
+      - image: circleci/postgres:12-alpine 
         # データベースの環境変数
         environment: 
           POSTGRES_USER: haito_notice

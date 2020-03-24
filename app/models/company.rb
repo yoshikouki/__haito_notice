@@ -47,22 +47,22 @@ class Company < ApplicationRecord
     end
   end
 
-  private
-
-    # Gem Rooを使ってアップロードしたファイルを開く
-    def self.open_spreadsheet(file)
-      case File.extname(file.original_filename)
-      when '.csv'  then Roo::Csv.new(file.path)
-      when '.xls'  then Roo::Excel.new(file.path)
-      when '.xlsx' then Roo::Excelx.new(file.path)
-      when '.ods'  then Roo::OpenOffice.new(file.path)
-      else raise "Unknown file type: #{file.original_filename}"
-      end
+  # Gem Rooを使ってアップロードしたファイルを開く
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when '.csv'  then Roo::Csv.new(file.path)
+    when '.xls'  then Roo::Excel.new(file.path)
+    when '.xlsx' then Roo::Excelx.new(file.path)
+    when '.ods'  then Roo::OpenOffice.new(file.path)
+    else raise "Unknown file type: #{file.original_filename}"
     end
+  end
 
-    # 更新を許可するカラムを定義
-    def self.updatable_attributes
-      HEADER_TO_SYM_MAP.keys
-    end
+  # 更新を許可するカラムを定義
+  def self.updatable_attributes
+    HEADER_TO_SYM_MAP.keys
+  end
+
+  private_class_method :open_spreadsheet, :updatable_attributes
 
 end

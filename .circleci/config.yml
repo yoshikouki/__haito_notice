@@ -36,14 +36,12 @@ commands:
       - run:
           name: Bundler を指定
           command: bundle -v
-
   # Ruby の依存関係をインストール
   install_bundle:
     steps:
       - run: 
           name: バンドルをインストール
           command: bundle check || bundle install
-
   # 依存関係キャッシュを復元
   restore_bundle_dependencies:
     steps:
@@ -52,7 +50,6 @@ commands:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
-
   # Rubyバンドルキャッシュ依存関係を保存
   save_bundle_dependencies:
     steps:
@@ -60,14 +57,12 @@ commands:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
   # DBの起動まで待機
   wait_for_db_start_up:
     steps:
       - run:
           name: DBの起動まで待機
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-  
   # DBをセットアップ
   set_up_database:
     steps:

@@ -9,7 +9,7 @@ orbs:
 executors:
   default:
     # コマンドを実行するディレクトリ（リポジトリ）を指定
-    working_directory: ~/haito-notice
+    working_directory: ~/haito_notice
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
         environment: 

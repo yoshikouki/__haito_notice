@@ -1,18 +1,11 @@
-# CircleCI 2.1 を使用します
 version: 2.1
-
-# 公開されているCircleCI設定を読み込む。version: 2.1以上
-orbs:
-  # ruby: circleci/ruby@0.1.2
-
-# 実行環境
-executors:
-  default:
+jobs:
+  build:
     # コマンドを実行するディレクトリ（リポジトリ）を指定
-    working_directory: ~/haito_notice
+    # working_directory: ~/haito_notice
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
-        environment: 
+        environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           # 元が BUNDLE_PATH=/usr/local/bundle で設定されているので、上書きする
@@ -22,114 +15,57 @@ executors:
           PGUSER: haito_notice
           RAILS_ENV: test
       # $ psql -vで確認したバージョンと合わせる。-alpineが軽量版のため望ましい
-      - image: circleci/postgres:12-alpine 
-        environment: 
+      - image: circleci/postgres:12-alpine
+        environment:
           # config/database.ymlの内容と一致させる
           POSTGRES_USER: haito_notice
           POSTGRES_DB: hn_test
           POSTGRES_PASSWORD: ""
-
-commands:
-  # Bundler のバージョンを指定
-  check_bundle:
     steps:
-      - run:
-          name: Bundler を指定
-          command: bundle -v
-  # Ruby の依存関係をインストール
-  install_bundle:
-    steps:
-      - run: 
-          name: バンドルをインストール
-          command: bundle check || bundle install
-  # 依存関係キャッシュを復元
-  restore_bundle_dependencies:
-    steps:
+      # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
+      - checkout
+      # 依存関係キャッシュを復元
       - restore_cache:
           name: 依存関係キャッシュを復元
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
-  # Rubyバンドルキャッシュ依存関係を保存
-  save_bundle_dependencies:
-    steps:
+      # Bundler のバージョンを指定
+      - run:
+          name: Bundler を指定
+          command: bundle -v
+      # Ruby の依存関係をインストール
+      - run:
+          name: バンドルをインストール
+          command: bundle check || bundle install
+      # Rubyバンドルキャッシュ依存関係を保存
       - save_cache:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-  # DBの起動まで待機
-  wait_for_db_start_up:
-    steps:
-      - run:
-          name: DBの起動まで待機
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-  # DBをセットアップ
-  set_up_database:
-    steps:
-      - run:
-          name: DBをセットアップ
-          command: bin/rails db:schema:load --trace
-  # コード解析を実行
-  run_rubocop:
-    steps:
+      # コード解析を実行
       - run:
           name: 静的コード解析を実行（RuboCop）
           command: bundle exec rubocop
-  # テストを実行
-  run_rspec:
-    steps:
+      # DBの起動まで待機
       - run:
-          name: テストを実行（RSpec）
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
-jobs:
-  checkout_code:
-    executor: default
-    steps:
-      # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
-      - checkout
-  bundle_dependencies:
-    executor: default
-    steps:
-      - restore_bundle_dependencies
-      - check_bundle
-      - install_bundle
-      - save_bundle_dependencies
-  rubocop_job:
-    executor: default
-    steps:
-      - run_rubocop
-  rspec_job:
-    executor: default
-    steps:
-      - wait_for_db_start_up
-      - set_up_database
-      - run_rspec
-
+          name: DBの起動まで待機
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      # DBをセットアップ
+      - run:
+          name: DBをセットアップ
+          command: bin/rails db:schema:load --trace
+      # テストを実行
+      # - run:
+      #     name: テストを実行（RSpec）
+      #     command: |
+      #       bundle exec rspec --profile 10 \
+      #                         --format RspecJunitFormatter \
+      #                         --out test_results/rspec.xml \
+      #                         --format progress \
+      #                         $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       # テスト結果を保存(タイミング解析)
-      - store_test_results: 
-          path: test_results
-      # テストサマリー(https://circleci.com/docs/ja/2.0/collect-test-data/) 
+      # - store_test_results:
+          # path: test_results
+      # テストサマリー(https://circleci.com/docs/ja/2.0/collect-test-data/)
       # デプロイコンフィグの例(https://circleci.com/docs/ja/2.0/deployment-integrations/)
-
-workflows:
-  build_test_and_deploy:
-    jobs:
-      - checkout_code
-      - bundle_dependencies:
-          requires:
-            - checkout_code
-      - rubocop_job:
-          requires:
-            - bundle_dependencies
-      # RSpecを未導入のためコメントアウト
-      # - rspec_job:
-      #     requires:
-      #       - bundle_dependencies
-
-

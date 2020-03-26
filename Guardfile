@@ -26,7 +26,7 @@
 
 # RSpecが失敗したら、RuboCopをスキップする
 group :red_green_refactor, halt_on_fail: true do
-  guard :rspec, cmd: 'bin/rspec' do
+  guard :rspec, cmd: 'bin/rspec', notification: :failed do
     require "guard/rspec/dsl"
     dsl = Guard::RSpec::Dsl.new(self)
 

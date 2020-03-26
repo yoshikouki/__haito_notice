@@ -35,8 +35,6 @@ group :development, :test do
   gem 'spring-commands-rspec'
   # 実在しそうな名前でダミーデータを作成するためのもの。
   gem 'faker',          '1.7.3'
-  # テスト自動化（コード編集時）
-  gem 'guard-rspec', require:false
 end
 
 group :development do
@@ -44,6 +42,13 @@ group :development do
   gem 'listen',                '3.1.5'
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
+  # コード解析・テスト自動化（ファイル変更時）
+  gem 'guard', require: false
+  gem 'guard-rubocop', require: false
+  gem 'guard-rspec', require: false
+  # デスクトップ通知を行う
+  gem 'terminal-notifier'
+  gem 'terminal-notifier-guard'
 end
 
 group :test do

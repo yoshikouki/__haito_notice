@@ -19,7 +19,7 @@ jobs:
         environment:
           # config/database.ymlの内容と一致させる
           POSTGRES_USER: postgres
-          POSTGRES_DB: hn_test
+          POSTGRES_DB: haito_notice_test
           POSTGRES_PASSWORD: ""
     steps:
       # ソースコードを作業ディレクトリにチェックアウトする特別なステップ

@@ -12,13 +12,13 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           # config/database.ymlの内容と一致させる
-          PGUSER: haito_notice
+          PGUSER: postgres
           RAILS_ENV: test
       # $ psql -vで確認したバージョンと合わせる。-alpineが軽量版のため望ましい
       - image: circleci/postgres:12-alpine
         environment:
           # config/database.ymlの内容と一致させる
-          POSTGRES_USER: haito_notice
+          POSTGRES_USER: postgres
           POSTGRES_DB: hn_test
           POSTGRES_PASSWORD: ""
     steps:

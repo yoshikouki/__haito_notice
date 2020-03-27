@@ -5,7 +5,8 @@ default: &default
   
   username: postgres
   # username: haito_notice
-  # docker-compose.ymlのMYSQL_ROOT_PASSWORD
+  # docker-compose.ymlのPOSTGRES_PASSWORD
+  password: <%= ENV['POSTGRES_PASSWORD'] %># 
   password: 
   # docker-compose.ymlのservice名
   host: db

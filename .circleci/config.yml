@@ -10,7 +10,7 @@ jobs:
           BUNDLE_RETRY: 3
           # 元が BUNDLE_PATH=/usr/local/bundle で設定されているので、上書きする
           BUNDLE_PATH: vendor/bundle
-          PGHOST: 127.0.0.1
+          PGHOST: db
           # config/database.ymlの内容と一致させる
           PGUSER: postgres
           RAILS_ENV: test
@@ -20,7 +20,7 @@ jobs:
           # config/database.ymlの内容と一致させる
           POSTGRES_USER: postgres
           POSTGRES_DB: haito_notice_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: "postgres"
     steps:
       # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
       - checkout

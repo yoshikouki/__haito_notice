@@ -28,6 +28,7 @@ development:
 test:
   <<: *default
   database: haito_notice_test
+  host: localhost
   # database: hn_test
   #database: db/test.sqlite3
 

@@ -10,7 +10,7 @@ jobs:
           BUNDLE_RETRY: 3
           # 元が BUNDLE_PATH=/usr/local/bundle で設定されているので、上書きする
           BUNDLE_PATH: vendor/bundle
-          PGHOST: db
+          PGHOST: 127.0.0.1
           # config/database.ymlの内容と一致させる
           PGUSER: postgres
           RAILS_ENV: test

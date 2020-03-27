@@ -2,9 +2,14 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: haito_notice
+  
+  username: postgres
+  # username: haito_notice
+  # docker-compose.ymlのMYSQL_ROOT_PASSWORD
   password: 
-  host: localhost
+  # docker-compose.ymlのservice名
+  host: db
+  # host: localhost
   timeout: 5000
   #adapter: sqlite3
   #pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -12,7 +17,8 @@ default: &default
 
 development:
   <<: *default
-  database: hn_development
+  database: haito_notice_development
+  # database: hn_development
   #database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -20,7 +26,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: hn_test
+  database: haito_notice_test
+  # database: hn_test
   #database: db/test.sqlite3
 
 production:

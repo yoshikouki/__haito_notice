@@ -1,8 +1,13 @@
+# CircleCI 2.1 を使用
 version: 2.1
-jobs:
-  build:
+# 公開されているCircleCI設定を読み込む。version: 2.1以上
+orbs:
+  heroku: circleci/heroku@1.0.1
+# 実行環境
+executors:
+  default:
     # コマンドを実行するディレクトリ（リポジトリ）を指定
-    # working_directory: ~/haito_notice
+    working_directory: ~/haito_notice
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
         environment:
@@ -20,7 +25,9 @@ jobs:
           # config/database.ymlの内容と一致させる
           POSTGRES_USER: postgres
           POSTGRES_DB: haito_notice_test
-          # POSTGRES_PASSWORD: "postgres"
+jobs:
+  build:
+    executor: default
     steps:
       # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
       - checkout
@@ -43,10 +50,18 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+  rubocop_job:
+    executor: default
+    steps:
+      - checkout
       # コード解析を実行
       - run:
           name: 静的コード解析を実行（RuboCop）
           command: bundle exec rubocop
+  rspec_job:
+    executor: default
+    steps:
+      - checkout
       # DBの起動まで待機
       - run:
           name: DBの起動まで待機
@@ -65,7 +80,20 @@ jobs:
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       # テスト結果を保存(タイミング解析)
-      - store_test_results:
-          path: test_results
       # テストサマリー(https://circleci.com/docs/ja/2.0/collect-test-data/)
       # デプロイコンフィグの例(https://circleci.com/docs/ja/2.0/deployment-integrations/)
+      - store_test_results:
+          path: test_results
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git
+workflows:
+  build_test_and_deploy:
+    jobs:
+      - build
+      - rubocop_job
+      - rspec_job

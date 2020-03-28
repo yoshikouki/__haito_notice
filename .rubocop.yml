@@ -13,8 +13,13 @@ AllCops:
     - "tmp/**/*"
     - "config/initializers/*"
     - "db/migrate/*.rb"
+    - !ruby/regexp /old_and_unused\.rb$/
   DisplayCopNames: true
   TargetRubyVersion: 2.6.3
+
+Metrics/BlockLength:
+  Exclude:
+    - Guardfile
 
 # Rails特有の構文チェック
 Rails:
@@ -24,4 +29,14 @@ Rails:
 Style/AsciiComments:
   Enabled: false
 
+# For rubocop < 1.0.0
+Style/HashEachMethods:
+  Enabled: true
 
+# For rubocop < 1.0.0
+Style/HashTransformKeys:
+  Enabled: true
+
+# For rubocop < 1.0.0
+Style/HashTransformValues:
+  Enabled: true

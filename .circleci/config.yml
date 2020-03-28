@@ -52,28 +52,19 @@ jobs:
       # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
       - checkout
       # 依存関係キャッシュを復元
-      - restore_cache:
-          name: 依存関係キャッシュを復元
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
+      - restore_dependencies
       # Bundler のバージョンを指定
-      - run:
-          name: Bundler を指定
-          command: bundle -v
-      # Ruby の依存関係をインストール
-      - run:
-          name: バンドルをインストール
-          command: bundle check || bundle install
+      - install_bundle
       # Rubyバンドルキャッシュ依存関係を保存
-      - save_cache:
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+      - save_dependencies
   rubocop_job:
     executor: default
     steps:
+      # 初期テンプレ
       - checkout
+      - restore_dependencies
+      - install_bundle
+      - save_dependencies
       # コード解析を実行
       - run:
           name: 静的コード解析を実行（RuboCop）
@@ -81,7 +72,11 @@ jobs:
   rspec_job:
     executor: default
     steps:
+      # 初期テンプレ
       - checkout
+      - restore_dependencies
+      - install_bundle
+      - save_dependencies
       # DBの起動まで待機
       - run:
           name: DBの起動まで待機
@@ -114,7 +109,6 @@ jobs:
     executor: heroku/default
     steps:
       - checkout
-      - checkout
       - heroku/install
       - heroku/deploy-via-git
 
@@ -130,16 +124,16 @@ commands:
     steps:
       # Bundler のバージョンを指定
       - run:
-        name: Bundler を指定
-        command: bundle -v
+          name: Bundler を指定
+          command: bundle -v
       # Ruby の依存関係をインストール
       - run:
-        name: バンドルをインストール
-        command: bundle check || bundle install
+          name: バンドルをインストール
+          command: bundle check || bundle install
   save_dependencies:
     steps:
       # Rubyバンドルキャッシュ依存関係を保存
       - save_cache:
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle

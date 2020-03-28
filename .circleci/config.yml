@@ -14,13 +14,13 @@ workflows:
       - rspec_job:
           requires: 
             - rubocop_job
-      # - deploy:
-      #   requires:
-      #     - rspec_job
-      #   filters:
-      #     branches:
-      #       only:
-      #         - master
+      - deploy:
+        requires:
+          - rspec_job
+        filters:
+          branches:
+            only:
+              - master
 
 # 実行環境
 executors:

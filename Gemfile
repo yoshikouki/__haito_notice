@@ -47,8 +47,8 @@ group :development do
   gem 'guard-rubocop', require: false
   gem 'guard-rspec', require: false
   # デスクトップ通知を行う
-  gem 'terminal-notifier'
-  gem 'terminal-notifier-guard'
+  gem 'terminal-notifier', require: false
+  gem 'terminal-notifier-guard', require: false
 end
 
 group :test do

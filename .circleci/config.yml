@@ -4,6 +4,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.0.1
 
+# CI/CD工程の全体像
 workflows:
   build_test_and_deploy:
     jobs:
@@ -34,6 +35,15 @@ executors:
           BUNDLE_RETRY: 3
           # 元が BUNDLE_PATH=/usr/local/bundle で設定されているので、上書きする
           BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+  extended:
+    working_directory: ~/haito_notice
+    docker:
+      - image: circleci/ruby:2.6.3-stretch-node
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           # config/database.ymlの内容と一致させる
           PGUSER: postgres
@@ -45,6 +55,7 @@ executors:
           POSTGRES_USER: postgres
           POSTGRES_DB: haito_notice_test
 
+# 各工程の定義
 jobs:
   build:
     executor: default
@@ -60,23 +71,15 @@ jobs:
   rubocop_job:
     executor: default
     steps:
-      # 初期テンプレ
-      - checkout
-      - restore_dependencies
-      - install_bundle
-      - save_dependencies
+      - preparate
       # コード解析を実行
       - run:
           name: 静的コード解析を実行（RuboCop）
           command: bundle exec rubocop
   rspec_job:
-    executor: default
+    executor: extended
     steps:
-      # 初期テンプレ
-      - checkout
-      - restore_dependencies
-      - install_bundle
-      - save_dependencies
+      - preparate
       # DBの起動まで待機
       - run:
           name: DBの起動まで待機
@@ -112,6 +115,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
 
+# 処理など
 commands:
   restore_dependencies:
     steps:
@@ -137,3 +141,10 @@ commands:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+  preparate:
+    steps:
+      # 各jobの準備工程
+      - checkout
+      - restore_dependencies
+      - install_bundle
+      - save_dependencies

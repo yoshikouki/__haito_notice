@@ -3,6 +3,25 @@ version: 2.1
 # 公開されているCircleCI設定を読み込む。version: 2.1以上
 orbs:
   heroku: circleci/heroku@1.0.1
+
+workflows:
+  build_test_and_deploy:
+    jobs:
+      - build
+      - rubocop_job:
+          requires: 
+            - build
+      - rspec_job:
+          requires: 
+            - rubocop_job
+      # - deploy:
+      #   requires:
+      #     - rspec_job
+      #   filters:
+      #     branches:
+      #       only:
+      #         - master
+
 # 実行環境
 executors:
   default:
@@ -25,6 +44,7 @@ executors:
           # config/database.ymlの内容と一致させる
           POSTGRES_USER: postgres
           POSTGRES_DB: haito_notice_test
+
 jobs:
   build:
     executor: default
@@ -98,20 +118,28 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
 
-workflows:
-  build_test_and_deploy:
-    jobs:
-      - build
-      - rubocop_job:
-          requires: 
-            - build
-      - rspec_job:
-          requires: 
-            - rubocop_job
-      # - deploy:
-      #   requires:
-      #     - rspec_job
-      #   filters:
-      #     branches:
-      #       only:
-      #         - master
+commands:
+  restore_dependencies:
+    steps:
+      - restore_cache:
+          name: 依存関係キャッシュを復元
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+  install_bundle:
+    steps:
+      # Bundler のバージョンを指定
+      - run:
+        name: Bundler を指定
+        command: bundle -v
+      # Ruby の依存関係をインストール
+      - run:
+        name: バンドルをインストール
+        command: bundle check || bundle install
+  save_dependencies:
+    steps:
+      # Rubyバンドルキャッシュ依存関係を保存
+      - save_cache:
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle

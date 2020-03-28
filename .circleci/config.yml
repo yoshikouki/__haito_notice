@@ -74,16 +74,22 @@ jobs:
       - run:
           name: テストを実行（RSpec）
           command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+              circleci tests split --split-by=timings)"
             bundle exec rspec --profile 10 \
                               --format RspecJunitFormatter \
                               --out test_results/rspec.xml \
                               --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+                              $TEST_FILES
       # テスト結果を保存(タイミング解析)
       # テストサマリー(https://circleci.com/docs/ja/2.0/collect-test-data/)
       # デプロイコンフィグの例(https://circleci.com/docs/ja/2.0/deployment-integrations/)
       - store_test_results:
-          path: test_results
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
   deploy:
     executor: heroku/default
     steps:
@@ -91,9 +97,21 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
+
 workflows:
   build_test_and_deploy:
     jobs:
       - build
-      - rubocop_job
-      - rspec_job
+      - rubocop_job:
+          requires: 
+            - build
+      - rspec_job:
+          requires: 
+            - rubocop_job
+      # - deploy:
+      #   requires:
+      #     - rspec_job
+      #   filters:
+      #     branches:
+      #       only:
+      #         - master

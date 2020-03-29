@@ -111,6 +111,7 @@ jobs:
 
 # 処理など
 commands:
+  # Orbsを利用した依存関係の処理
   bundle-install:
     steps:
       - ruby-orbs/bundle-install:

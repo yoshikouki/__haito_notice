@@ -2,6 +2,7 @@
 version: 2.1
 # 公開されているCircleCI設定を読み込む。version: 2.1以上
 orbs:
+  ruby-orbs: sue445/ruby-orbs@1.6.0
   heroku: circleci/heroku@1.0.1
 
 # CI/CD工程の全体像
@@ -17,8 +18,9 @@ workflows:
             - rubocop_job
       - deploy:
           requires:
+            - rubocop_job
             - rspec_job
-          filters:
+            filters:
             branches:
               only:
                 - master
@@ -31,8 +33,6 @@ executors:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
         environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
           # 元が BUNDLE_PATH=/usr/local/bundle で設定されているので、上書きする
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
@@ -41,8 +41,6 @@ executors:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
         environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           # config/database.ymlの内容と一致させる
@@ -62,12 +60,8 @@ jobs:
     steps:
       # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
       - checkout
-      # 依存関係キャッシュを復元
-      - restore_dependencies
-      # Bundler のバージョンを指定
-      - install_bundle
-      # Rubyバンドルキャッシュ依存関係を保存
-      - save_dependencies
+      # 依存関係とバンドルの処理
+      - bundle-instal
   rubocop_job:
     executor: default
     steps:
@@ -117,34 +111,19 @@ jobs:
 
 # 処理など
 commands:
-  restore_dependencies:
+  bundle-install:
     steps:
-      - restore_cache:
-          name: 依存関係キャッシュを復元
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-  install_bundle:
-    steps:
-      # Bundler のバージョンを指定
-      - run:
-          name: Bundler を指定
-          command: bundle -v
-      # Ruby の依存関係をインストール
-      - run:
-          name: バンドルをインストール
-          command: bundle check || bundle install
-  save_dependencies:
-    steps:
-      # Rubyバンドルキャッシュ依存関係を保存
-      - save_cache:
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+      - ruby-orbs/bundle-install:
+        bundle_clean: true
+        bundle_extra_args: ''
+        bundle_gemfile: Gemfile
+        bundle_jobs: 4
+        bundle_path: vendor/bundle
+        bundle_retry: 3
+        cache_key_prefix: v1-bundle-dependencies
+        restore_bundled_with: true
   preparate:
     steps:
       # 各jobの準備工程
       - checkout
-      - restore_dependencies
-      - install_bundle
-      - save_dependencies
+      - bundle-install

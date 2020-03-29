@@ -61,7 +61,7 @@ jobs:
       # ソースコードを作業ディレクトリにチェックアウトする特別なステップ
       - checkout
       # 依存関係とバンドルの処理
-      - bundle-instal
+      - bundle-install
   rubocop_job:
     executor: default
     steps:
@@ -114,14 +114,14 @@ commands:
   bundle-install:
     steps:
       - ruby-orbs/bundle-install:
-        bundle_clean: true
-        bundle_extra_args: ''
-        bundle_gemfile: Gemfile
-        bundle_jobs: 4
-        bundle_path: vendor/bundle
-        bundle_retry: 3
-        cache_key_prefix: v1-bundle-dependencies
-        restore_bundled_with: true
+          bundle_clean: true
+          bundle_extra_args: ''
+          bundle_gemfile: Gemfile
+          bundle_jobs: 4
+          bundle_path: vendor/bundle
+          bundle_retry: 3
+          cache_key_prefix: v1-bundle-dependencies
+          restore_bundled_with: true
   preparate:
     steps:
       # 各jobの準備工程

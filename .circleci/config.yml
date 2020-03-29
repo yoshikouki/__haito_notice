@@ -15,12 +15,12 @@ workflows:
             - build
       - rspec_job:
           requires: 
-            - rubocop_job
+            - build
       - deploy:
           requires:
             - rubocop_job
             - rspec_job
-            filters:
+          filters:
             branches:
               only:
                 - master

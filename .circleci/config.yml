@@ -45,7 +45,7 @@ executors:
           PGHOST: 127.0.0.1
           # config/database.ymlの内容と一致させる
           PGUSER: postgres
-          RAILS_ENV: test
+          RAILS_ENV: circleci
       # $ psql -vで確認したバージョンと合わせる。-alpineが軽量版のため望ましい
       - image: circleci/postgres:12-alpine
         environment:

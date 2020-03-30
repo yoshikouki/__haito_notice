@@ -20,6 +20,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - Guardfile
+    - 'spec/**/*'
 
 # Rails特有の構文チェック
 Rails:
@@ -40,3 +41,6 @@ Style/HashTransformKeys:
 # For rubocop < 1.0.0
 Style/HashTransformValues:
   Enabled: true
+
+RSpec/ContextWording:
+  Enabled: false

@@ -19,7 +19,7 @@ services:
     # "ホスト：コンテナ"
     ports:
       - "3000:3000"
-      # 依存関係。db起動後にwebを起動
+    # 依存関係。db起動後にwebを起動
     depends_on:
       - db
 

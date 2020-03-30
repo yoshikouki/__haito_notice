@@ -40,4 +40,4 @@ EXPOSE 3000
 
 # Start the main process.
 # イメージ内部のソフトウェア実行
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]

@@ -21,8 +21,12 @@ development:
 test:
   <<: *default
   database: haito_notice_test
-  host: localhost
 
 production:
   <<: *default
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+
+circleci:
+  <<: *default
+  database: haito_notice_test
+  host: localhost

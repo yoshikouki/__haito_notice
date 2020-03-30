@@ -5,19 +5,23 @@
 https://haito-notice.herokuapp.com
 
 
+
 ## 概略 OVERVIEW
 
 配当ノーティスは、上場企業が公表している適時開示情報を収集・閲覧できるWebアプリケーションです。
-現在は、ベータ版です。
+Version ： β版
+
 
 
 ## 特徴 FEATURES
 
-このアプリでは、次のことができます。
-- 最新の適時開示情報を確認できます。
+当アプリには、次の機能があります。
+
+- 企業が公表している最新の適時開示情報を確認できます。
 - 企業別の適時開示情報を２〜３年前までの分を確認できます。
 - 自分の興味のある企業をウォッチリストに登録できます。（ユーザー登録が必要です）
 - ウォッチ中の企業が公表した適時開示情報をフィード表示できます。
+
 
 
 ## 使用方法 USAGE
@@ -35,10 +39,13 @@ $ rails s
 ブラウザでhttp://localhost:3000にアクセス。
 
 
+
 ## 環境 REQUIREMENT
 
 - Ruby 2.6.3
 - Rails 5.1.6
+- PostSQL 12.2
+
 
 
 ## AUTHOR
@@ -50,6 +57,43 @@ Yoshiko
 
 [Github](https://github.com/yoshikouki "Github")
 [Twitter](https://twitter.com/K2_Yoshiko)
+
+
+
+## 使用技術 
+
+- コンテナ仮想化
+Dockerを使用しています。
+
+- CI/CD
+CircleCIを使用して、git push時に自動的に静的コード解析・テストを実行しています。
+Pull Request時には自動デプロイまで行います。
+
+- コード管理
+Gitを使ってコード管理を行っています。
+
+- WebAPIからデータ取得
+一般公開されているWeb APIからデータを取得、処理して適時情報開示を行っています。
+利用API： TDnet（適時開示情報）のWEB-APIプロジェクト（非公式）by Yanoshin
+https://webapi.yanoshin.jp/tdnet/
+
+- テスト
+RSpecを使用して、テストしています。
+
+- 静的コード解析
+RuboCopを使用して、静的コード解析しています。
+
+- デザイン
+デザインにはBootstrapを主に使用しています。
+その他、アイコンはFont Awesome、CSSはSassで記述しています
+一部機能にAjaxを導入しています。
+
+- デプロイ環境
+Herokuを使用しています。
+
+- データベース
+PostgreSQLをしています。
+
 
 
 ## 今後の予定 PLANS

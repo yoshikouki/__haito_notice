@@ -22,7 +22,7 @@ gem 'kaminari'
 # ハッシュ化する
 gem 'bcrypt',         '3.1.12'
 
-group :development, :test do
+group :development, :test, :circleci do
   gem 'byebug',  '9.0.6', platform: :mri
   # コード解析・整形
   gem 'rubocop'
@@ -47,11 +47,11 @@ group :development do
   gem 'guard-rubocop', require: false
   gem 'guard-rspec', require: false
   # デスクトップ通知を行う
-  gem 'terminal-notifier'
-  gem 'terminal-notifier-guard'
+  gem 'terminal-notifier', require: false
+  gem 'terminal-notifier-guard', require: false
 end
 
-group :test do
+group :test, :circleci do
   # テストの際に使用するデータを作成するためのもの
   gem 'factory_bot_rails'
   # 逐一テストデータを削除するためのもの

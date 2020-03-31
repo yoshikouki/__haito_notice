@@ -44,3 +44,6 @@ Style/HashTransformValues:
 
 RSpec/ContextWording:
   Enabled: false
+
+Capybara/FeatureMethods:
+  Enabled: false

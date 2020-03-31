@@ -31,7 +31,7 @@ group :development, :test, :circleci do
   gem 'rubocop-rspec'
   # テスト環境
   gem 'rspec-rails', '~> 4.0'
-  # bin/rspecコマンドを実装。bin/コマンドをつけることでSpringというRailsに組み込まれているアプリを起動させて処理を高速化出来る。 
+  # bin/rspecコマンドでSpringによってテストを高速化
   gem 'spring-commands-rspec'
   # 実在しそうな名前でダミーデータを作成するためのもの。
   gem 'faker',          '1.7.3'

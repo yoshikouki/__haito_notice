@@ -17,7 +17,7 @@ RSpec.describe "StaticPages", type: :request do
         expect(page).to have_content 'mypage'
       end
 
-      it "ウォッチがなかった場合はウォッチするボタンを表示"
+      xit "ウォッチがなかった場合はウォッチするボタンを表示"
     end
   end
 end

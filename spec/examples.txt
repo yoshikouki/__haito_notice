@@ -1,14 +1,15 @@
 example_id                                            | status  | run_time        |
 ----------------------------------------------------- | ------- | --------------- |
-./spec/models/user_spec.rb[1:1]                       | passed  | 0.17968 seconds |
-./spec/models/user_spec.rb[1:2]                       | passed  | 0.43659 seconds |
-./spec/models/user_spec.rb[1:3:1]                     | passed  | 0.00342 seconds |
-./spec/models/user_spec.rb[1:3:2]                     | pending | 0.00005 seconds |
-./spec/models/user_spec.rb[1:3:3]                     | passed  | 0.00411 seconds |
-./spec/models/user_spec.rb[1:3:4]                     | pending | 0.00001 seconds |
-./spec/models/user_spec.rb[1:3:5]                     | passed  | 0.00371 seconds |
-./spec/models/user_spec.rb[1:3:6]                     | passed  | 0.00364 seconds |
-./spec/models/user_spec.rb[1:3:7]                     | passed  | 0.00433 seconds |
-./spec/requests/static_pages_request_spec.rb[1:1:1:1] | pending | 0.00001 seconds |
+./spec/models/user_spec.rb[1:1]                       | failed  | 0.12416 seconds |
+./spec/models/user_spec.rb[1:2:1]                     | passed  | 0.00529 seconds |
+./spec/models/user_spec.rb[1:2:2]                     | passed  | 0.00704 seconds |
+./spec/models/user_spec.rb[1:2:3]                     | passed  | 0.00638 seconds |
+./spec/models/user_spec.rb[1:2:4]                     | pending | 0.00003 seconds |
+./spec/models/user_spec.rb[1:2:5]                     | passed  | 0.00797 seconds |
+./spec/models/user_spec.rb[1:2:6]                     | pending | 0.00001 seconds |
+./spec/models/user_spec.rb[1:2:7]                     | passed  | 0.41689 seconds |
+./spec/models/user_spec.rb[1:2:8]                     | passed  | 0.00883 seconds |
+./spec/models/user_spec.rb[1:2:9]                     | passed  | 0.00656 seconds |
+./spec/requests/static_pages_request_spec.rb[1:1:1:1] | pending | 0.00002 seconds |
 ./spec/requests/static_pages_request_spec.rb[1:1:2:1] | pending | 0.00001 seconds |
-./spec/requests/static_pages_request_spec.rb[1:1:2:2] | pending | 0.00001 seconds |
+./spec/requests/static_pages_request_spec.rb[1:1:2:2] | pending | 0 seconds       |

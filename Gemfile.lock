@@ -316,6 +316,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (= 4.2.2)
   database_cleaner
+  execjs
   factory_bot_rails
   faker (= 1.7.3)
   font-awesome-sass (~> 5.4.1)
@@ -332,7 +333,7 @@ DEPENDENCIES
   rails (= 5.1.6)
   roo
   roo-xls
-  rspec-rails (~> 4.0)
+  rspec-rails (~> 4.0.0)
   rspec_junit_formatter
   rubocop
   rubocop-performance

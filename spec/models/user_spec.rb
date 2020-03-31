@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:userf) { FactoryBot.build(:userf) }
   let(:user) { described_class.new(params) }
   let(:params) do
     { name: 'テスト太郎',
@@ -10,15 +11,20 @@ RSpec.describe User, type: :model do
   end
 
   it "Userは有効" do
-    expect(user).to be_valid
-  end
-
-  it "不正なUserインスタンスは保存できない" do
-    params.clear
-    expect(user.save).to be_falsey
+    expect(userf).to be_valid
   end
 
   describe "Userのパラメータが不正な場合" do
+    it "Userインスタンスは不正" do
+      params.clear
+      expect(user).to be_invalid
+    end
+
+    it "不正なUserインスタンスは保存できない" do
+      params.clear
+      expect(user.save).to be_falsey
+    end
+
     it "User.nameは必須" do
       params[:name] = ""
       expect(user).to be_invalid

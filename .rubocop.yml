@@ -42,8 +42,12 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
+Capybara/FeatureMethods:
+  Enabled: false
+
 RSpec/ContextWording:
   Enabled: false
 
-Capybara/FeatureMethods:
+# RSpecのModelテストに自クラスを宣言できる
+RSpec/DescribedClass:
   Enabled: false

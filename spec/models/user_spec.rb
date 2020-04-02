@@ -117,4 +117,11 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "関連性" do
+    context "ウォッチリスト" do
+      it "ユーザー削除と同時にウォッチリストも削除される" do
+      end
+    end
+  end
 end

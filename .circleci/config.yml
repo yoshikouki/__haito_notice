@@ -44,13 +44,13 @@ executors:
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           # config/database.ymlの内容と一致させる
-          PGUSER: ${POSTGRES_USERNAME}
+          PGUSER: postgres
           RAILS_ENV: test
       # $ psql -vで確認したバージョンと合わせる。-alpineが軽量版のため望ましい
       - image: circleci/postgres:12-alpine
         environment:
           # config/database.ymlの内容と一致させる
-          POSTGRES_USER: ${POSTGRES_USERNAME}
+          POSTGRES_USER: postgres
           POSTGRES_DB: haito_notice_test
 
 # 各工程の定義

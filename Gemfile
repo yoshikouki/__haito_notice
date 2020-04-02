@@ -23,7 +23,7 @@ gem 'kaminari'
 # ハッシュ化する
 gem 'bcrypt',         '3.1.12'
 
-group :development, :test, :circleci do
+group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri
   # コード解析・整形
   gem 'rubocop'

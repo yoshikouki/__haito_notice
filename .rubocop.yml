@@ -22,6 +22,10 @@ Metrics/BlockLength:
     - Guardfile
     - 'spec/**/*'
 
+RSpec/HookArgument:
+  Exclude:
+    - 'spec/rails_helper.rb'
+
 # Rails特有の構文チェック
 Rails:
   Enabled: true

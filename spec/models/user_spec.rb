@@ -120,8 +120,7 @@ RSpec.describe User, type: :model do
 
   describe "関連性" do
     context "ウォッチリスト" do
-      it "ユーザー削除と同時にウォッチリストも削除される" do
-      end
+      it "ユーザー削除と同時にウォッチリストも削除される"
     end
   end
 end

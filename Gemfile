@@ -62,6 +62,8 @@ group :development do
   # デスクトップ通知を行う
   gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
+  # 環境変数の設定
+  gem 'dotenv-rails'
 end
 
 # Windows環境ではtzinfo-dataというgemを含める必要がある

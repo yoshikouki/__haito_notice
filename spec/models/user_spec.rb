@@ -118,9 +118,21 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "関連性" do
-    context "ウォッチリスト" do
-      it "ユーザー削除と同時にウォッチリストも削除される"
+  describe "ウォッチリスト" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:company) { FactoryBot.create(:company) }
+
+    context "ウォッチ機能" do
+      it "企業をウォッチできる" do
+        # user.watch(company)
+        w = Watchlist.new(user_id: user.id, local_code: company.local_code)
+        expect(w.save).to be true
+      end
+
+      xit "ウォッチしていない企業をアンウォッチできない" do
+        company = FactoryBot.create(:company)
+        expect(user.unwatch(company)).to be false
+      end
     end
   end
 end

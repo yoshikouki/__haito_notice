@@ -6,7 +6,7 @@ default: &default
   # 以下はdocker-compose.ymlとの整合性に注意
   username: <%= ENV['POSTGRES_USERNAME'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
-  host: db
+  host: localhost
 
 development:
   <<: *default

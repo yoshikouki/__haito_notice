@@ -42,6 +42,14 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
+# For rubocop < 1.0.0
+Lint/RaiseException:
+  Enabled: true
+
+# For rubocop < 1.0.0
+Lint/StructNewOverride:
+  Enabled: true
+
 Capybara/FeatureMethods:
   Enabled: false
 

@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         flash.now[:success] = '変更は正常に保存されました。'
-        format.html { render :mypage }
+        format.html { redirect_to mypage_path }
         format.json { render :mypage, status: :ok, location: @user }
       else
         format.html { render :edit }

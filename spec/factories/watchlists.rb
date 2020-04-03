@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :watchlist, aliases: [:testwatch] do
-    association :testuser, factory: :user
-    local_code { :company.local_code }
+    user_id { 1 }
+    local_code { 1001 }
   end
 end

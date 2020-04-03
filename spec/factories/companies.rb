@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :company do
+  factory :company, aliases: [:testcompany] do
     sequence(:company_name) { |n| "テスト株式会社#{n}" }
     sequence(:local_code) { |n| n + 1000 }
     market_division { '市場第一部（内国株）' }

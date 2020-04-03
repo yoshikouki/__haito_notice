@@ -121,17 +121,38 @@ RSpec.describe User, type: :model do
   describe "ウォッチリスト" do
     let(:user) { FactoryBot.create(:user) }
     let(:company) { FactoryBot.create(:company) }
+    let(:watchlists) { user.watchlists }
 
     context "ウォッチ機能" do
       it "企業をウォッチできる" do
-        # user.watch(company)
-        w = Watchlist.new(user_id: user.id, local_code: company.local_code)
-        expect(w.save).to be true
+        expect { user.watch(company) }.to \
+          change(watchlists, :count).by(1)
       end
 
-      xit "ウォッチしていない企業をアンウォッチできない" do
-        company = FactoryBot.create(:company)
+      it "ウォッチしていない企業をアンウォッチできない" do
         expect(user.unwatch(company)).to be false
+      end
+    end
+
+    context "アンウォッチ機能" do
+      before do
+        user.watch(company)
+      end
+
+      it "企業をアンウォッチできる" do
+        expect { user.unwatch(company) }.to \
+          change(watchlists, :count).by(-1)
+      end
+
+      it "ウォッチ中の企業は再びウォッチできない" do
+        expect { user.watch(company) }.not_to \
+          change(watchlists, :count)
+      end
+
+      it "ユーザー削除と同時にウォッチリストも削除される" do
+        user.destroy
+        watchlists = Watchlist.find_by(user_id: user.id, local_code: company.local_code)
+        expect(watchlists).to be nil
       end
     end
   end

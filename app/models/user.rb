@@ -63,18 +63,21 @@ class User < ApplicationRecord
 
   # 企業をWatchlistに登録する
   def watch(company)
-    w = Watchlist.new(local_code: company.local_code)
-    if w.valid?
-      watchlists << w
-    else
+    if watching?(company)
       false
+    else
+      w = Watchlist.new(local_code: company.local_code)
+      watchlists << w
     end
   end
   
   # 企業をWatchlistから解除する
   def unwatch(company)
-    w = watchlists.find_by(local_code: company.local_code)
-    w.nil? ? w.destroy : false
+    if watching?(company)
+      watchlists.find_by(local_code: company.local_code).destroy
+    else
+      false
+    end
   end
   
   # 企業がWatchlistに登録されていたらtrue

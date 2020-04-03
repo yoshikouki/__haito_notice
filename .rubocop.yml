@@ -22,10 +22,6 @@ Metrics/BlockLength:
     - Guardfile
     - 'spec/**/*'
 
-RSpec/HookArgument:
-  Exclude:
-    - 'spec/rails_helper.rb'
-
 # Rails特有の構文チェック
 Rails:
   Enabled: true
@@ -63,3 +59,12 @@ RSpec/ContextWording:
 # RSpecのModelテストに自クラスを宣言できる
 RSpec/DescribedClass:
   Enabled: false
+
+RSpec/HookArgument:
+  Exclude:
+    - 'spec/rails_helper.rb'
+
+# #uppdate_attributeを使用することを避ける（Vridationsをスキップするため）
+Rails/SkipsModelValidations:
+  Blacklist:
+    - 'spec/**/*'

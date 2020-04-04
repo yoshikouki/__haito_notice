@@ -33,16 +33,6 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
-  # 有効化用のメールを送信
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-  
-  # アカウントを有効化
-  def activate
-    update_columns(activated: true, activated_at: Time.zone.now)
-  end
-  
   # 渡されたトークンがダイジェストと一致したらtrue
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
@@ -61,6 +51,16 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  # 有効化用のメールを送信
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  # アカウントを有効化
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
   # 企業をWatchlistに登録する
   def watch(company)
     if watching?(company)
@@ -70,7 +70,7 @@ class User < ApplicationRecord
       watchlists << w
     end
   end
-  
+
   # 企業をWatchlistから解除する
   def unwatch(company)
     if watching?(company)

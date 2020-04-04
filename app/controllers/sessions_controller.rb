@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:session][:email].downcase)
+    email = params[:session][:email].downcase
+    @user = User.find_by(email: email)
     if @user && @user.authenticate(params[:session][:password])
       # アカウント有効化機能を一時停止
       # if @user.activated?

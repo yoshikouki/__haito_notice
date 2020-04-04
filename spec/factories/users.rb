@@ -8,6 +8,17 @@ FactoryBot.define do
     activated_at { 10.days.ago }
   end
 
+  factory :jill, class: 'User' do
+    name { "Jill Valentine" }
+    email { "jill@email.com" }
+    password { "password" }
+    password_confirmation { "password" }
+    activation_token { User.new_token }
+    activation_digest { User.digest(:activation_token) }
+    activated { true }
+    activated_at { 1.day.ago }
+  end
+
   factory :inact, class: 'User' do
     name { "Inactivate user" }
     email { "inactivate@email.com" }

@@ -27,6 +27,9 @@ example_id                                            | status  | run_time      
 ./spec/models/user_spec.rb[1:2:2:1]                   | passed  | 0.01783 seconds |
 ./spec/models/user_spec.rb[1:2:2:2]                   | passed  | 0.01696 seconds |
 ./spec/models/user_spec.rb[1:2:2:3]                   | passed  | 0.01604 seconds |
+./spec/models/watchlist_spec.rb[1:1:1]                | passed  | 0.19302 seconds |
+./spec/models/watchlist_spec.rb[1:1:2]                | passed  | 0.36668 seconds |
+./spec/models/watchlist_spec.rb[1:1:3]                | passed  | 0.01714 seconds |
 ./spec/requests/companies_request_spec.rb[1:1:1]      | passed  | 0.51776 seconds |
 ./spec/requests/companies_request_spec.rb[1:1:2]      | pending | 0.00001 seconds |
 ./spec/requests/static_pages_request_spec.rb[1:1:1:1] | pending | 0.00002 seconds |

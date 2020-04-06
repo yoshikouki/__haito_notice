@@ -1,23 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe SessionsHelper, type: :helper do
-  describe "セッション確認" do
-    let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
+  describe "#remember (remember_me機能)" do
     before do
       remember user
     end
 
-    it "ログインした場合、current_userは正しく設定されている" do
-      expect(user).to eq current_user
-    end
-
-    it "ログインできているか確認できる" do
+    it "ログインしている" do
       expect(logged_in?).to be true
     end
 
-    it "remember_digestが不正な場合、remember_meも機能せずログインしない" do
-      user.update_attribute(:remember_digest, User.digest(User.new_token))
+    it "current_userは機能している" do
+      expect(current_user).to eq user
+    end
+
+    it "remember_digestが不正な場合は機能しない" do
+      user.update_attribute(
+        :remember_digest, User.digest(User.new_token)
+      )
       expect(current_user).to be nil
     end
   end

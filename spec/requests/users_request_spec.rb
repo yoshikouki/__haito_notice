@@ -4,18 +4,44 @@ RSpec.describe "Users", type: :request do
   include SessionsHelper
 
   let(:user) { FactoryBot.create(:user) }
+  let(:user_all) { User.all }
   let(:jill) { FactoryBot.create(:jill) }
 
-  xdescribe "ログイン済みの場合" do
+  describe "ログイン済みの場合" do
+    let(:user_params) do
+      {
+        session: {
+          email: user.email,
+          password: user.password,
+          remember_me: 0
+        }
+      }
+    end
+
     before do
-      params = { session: { email: user.email } }
-      post login_path(params)
+      post login_path(user_params)
+    end
+
+    it "admin属性はWeb上では変更できない" do
+      patch user_path(user), params: { user: { admin: true } }
+      expect(user.reload.admin).to eq false
     end
 
     context "不正なユーザー" do
       it "#edit" do
         get edit_user_path(jill)
         expect(response).to redirect_to root_url
+      end
+
+      it "#create" do
+        patch user_path(jill), params: { user: { name: jill.name + "test" } }
+        expect(response).to redirect_to root_url
+      end
+
+      it "#delete" do
+        # jillを参照して先にletを読み込んでおく
+        jill.valid?
+        expect { delete user_path(jill) }.not_to change(user_all, :count)
       end
     end
   end

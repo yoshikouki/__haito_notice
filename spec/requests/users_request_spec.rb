@@ -8,7 +8,7 @@ RSpec.describe "Users", type: :request do
   let(:jill) { FactoryBot.create(:jill) }
 
   describe "ログイン済みの場合" do
-    let(:user_params) do
+    let(:user_login_params) do
       {
         session: {
           email: user.email,
@@ -19,7 +19,7 @@ RSpec.describe "Users", type: :request do
     end
 
     before do
-      post login_path(user_params)
+      post login_path(user_login_params)
     end
 
     it "admin属性はWeb上では変更できない" do

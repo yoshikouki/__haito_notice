@@ -22,19 +22,16 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         # ユーザーを有効化するメールを送信。一時取消
-        #@user.send_activation_email
+        @user.send_activation_email
         # メッセージを作成
-        #flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
-        @user.activate
-        log_in @user
-        flash[:info] = 'ご登録ありがとうございます！'
+        flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
+        # @user.activate
+        # log_in @user
+        # flash[:info] = 'ご登録ありがとうございます！'
         format.html { redirect_to root_url }
-        # format.html { redirect_to @user, notice: 'User was successfully created.' }
-        # format.json { render :show, status: :created, location: @user }
       else
         flash[:danger] = 'アカウントの作成に失敗しました。'
         format.html { render :new }
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

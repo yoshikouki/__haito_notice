@@ -22,6 +22,8 @@ gem 'roo-xls'
 gem 'kaminari'
 # ハッシュ化する
 gem 'bcrypt',         '3.1.12'
+# BULK INSERTを実装する（Rails6からはGemは不要）
+gem 'activerecord-import'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

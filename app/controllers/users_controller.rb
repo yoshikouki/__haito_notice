@@ -21,13 +21,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        # ユーザーを有効化するメールを送信。一時取消
-        @user.send_activation_email
+        # メーラー（SendGrid）の不具合により、有効化ステップを再度一時停止
+        # ユーザーを有効化するメールを送信
+        # @user.send_activation_email
         # メッセージを作成
-        flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
-        # @user.activate
-        # log_in @user
-        # flash[:info] = 'ご登録ありがとうございます！'
+        # flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
+        @user.activate
+        log_in @user
+        flash[:info] = 'ご登録ありがとうございます！'
         format.html { redirect_to root_url }
       else
         flash[:danger] = 'アカウントの作成に失敗しました。'

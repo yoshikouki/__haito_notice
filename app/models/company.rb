@@ -24,7 +24,7 @@ class Company < ApplicationRecord
     "規模区分" => :size_classification
   }
 
-  def self.import(file)
+  def self.import_file(file)
     # ExcelファイルをRooを使用して開く
     data = open_spreadsheet(file)
     # Excelファイルのヘッダー行（日本語）を取得

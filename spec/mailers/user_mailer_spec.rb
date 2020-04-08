@@ -25,7 +25,7 @@ RSpec.describe UserMailer, type: :mailer do
       user.reset_token = User.new_token
     end
 
-    it { expect(mail.subject).to eq "【配当ノーティス】パスワードの再発行" }
+    it { expect(mail.subject).to eq "【配当ノーティス】パスワードの再設定" }
     it { expect(mail.to[0]).to eq user.email }
     it { expect(mail.from[0]).to eq "noreply@example.com" }
     it { expect(mail.body.encoded).to match user.reset_token }

@@ -2,14 +2,11 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  
-  username: postgres
-  # docker-compose.ymlのPOSTGRES_PASSWORD
-  # password: <%= ENV['POSTGRES_PASSWORD'] %># 
-  password: 
-  # docker-compose.ymlのservice名
-  host: db
   timeout: 5000
+  # 以下はdocker-compose.ymlとの整合性に注意
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: localhost
 
 development:
   <<: *default
@@ -21,12 +18,8 @@ development:
 test:
   <<: *default
   database: haito_notice_test
+  host: localhost
 
 production:
   <<: *default
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
-
-circleci:
-  <<: *default
-  database: haito_notice_test
-  host: localhost

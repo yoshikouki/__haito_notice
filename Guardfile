@@ -26,7 +26,7 @@
 
 # RSpecが失敗したら、RuboCopをスキップする
 group :red_green_refactor, halt_on_fail: true do
-  guard :rspec, cmd: 'bin/rspec', notification: :failed do
+  guard :rspec, cmd: 'bundle exec spring rspec', notification: :failed do
     require "guard/rspec/dsl"
     dsl = Guard::RSpec::Dsl.new(self)
 
@@ -56,10 +56,12 @@ group :red_green_refactor, halt_on_fail: true do
     end
 
     # 個別設定
-    watch("%r{app/controllers/(.*?).rb}") do |m|
+    watch(%r{app/controllers/(.*?).rb}) do |m|
       "spec/controllers/#{m[1]}.rb"
     end
-    watch('app/controllers/application_controller.rb') { "spec/controllers" }
+    watch('app/controllers/application_controller.rb') do
+      "spec/controllers"
+    end
 
     # Rails config changes
     watch(rails.spec_helper)     { rspec.spec_dir }

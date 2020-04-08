@@ -10,6 +10,7 @@ gem 'uglifier',     '3.2.0'
 gem 'coffee-rails', '4.2.2'
 gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.7.0'
+gem 'execjs'
 # Ruby用のコード整形Gem
 gem 'rufo'
 # 開発・テスト環境のDBもpostgresへ移行
@@ -21,8 +22,10 @@ gem 'roo-xls'
 gem 'kaminari'
 # ハッシュ化する
 gem 'bcrypt',         '3.1.12'
+# BULK INSERTを実装する（Rails6からはGemは不要）
+gem 'activerecord-import'
 
-group :development, :test, :circleci do
+group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri
   # コード解析・整形
   gem 'rubocop'
@@ -30,11 +33,25 @@ group :development, :test, :circleci do
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
   # テスト環境
-  gem 'rspec-rails', '~> 4.0'
-  # bin/rspecコマンドを実装。bin/コマンドをつけることでSpringというRailsに組み込まれているアプリを起動させて処理を高速化出来る。 
+  gem 'rspec-rails', '~> 4.0.0'
+  # bin/rspecコマンドでSpringによってテストを高速化
   gem 'spring-commands-rspec'
   # 実在しそうな名前でダミーデータを作成するためのもの。
-  gem 'faker',          '1.7.3'
+  gem 'faker', '1.7.3'
+  # テストの際に使用するデータを作成するためのもの
+  gem 'factory_bot_rails'
+  # 逐一テストデータを削除するためのもの
+  gem 'database_cleaner-active_record'
+  # アプリケーション操作のテスト検証で使用。主に画面に関わる結合テスト
+  gem 'capybara', '~> 2.13'
+  # Capybaraで現在のページを確認
+  gem 'launchy'
+  # 複数テストの並行実行用
+  gem 'selenium-webdriver'
+  # 自動化のために必要なgm
+  gem 'rspec_junit_formatter'
+  # 環境変数の設定
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -49,21 +66,6 @@ group :development do
   # デスクトップ通知を行う
   gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
-end
-
-group :test, :circleci do
-  # テストの際に使用するデータを作成するためのもの
-  gem 'factory_bot_rails'
-  # 逐一テストデータを削除するためのもの
-  gem 'database_cleaner'
-  # アプリケーション操作をRubyで設定して、ユーザがアプリケーションを使っているかのようにページを遷移させて、不具合検証するためのもの。主に画面に関わる結合テストで使用する
-  gem 'capybara', '~> 2.13'
-  # Capybaraでテスト中に、現在どのページを開いているのか確認するためのもの
-  gem 'launchy'
-  # 複数テストの並行実行用
-  gem 'selenium-webdriver'
-  # 自動化のために必要なgm
-  gem 'rspec_junit_formatter'
 end
 
 # Windows環境ではtzinfo-dataというgemを含める必要がある

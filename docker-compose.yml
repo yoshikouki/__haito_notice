@@ -2,12 +2,12 @@
 version: '3'
 # 起動するimageを記載
 services:
-  # 名前は自由（）
   db:
     image: postgres:12-alpine
     environment:
-      POSTGRES_HOST_AUTH_METHOD: 'trust'
-      # POSTGRES_PASSWORD: 'postgres'  # ← envファイルに外出ししても良い
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      # POSTGRES_USER=${POSTGRES_USER}
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
   web:
@@ -22,4 +22,3 @@ services:
     # 依存関係。db起動後にwebを起動
     depends_on:
       - db
-

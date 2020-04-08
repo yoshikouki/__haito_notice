@@ -27,3 +27,8 @@
 # Ignore Spring files.
 /spring/*.pid
 
+# 環境変数は無視する
+/.env
+/.env.development
+/.env.test
+/.env.production

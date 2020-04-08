@@ -6,6 +6,8 @@ require File.expand_path('../config/environment', __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'capybara/rspec'
+require 'database_cleaner/active_record'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -20,7 +22,8 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+# Factory Botのセットアップ
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -30,6 +33,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -61,4 +65,31 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Factory Botのセットアップ
+  config.include FactoryBot::Syntax::Methods
+
+  # RSpecの実行前に一度、実行
+  config.before(:suite) do
+    # DBを綺麗にする手段を指定、トランザクションを張ってrollbackするように指定
+    DatabaseCleaner.strategy = :transaction
+    # truncate table文を実行し、レコードを消す
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  # exampleが始まるごとに実行
+  config.before(:each) do
+    # strategyがtransactionなので、トランザクションを張る
+    DatabaseCleaner.start
+  end
+  # exampleが終わるごとに実行
+  config.after(:each) do
+    # strategyがtransactionなので、rollbackする
+    DatabaseCleaner.clean
+  end
+  # # # example毎にDBを消去（公式ドキュメントから）
+  # # config.around(:each) do |example|
+  # #   DatabaseCleaner.cleaning do
+  # #     example.run
+  # #   end
+  # # end
 end

@@ -21,8 +21,7 @@ class ApplicationController < ActionController::Base
     }
     qu = query.to_query
     # WebAPIを叩く
-    uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/
-      #{pr}?#{qu}")
+    uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/#{pr}?#{qu}")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     req = Net::HTTP::Get.new(uri)

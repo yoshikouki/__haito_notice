@@ -52,6 +52,8 @@ group :development, :test do
   gem 'rspec_junit_formatter'
   # 環境変数の設定
   gem 'dotenv-rails'
+  # テスト上の外部APIリクエストをモック化する
+  gem 'webmock', require: false
 end
 
 group :development do

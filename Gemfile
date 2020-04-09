@@ -40,8 +40,6 @@ group :development, :test do
   gem 'faker', '1.7.3'
   # テストの際に使用するデータを作成するためのもの
   gem 'factory_bot_rails'
-  # 逐一テストデータを削除するためのもの
-  gem 'database_cleaner-active_record'
   # アプリケーション操作のテスト検証で使用。主に画面に関わる結合テスト
   gem 'capybara', '~> 2.13'
   # Capybaraで現在のページを確認

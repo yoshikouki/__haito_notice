@@ -7,7 +7,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rspec'
-require 'database_cleaner/active_record'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -68,28 +67,4 @@ RSpec.configure do |config|
 
   # Factory Botのセットアップ
   config.include FactoryBot::Syntax::Methods
-
-  # RSpecの実行前に一度、実行
-  config.before(:suite) do
-    # DBを綺麗にする手段を指定、トランザクションを張ってrollbackするように指定
-    DatabaseCleaner.strategy = :transaction
-    # truncate table文を実行し、レコードを消す
-    DatabaseCleaner.clean_with(:truncation)
-  end
-  # exampleが始まるごとに実行
-  config.before(:each) do
-    # strategyがtransactionなので、トランザクションを張る
-    DatabaseCleaner.start
-  end
-  # exampleが終わるごとに実行
-  config.after(:each) do
-    # strategyがtransactionなので、rollbackする
-    DatabaseCleaner.clean
-  end
-  # # # example毎にDBを消去（公式ドキュメントから）
-  # # config.around(:each) do |example|
-  # #   DatabaseCleaner.cleaning do
-  # #     example.run
-  # #   end
-  # # end
 end

@@ -32,3 +32,4 @@
 /.env.development
 /.env.test
 /.env.production
+spec/examples.txt

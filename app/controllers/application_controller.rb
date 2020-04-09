@@ -15,18 +15,18 @@ class ApplicationController < ActionController::Base
     params = {  company:  ticker_symbol,
                 format:   ".xml"
     }
+    pr = params.values.join
     query =  {  limit:    limit, 
                 #"hasXBRL": 0,
     }
-    pr = params[:company] + params[:format]
     qu = query.to_query
     # WebAPIを叩く
-    uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/" + 
-              "#{pr}?#{qu}" )
-    get = Net::HTTP::Get.new(uri)
+    uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/
+      #{pr}?#{qu}")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    res = http.request(get)
+    req = Net::HTTP::Get.new(uri)
+    res = http.request(req)
     if res.body == "Invalid Request"
       return false
     else

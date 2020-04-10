@@ -33,7 +33,7 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
   # テスト環境
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails'
   # bin/rspecコマンドでSpringによってテストを高速化
   gem 'spring-commands-rspec'
   # 実在しそうな名前でダミーデータを作成するためのもの。
@@ -41,7 +41,7 @@ group :development, :test do
   # テストの際に使用するデータを作成するためのもの
   gem 'factory_bot_rails'
   # アプリケーション操作のテスト検証で使用。主に画面に関わる結合テスト
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   # Capybaraで現在のページを確認
   gem 'launchy'
   # 複数テストの並行実行用
@@ -52,6 +52,8 @@ group :development, :test do
   gem 'dotenv-rails'
   # テスト上の外部APIリクエストをモック化する
   gem 'webmock', require: false
+  # テストでChromeを使用する
+  gem 'webdrivers'
 end
 
 group :development do
@@ -66,6 +68,9 @@ group :development do
   # デスクトップ通知を行う
   gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
+end
+
+group :test do
 end
 
 # Windows環境ではtzinfo-dataというgemを含める必要がある

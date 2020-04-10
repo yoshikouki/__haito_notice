@@ -30,13 +30,6 @@ RSpec.describe "StaticPages", type: :request do
     # WebMock.allow_net_connect!(:net_http_connect_on_start => true)
   end
 
-  # feature do
-  #   it "WebMock確認用" do
-  #     get_tds
-  #     expect(@page_title).to eq "最新順の適時開示情報一覧"
-  #   end
-  # end
-
   feature "#home" do
     it "最新情報が表示されている" do
       visit root_path

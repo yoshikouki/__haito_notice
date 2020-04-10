@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '5.1.6'
+gem 'rails',        '5.1.7'
 gem 'bootstrap', '~> 4.4.1'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'jquery-rails', '4.3.1'

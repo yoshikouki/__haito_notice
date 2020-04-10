@@ -95,7 +95,7 @@ class UsersController < ApplicationController
     lcs = []
     wls = @user.watchlists
     if wls.empty?
-      @tds = false
+      @tds = []
     else
       wls.each{ |wl| lcs << wl[:local_code] }
       ticker_symbol = lcs.join("-")
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     lcs = []
     wls = @user.watchlists
     if wls.empty?
-      @companies = false
+      @companies = []
     else
       wls.each{|wl| lcs << wl[:local_code] }
       @companies = Company.where(local_code: lcs).page(params[:page])

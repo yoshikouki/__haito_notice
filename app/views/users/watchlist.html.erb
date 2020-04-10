@@ -1,4 +1,4 @@
-<% provide(:title, 'ウォッチリストに登録中の企業') %>
+<% provide(:title, 'ウォッチリスト') %>
 
 <div class="my-4">
   
@@ -28,7 +28,7 @@
 
 
     <%# 企業リスト %>
-    <% if @companies %>
+    <% if @companies.count > 0 %>
       <div class="my-4">
         <%= paginate @companies %>
       </div>

@@ -4,15 +4,7 @@ RSpec.describe "Users", type: :system do
   before do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
-    WebMock.enable!
-    url = "https://webapi.yanoshin.jp/webapi/tdnet/list/recent.xml?limit=10"
-    res_xml = Rails.root.join("spec/fixtures/recent_tds.xml")
-    WebMock.stub_request(:any, url)
-           .to_return(
-             body: File.read(res_xml),
-             status: 200,
-             headers: { 'Content_Type' => 'application/xml' }
-           )
+    create_webmock("recent.xml?limit=10", "recent_tds.xml")
   end
 
   let(:user) { FactoryBot.create(:user) }

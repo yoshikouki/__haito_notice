@@ -12,15 +12,21 @@ RSpec.describe "統合テスト : Users", type: :system do
   let(:user) { FactoryBot.create(:user) }
 
   describe "ホーム画面" do
-    it "ログインリンクは表示されている" do
+    it "ログインからログアウトまで" do
       visit root_path
-      expect(page).to have_content "ログイン"
+      within("header") do
+        expect(page).to have_content "ログイン"
+      end
 
       click_on "ログイン"
-      fill_in 'session[email]', with: user.email
-      fill_in 'session[password]', with: user.password
-      click_on 'commit'
-      expect(page).to have_content user.name
+      within("#login-form") do
+        fill_in 'session[email]', with: user.email
+        fill_in 'session[password]', with: user.password
+        click_on 'commit'
+      end
+      within("header") do
+        expect(page).to have_content user.name
+      end
 
       # ウォッチリストが空なら企業を探すが表示されている
       # ホーム画面のフィード
@@ -31,6 +37,13 @@ RSpec.describe "統合テスト : Users", type: :system do
       # フィード画面のフィード
       click_on 'TDフィード'
       expect(page).to have_content "企業を探す"
+
+      # ログアウト
+      within("header") do
+        click_on user.name
+      end
+      click_on "ログアウト"
+      expect(page).to have_content "ログアウトしました。"
     end
   end
 end

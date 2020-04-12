@@ -64,5 +64,5 @@ example_id                                            | status  | run_time      
 ./spec/requests/watchlists_request_spec.rb[1:1:2]     | passed  | 0.13228 seconds |
 ./spec/requests/watchlists_request_spec.rb[1:2:1]     | passed  | 0.3303 seconds  |
 ./spec/requests/watchlists_request_spec.rb[1:2:2]     | passed  | 0.02099 seconds |
-./spec/system/users_spec.rb[1:1:1]                    | passed  | 0.33773 seconds |
+./spec/system/users_spec.rb[1:1:1]                    | passed  | 0.33116 seconds |
 ./spec/system/users_spec.rb[1:1:2]                    | passed  | 1.32 seconds    |

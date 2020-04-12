@@ -12,27 +12,27 @@ RSpec.describe "統合テスト : Users", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let(:jill) { FactoryBot.build(:jill) }
 
-  describe "ホーム画面" do
-    it "新規アカウント登録" do
+  describe "ユーザー基本機能" do
+    it "アカウント新規登録から削除まで" do
       visit root_path
       click_on "ログイン"
 
       # アカウントを新規作成
       click_on "アカウント登録"
       within("#signup-form") do
-        fill_in "user_name", with: jill.name
-        fill_in 'user_email', with: jill.email
-        fill_in 'user_password', with: jill.password
-        fill_in 'user_password_confirmation', with: jill.password
+        fill_in "user-name", with: jill.name
+        fill_in 'user-email', with: jill.email
+        fill_in 'user-password', with: jill.password
+        fill_in 'user-password-confirmation', with: jill.password
       end
-      expect { click_on 'commit' }.to change(User, :count).by(1)
+      expect { click_on 'commit' }.to \
+        change(User, :count).by(1)
       expect(page).to have_content "ご登録ありがとうございます！"
 
       # アカウントを削除
-      within("header") do
-        click_on jill.name
-      end
-      expect { click_on 'アカウントを削除' }.to change(User, :count).by(-1)
+      within("header") { click_on jill.name }
+      expect { click_on 'アカウントを削除' }.to \
+        change(User, :count).by(-1)
       expect(page).to have_content "ユーザーは削除されました。"
     end
 
@@ -44,8 +44,8 @@ RSpec.describe "統合テスト : Users", type: :system do
 
       click_on "ログイン"
       within("#login-form") do
-        fill_in 'session[email]', with: user.email
-        fill_in 'session[password]', with: user.password
+        fill_in 'user-email', with: user.email
+        fill_in 'user-password', with: user.password
         click_on 'commit'
       end
       within("header") do
@@ -63,9 +63,7 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect(page).to have_content "企業を探す"
 
       # ログアウト
-      within("header") do
-        click_on user.name
-      end
+      within("header") { click_on user.name }
       click_on "ログアウト"
       expect(page).to have_content "ログアウトしました。"
     end

@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "Watchlists", type: :system do
+  let(:user) { FactoryBot.create(:user) }
+  let(:company) { FactoryBot.create(:company) }
+
   before do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
     create_webmock("recent.xml?limit=10", "recent_tds.xml")
-    create_webmock("1001.xml?limit=30", "feed_tds.xml")
-    create_webmock("1001.xml?limit=3", "feed_tds.xml")
+    create_webmock("#{company.local_code}.xml?limit=30", "feed_tds.xml")
+    create_webmock("#{company.local_code}.xml?limit=10", "feed_tds.xml")
+    create_webmock("#{company.local_code}.xml?limit=3", "feed_tds.xml")
   end
-
-  let(:user) { FactoryBot.create(:user) }
-  let(:company) { FactoryBot.create(:company) }
 
   describe "ウォッチリスト機能" do
     it "企業をウォッチしてフィード確認まで" do
@@ -34,12 +35,14 @@ RSpec.describe "Watchlists", type: :system do
         change { user.watchlists.count }.by(1)
       expect(page).to have_selector 'form button#unwatch-btn'
       # フィード確認
+      click_on 'logo'
+      expect(page).to have_content "フィードテストについてのお知らせ1"
       within("header") { click_on user.name }
       click_on "TDフィード"
       expect(page).to have_content "フィードテストについてのお知らせ1"
 
       # アンウォッチする
-      click_on "company-link-1"
+      visit company_path(company.local_code)
       expect { click_on 'unwatch-btn' }.to \
         change { user.watchlists.count }.by(-1)
       expect(page).to have_selector 'form button#watch-btn'

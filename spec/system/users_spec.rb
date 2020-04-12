@@ -67,5 +67,33 @@ RSpec.describe "統合テスト : Users", type: :system do
       click_on "ログアウト"
       expect(page).to have_content "ログアウトしました。"
     end
+
+    it "マイページから基本情報を編集" do
+      visit mypage_path
+      within("#login-form") do
+        fill_in 'user-email', with: user.email
+        fill_in 'user-password', with: user.password
+        click_on 'commit'
+      end
+
+      # フレンドリーフォワーディング（機能していない）
+      # expect(page).to have_current_path mypage_path
+      click_on user.name
+
+      # 登録情報を変更
+      click_on '登録情報を変更'
+      within("#edit-user-form") do
+        fill_in 'user-name', with: "Edited Name"
+        fill_in 'user-email', with: "edited-email@email.com"
+        fill_in 'user-password', with: "editedpassword"
+        fill_in 'user-password-confirmation', with: "editedpassword"
+        click_on 'commit'
+      end
+      expect(page).to have_content "変更は正常に保存されました。"
+      expect(page).to have_content "Edited Name"
+      expect(page).to have_content "edited-email@email.com"
+      edited_user = User.find_by(email: "edited-email@email.com").authenticate("editedpassword")
+      expect(edited_user).to be_valid
+    end
   end
 end

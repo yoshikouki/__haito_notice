@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :system do
+RSpec.describe "統合テスト : Users", type: :system do
+  include SessionsHelper
+
   before do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
@@ -9,34 +11,26 @@ RSpec.describe "Users", type: :system do
 
   let(:user) { FactoryBot.create(:user) }
 
-  describe "ログイン時" do
-    before do
+  describe "ホーム画面" do
+    it "ログインリンクは表示されている" do
       visit root_path
-      click_on 'ログイン'
+      expect(page).to have_content "ログイン"
+
+      click_on "ログイン"
       fill_in 'session[email]', with: user.email
       fill_in 'session[password]', with: user.password
       click_on 'commit'
-    end
-
-    it "ログインできている" do
       expect(page).to have_content user.name
-    end
 
-    context "企業をウォッチしてない場合" do
-      it "ホーム画面のフィードは企業一覧リンク" do
-        expect(page).to have_content "企業を探す"
-      end
-
-      it "マイページ画面のフィードは企業一覧リンク" do
-        click_on user.name
-        expect(page).to have_content "企業を探す"
-      end
-
-      it "フィード画面は企業一覧リンク" do
-        click_on user.name
-        click_on 'TDフィード'
-        expect(page).to have_content "企業を探す"
-      end
+      # ウォッチリストが空なら企業を探すが表示されている
+      # ホーム画面のフィード
+      expect(page).to have_content "企業を探す"
+      # マイページ画面のフィード
+      click_on user.name
+      expect(page).to have_content "企業を探す"
+      # フィード画面のフィード
+      click_on 'TDフィード'
+      expect(page).to have_content "企業を探す"
     end
   end
 end

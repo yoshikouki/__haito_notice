@@ -17,17 +17,7 @@ RSpec.describe "StaticPages", type: :request do
 
   before do
     # 外部APIへのアクセスをモック化
-    WebMock.enable!
-    url = "https://webapi.yanoshin.jp/webapi/tdnet/list/recent.xml?limit=10"
-    res_xml = Rails.root.join("spec/fixtures/recent_tds.xml")
-    WebMock.stub_request(:any, url)
-           .to_return(
-             body: File.read(res_xml),
-             status: 200,
-             headers: { 'Content_Type' => 'application/xml' }
-           )
-    # 登録した外部API以外のリクエストを許可する場合はコメントアウト
-    # WebMock.allow_net_connect!(:net_http_connect_on_start => true)
+    create_webmock("recent.xml?limit=10", "recent_tds.xml")
   end
 
   feature "#home" do

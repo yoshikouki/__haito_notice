@@ -14,7 +14,7 @@ RSpec.describe "Watchlists", type: :system do
   end
 
   describe "ウォッチリスト機能" do
-    it "企業をウォッチしてフィード確認まで" do
+    it "ウォッチからアンウォッチまで" do
       visit login_path
       within("#login-form") do
         fill_in 'user-email', with: user.email
@@ -29,7 +29,7 @@ RSpec.describe "Watchlists", type: :system do
       end
       expect(page).to \
         have_current_path company_path(company.local_code)
-      expect(page).to have_content "テスト株式会社1"
+      expect(page).to have_content company.company_name
       # ウォッチする
       expect { click_on 'watch-btn' }.to \
         change { user.watchlists.count }.by(1)
@@ -38,8 +38,10 @@ RSpec.describe "Watchlists", type: :system do
       click_on 'logo'
       expect(page).to have_content "フィードテストについてのお知らせ1"
       within("header") { click_on user.name }
-      click_on "TDフィード"
+      click_on "feed-link"
       expect(page).to have_content "フィードテストについてのお知らせ1"
+      click_on "watchlist-link"
+      expect(page).to have_content company.company_name
 
       # アンウォッチする
       visit company_path(company.local_code)
@@ -48,7 +50,9 @@ RSpec.describe "Watchlists", type: :system do
       expect(page).to have_selector 'form button#watch-btn'
       # フィード確認（ウォッチリストが空）
       within("header") { click_on user.name }
-      click_on "TDフィード"
+      click_on "feed-link"
+      expect(page).to have_content "企業を探す"
+      click_on "watchlist-link"
       expect(page).to have_content "企業を探す"
     end
   end

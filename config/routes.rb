@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   # ウォッチリスト
-  get '/feed', to: 'users#feed'
-  get '/feed/watchlist', to: 'users#watchlist'
+  get '/feed', to: 'users#feed', as: 'feed'
+  get '/feed/watchlist', to: 'users#watchlist', as: 'watchlist'
 
   # TDコントローラー
   get '/daily', to: 'tds#daily'

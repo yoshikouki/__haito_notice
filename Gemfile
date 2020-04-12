@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '5.1.6'
+gem 'rails',        '5.1.7'
 gem 'bootstrap', '~> 4.4.1'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'jquery-rails', '4.3.1'
@@ -33,17 +33,15 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
   # テスト環境
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'rspec-rails'
   # bin/rspecコマンドでSpringによってテストを高速化
   gem 'spring-commands-rspec'
   # 実在しそうな名前でダミーデータを作成するためのもの。
   gem 'faker', '1.7.3'
   # テストの際に使用するデータを作成するためのもの
   gem 'factory_bot_rails'
-  # 逐一テストデータを削除するためのもの
-  gem 'database_cleaner-active_record'
   # アプリケーション操作のテスト検証で使用。主に画面に関わる結合テスト
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   # Capybaraで現在のページを確認
   gem 'launchy'
   # 複数テストの並行実行用
@@ -52,6 +50,10 @@ group :development, :test do
   gem 'rspec_junit_formatter'
   # 環境変数の設定
   gem 'dotenv-rails'
+  # テスト上の外部APIリクエストをモック化する
+  gem 'webmock', require: false
+  # テストでChromeを使用する
+  gem 'webdrivers'
 end
 
 group :development do
@@ -66,6 +68,9 @@ group :development do
   # デスクトップ通知を行う
   gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
+end
+
+group :test do
 end
 
 # Windows環境ではtzinfo-dataというgemを含める必要がある

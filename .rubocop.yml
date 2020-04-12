@@ -68,3 +68,13 @@ RSpec/HookArgument:
 Rails/SkipsModelValidations:
   Blacklist:
     - 'spec/**/*'
+
+# RSpec exampleの行数を5行以上記述できる
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/system/*'
+
+# System SpecではExpectを複数記載できる
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/system/*'

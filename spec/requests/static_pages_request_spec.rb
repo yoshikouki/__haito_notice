@@ -1,23 +1,51 @@
 require 'rails_helper'
+require 'webmock'
 
 RSpec.describe "StaticPages", type: :request do
-  xfeature "#home" do
+  include SessionsHelper
+
+  let(:user) { FactoryBot.create(:user) }
+  let(:params) do
+    {
+      session: {
+        email: user.email,
+        password: user.password,
+        remember_me: 0
+      }
+    }
+  end
+
+  before do
+    # 外部APIへのアクセスをモック化
+    create_webmock("recent.xml?limit=10", "recent_tds.xml")
+  end
+
+  feature "#home" do
+    it "最新情報が表示されている" do
+      visit root_path
+      expect(page).to have_content 'テスト株式会社'
+    end
+
+    it "最新の適時開示情報は10件まで表示される" do
+      visit root_path
+      expect(page).to have_content 'テストタイトル10'
+    end
+
+    context "ログイン時" do
+      xit "マイページリンクが表示" do
+        visit root_path
+        post login_path(params)
+        expect(page).to have_content user.name
+      end
+
+      xit "ウォッチがなかった場合はウォッチするボタンを表示"
+    end
+
     context "未ログイン時" do
-      # APIを叩いているので要検討
       it "ログインリンクが表示" do
         visit root_path
         expect(page).to have_content 'ログイン'
       end
-    end
-
-    context "ログイン時" do
-      it "マイページリンクが表示" do
-        # 要：ログイン処理
-        visit root_path
-        expect(page).to have_content 'mypage'
-      end
-
-      xit "ウォッチがなかった場合はウォッチするボタンを表示"
     end
   end
 end

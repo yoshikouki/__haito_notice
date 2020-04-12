@@ -10,8 +10,32 @@ RSpec.describe "統合テスト : Users", type: :system do
   end
 
   let(:user) { FactoryBot.create(:user) }
+  let(:jill) { FactoryBot.build(:jill) }
 
   describe "ホーム画面" do
+    it "新規アカウント登録" do
+      visit root_path
+      click_on "ログイン"
+
+      # アカウントを新規作成
+      click_on "アカウント登録"
+      within("#signup-form") do
+        fill_in "user_name", with: jill.name
+        fill_in 'user_email', with: jill.email
+        fill_in 'user_password', with: jill.password
+        fill_in 'user_password_confirmation', with: jill.password
+      end
+      expect { click_on 'commit' }.to change(User, :count).by(1)
+      expect(page).to have_content "ご登録ありがとうございます！"
+
+      # アカウントを削除
+      within("header") do
+        click_on jill.name
+      end
+      expect { click_on 'アカウントを削除' }.to change(User, :count).by(-1)
+      expect(page).to have_content "ユーザーは削除されました。"
+    end
+
     it "ログインからログアウトまで" do
       visit root_path
       within("header") do

@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      flash.now[:info] = 'ユーザーは削除されました。'
+      flash[:info] = 'ユーザーは削除されました。'
       format.html { redirect_to root_url }
       format.json { head :no_content }
     end

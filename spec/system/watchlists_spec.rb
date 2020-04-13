@@ -29,7 +29,7 @@ RSpec.describe "Watchlists", type: :system do
       end
       expect(page).to \
         have_current_path company_path(company.local_code)
-      expect(page).to have_content "テスト株式会社1"
+      expect(page).to have_content "フィードテスト株式会社1"
       # ウォッチする
       expect { click_on 'watch-btn' }.to \
         change { user.watchlists.count }.by(1)
@@ -41,7 +41,7 @@ RSpec.describe "Watchlists", type: :system do
       click_on "feed-link"
       expect(page).to have_content "フィードテストについてのお知らせ1"
       click_on "watchlist-link"
-      expect(page).to have_content "テスト株式会社1"
+      expect(page).to have_content company.company_name
 
       # アンウォッチする
       visit company_path(company.local_code)

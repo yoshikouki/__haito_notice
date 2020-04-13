@@ -28,13 +28,6 @@
     <%= render 'shared/td_list' %>
   </div>
 
-  <%# 下部ナビゲーション %>
-  <div class="foot-nav">
-    <%# フィードナビ %>
-    <div class="container mb-4">
-      <%= render 'users/feed_nav' %>
-    </div>
-    
     <%# マイページ %>
     <%= link_to mypage_path, class: "btn btn-outline-secondary btn-block",
                                 role: "button" do %>

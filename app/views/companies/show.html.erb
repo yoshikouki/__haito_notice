@@ -21,6 +21,7 @@
       <%= render 'shared/watch_form' %>
     <% else %>
       <%= link_to '/login', 
+                  id: "login-to-watch",
                   class: "text-center" do %>
         <div class="btn btn-outline-primary btn-block">
           <%= icon( "fas", "eye", class: 'mr-1') %>

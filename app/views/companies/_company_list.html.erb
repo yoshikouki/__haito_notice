@@ -5,10 +5,11 @@
 
 <ul class="list-group list-group-flush border-top">
   <% @companies.each do |company| %>
-  <% @company = company %>
+    <% @company = company %>
     <%= link_to( { controller: 'companies', 
                     action: 'show', 
                     id: company.local_code },
+                    id: "company-link-#{company.local_code}",
                     class: "list-group-item list-group-item-action flex-column align-items-start px-2") do %>
       <span class="company-name">
           <b><%= company.company_name %></b>

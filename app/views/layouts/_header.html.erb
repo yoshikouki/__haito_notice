@@ -10,7 +10,8 @@
       
       <%# ナビゲーションメニュー %>
       <ul class="nav justify-content-end h-100">
-          <%= link_to '/companies', 
+          <%= link_to '/companies',
+                        id: "companies-link",
                         class: "nav-item nav-link" do %>
             <li class="text-center align-middle">
               <%= icon( "fas", "globe") %>
@@ -19,6 +20,7 @@
         <% if logged_in? %>
         <%# ログイン時 %>
           <%= link_to '/mypage', 
+                        id: "mypage-link",
                         class: "nav-item nav-link" do %>
             <li class="text-center align-middle">
               <%= icon( "fas", "user") %>

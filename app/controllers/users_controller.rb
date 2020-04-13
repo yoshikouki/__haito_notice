@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         # ユーザーを有効化するメールを送信
         @user.send_activation_email
         # メッセージを作成
-        flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
+        flash[:info] = '登録確認用のメールを送信しました。メールを確認し、アカウントを有効化してください'
         # @user.activate
         # log_in @user
         # flash[:info] = 'ご登録ありがとうございます！'
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        flash.now[:success] = '変更は正常に保存されました。'
+        flash[:success] = '変更は正常に保存されました。'
         format.html { redirect_to mypage_path }
         format.json { render :mypage, status: :ok, location: @user }
       else
@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      flash.now[:info] = 'ユーザーは削除されました。'
+      flash[:info] = 'ユーザーは削除されました。'
       format.html { redirect_to root_url }
       format.json { head :no_content }
     end
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
     lcs = []
     wls = @user.watchlists
     if wls.empty?
-      @tds = false
+      @tds = []
     else
       wls.each{ |wl| lcs << wl[:local_code] }
       ticker_symbol = lcs.join("-")
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     lcs = []
     wls = @user.watchlists
     if wls.empty?
-      @companies = false
+      @companies = []
     else
       wls.each{|wl| lcs << wl[:local_code] }
       @companies = Company.where(local_code: lcs).page(params[:page])

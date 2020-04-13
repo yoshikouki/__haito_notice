@@ -5,7 +5,7 @@
 <h1 class="h5">適時開示情報（企業別）</h1>
   
 
-<h2 class="font-weight-bold">
+<h2 id="company-name" class="font-weight-bold">
   <%= company["company_name"] %>
 </h2>
 
@@ -21,6 +21,7 @@
       <%= render 'shared/watch_form' %>
     <% else %>
       <%= link_to '/login', 
+                  id: "login-to-watch",
                   class: "text-center" do %>
         <div class="btn btn-outline-primary btn-block">
           <%= icon( "fas", "eye", class: 'mr-1') %>

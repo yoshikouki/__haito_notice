@@ -4,12 +4,16 @@
   <%# TDnetの戻り値が複数の場合と単数の場合で配列階層が異なる %>
   <%# TD情報が（戻り値）が複数の場合 %>
   <% if @tds.count >= 2 then %>
+    <% c = 0 %>
+    <% d = 0 %>
     <% @tds.each do |td| %>
       <% # 情報抽出 
         local_code = td["Tdnet"]["company_code"].chop 
         unless company_name = Company.where(local_code: local_code).pluck(:company_name)[0]
           company_name = td["Tdnet"]["company_name"]
         end
+        c += 1
+        d += 1
       %>
 
       <%# リストアイテム %>
@@ -19,6 +23,7 @@
           <%= link_to( { controller: 'companies', 
                         action: 'show', 
                         id: local_code },
+                        id: "company-link-#{c}",
                         class: "stretched-link text-decoration-none" ) do %>
             <div class="company py-2 px-2">
               <%# 企業名 %>
@@ -37,6 +42,7 @@
         <div class="doc-info position-relative">
           <%= link_to(URI.parse(td["Tdnet"]["document_url"]).query,
                       target: "_blank",
+                        id: "td-link-#{d}",
                       class: "stretched-link text-decoration-none" ) do %>
             <div class="document py-2 px-2">
               <%# ドキュメント名 %>
@@ -71,6 +77,7 @@
         <%= link_to( { controller: 'companies', 
                       action: 'show', 
                       id: local_code },
+                      id: "company-link-1",
                       class: "stretched-link text-decoration-none" ) do %>
           <div class="company py-2 px-2">
             <%# 企業名 %>
@@ -89,6 +96,7 @@
       <div class="doc-info position-relative">
         <%= link_to(URI.parse(td["Tdnet"]["document_url"]).query,
                     target: "_blank",
+                    id: "td-link-1",
                     class: "stretched-link text-decoration-none" ) do %>
           <div class="document py-2 px-2">
             <%# ドキュメント名 %>

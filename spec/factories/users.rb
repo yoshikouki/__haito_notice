@@ -24,8 +24,8 @@ FactoryBot.define do
     email { "inactivate@email.com" }
     password { "password" }
     password_confirmation { "password" }
-    activation_token { User.new_token }
-    activation_digest { User.digest(:activation_token) }
+    activation_token { "" }
+    activation_digest { "" }
     activated { false }
     activated_at { nil }
   end

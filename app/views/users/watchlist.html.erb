@@ -1,4 +1,4 @@
-<% provide(:title, 'ウォッチリストに登録中の企業') %>
+<% provide(:title, 'ウォッチリスト') %>
 
 <div class="my-4">
   
@@ -28,7 +28,7 @@
 
 
     <%# 企業リスト %>
-    <% if @companies %>
+    <% if @companies.count > 0 %>
       <div class="my-4">
         <%= paginate @companies %>
       </div>
@@ -65,13 +65,6 @@
     <% end %>
   </div>
 
-  <%# 下部ナビゲーション %>
-  <div class="foot-nav">
-    <%# フィードナビ %>
-    <div class="container mb-4">
-      <%= render 'users/feed_nav' %>
-    </div>
-    
     <%# マイページ %>
     <%= link_to mypage_path, class: "btn btn-outline-secondary btn-block",
                                 role: "button" do %>

@@ -7,7 +7,6 @@ RSpec.describe "Companies", type: :system do
     driven_by(:rack_test)
     create_webmock("recent.xml?limit=10", "recent_tds.xml")
     create_webmock("#{company.local_code}.xml?limit=30", "feed_tds.xml")
-    company.company_name = "フィードテスト株式会社1"
   end
 
   describe "企業一覧" do
@@ -25,7 +24,7 @@ RSpec.describe "Companies", type: :system do
       expect(page).to \
         have_current_path company_path(company.local_code)
       expect(find("#company-name")).to \
-        have_content company.company_name
+        have_content "フィードテスト株式会社1"
       # 未ログインの場合はウォッチボタンが表示されない
       expect(find("#login-to-watch")).to \
         have_content "ログインしてウォッチ"
@@ -43,7 +42,7 @@ RSpec.describe "Companies", type: :system do
       expect(page).to \
         have_current_path company_path(company.local_code)
       expect(find("#company-name")).to \
-        have_content company.company_name
+        have_content "フィードテスト株式会社1"
     end
   end
 end

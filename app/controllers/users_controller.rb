@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         # ユーザーを有効化するメールを送信
         # @user.send_activation_email
         # メッセージを作成
-        # flash[:info] = '登録確認用のメールを送信いたしました。メールを確認し、アカウントを有効化してください'
+        # flash[:info] = '登録確認用のメールを送信しました。メールを確認し、アカウントを有効化してください'
         @user.activate
         log_in @user
         flash[:info] = 'ご登録ありがとうございます！'

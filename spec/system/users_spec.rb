@@ -13,7 +13,7 @@ RSpec.describe "統合テスト : Users", type: :system do
   let(:jill) { FactoryBot.build(:jill) }
 
   describe "ユーザー基本機能" do
-    it "アカウント新規登録から削除まで" do
+    it "アカウント新規登録" do
       visit root_path
       click_on "ログイン"
 
@@ -28,12 +28,6 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect { click_on 'commit' }.to \
         change(User, :count).by(1)
       expect(page).to have_content "ご登録ありがとうございます！"
-
-      # アカウントを削除
-      within("header") { click_on jill.name }
-      expect { click_on 'アカウントを削除' }.to \
-        change(User, :count).by(-1)
-      expect(page).to have_content "ユーザーは削除されました。"
     end
 
     it "ログインからログアウトまで" do
@@ -94,6 +88,22 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect(page).to have_content "edited-email@email.com"
       edited_user = User.find_by(email: "edited-email@email.com").authenticate("editedpassword")
       expect(edited_user).to be_valid
+    end
+
+    it "アカウントの削除" do
+      visit login_path
+      within("#login-form") do
+        fill_in 'user-email', with: user.email
+        fill_in 'user-password', with: user.password
+        click_on 'commit'
+      end
+      click_on user.name
+
+      # アカウントを削除
+      within("header") { click_on user.name }
+      expect { click_on 'アカウントを削除' }.to \
+        change(User, :count).by(-1)
+      expect(page).to have_content "ユーザーは削除されました。"
     end
   end
 end

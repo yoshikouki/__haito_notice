@@ -7,10 +7,12 @@ RSpec.describe "統合テスト : Users", type: :system do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
     create_webmock("recent.xml?limit=10", "recent_tds.xml")
+    # メールのテストのため、送信済みメールを初期化
+    ActionMailer::Base.deliveries.clear
   end
 
   let(:user) { FactoryBot.create(:user) }
-  let(:jill) { FactoryBot.build(:jill) }
+  let(:inact) { FactoryBot.build(:inact) }
 
   describe "ユーザー基本機能" do
     it "アカウント新規登録" do
@@ -20,14 +22,18 @@ RSpec.describe "統合テスト : Users", type: :system do
       # アカウントを新規作成
       click_on "アカウント登録"
       within("#signup-form") do
-        fill_in "user-name", with: jill.name
-        fill_in 'user-email', with: jill.email
-        fill_in 'user-password', with: jill.password
-        fill_in 'user-password-confirmation', with: jill.password
+        fill_in "user-name", with: inact.name
+        fill_in 'user-email', with: inact.email
+        fill_in 'user-password', with: inact.password
+        fill_in 'user-password-confirmation', with: inact.password
       end
       expect { click_on 'commit' }.to \
         change(User, :count).by(1)
-      expect(page).to have_content "ご登録ありがとうございます！"
+
+      # 有効化メールの送信
+      expect(find("header")).to have_content "ログイン"
+      expect(page).to have_content "登録確認用のメールを送信しました。メールを確認し、アカウントを有効化してください"
+      expect(ActionMailer::Base.deliveries.count).to eq 1
     end
 
     it "ログインからログアウトまで" do

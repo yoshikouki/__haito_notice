@@ -20,6 +20,7 @@ workflows:
           requires:
             - rubocop_job
             - rspec_job
+          # masterブランチのみで作動させる
           filters:
             branches:
               only:
@@ -46,7 +47,7 @@ executors:
           # config/database.ymlの内容と一致させる
           PGUSER: postgres
           RAILS_ENV: test
-      # $ psql -vで確認したバージョンと合わせる。-alpineが軽量版のため望ましい
+      # $ psql -V で確認したバージョンと合わせる。-alpineが軽量版のため望ましい
       - image: circleci/postgres:12-alpine
         environment:
           # config/database.ymlの内容と一致させる
@@ -109,7 +110,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
 
-# 処理など
+# 処理など。version: 2.1以上
 commands:
   # Orbsを利用した依存関係の処理
   bundle-install:
@@ -123,8 +124,8 @@ commands:
           bundle_retry: 3
           cache_key_prefix: v1-bundle-dependencies
           restore_bundled_with: true
+  # 各jobの準備工程
   preparate:
     steps:
-      # 各jobの準備工程
       - checkout
       - bundle-install

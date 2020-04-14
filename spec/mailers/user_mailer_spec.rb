@@ -17,7 +17,7 @@ RSpec.describe UserMailer, type: :mailer do
     it { expect(mail.body.encoded).to match CGI.escape(user.email) }
   end
 
-  xdescribe "password_reset" do
+  describe "password_reset" do
     let(:user) { FactoryBot.create(:user) }
     let(:mail) { UserMailer.password_reset(user) }
 

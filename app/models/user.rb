@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # 仮想属性の宣言
   has_secure_password
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   
   # バリデーション
   validates :name,      presence: true, 

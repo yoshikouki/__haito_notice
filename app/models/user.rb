@@ -61,6 +61,12 @@ class User < ApplicationRecord
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
+  # パスワードリセットトークンとダイジェストを作成および代入する
+  def create_reset_digest
+    self.reset_token  = User.new_token
+    self.reset_digest = User.digest(reset_token)
+  end
+
   # 企業をWatchlistに登録する
   def watch(company)
     if watching?(company)

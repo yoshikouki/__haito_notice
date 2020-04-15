@@ -61,6 +61,12 @@ class User < ApplicationRecord
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
+  # パスワードリセット用のメールを、準備工程後に送信。
+  def send_reset_email
+    self.create_reset_digest
+    UserMailer.password_reset(self).deliver_now
+  end
+
   # パスワードリセットトークンとダイジェストを作成および代入する
   def create_reset_digest
     self.reset_token  = User.new_token

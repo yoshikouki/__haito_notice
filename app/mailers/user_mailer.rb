@@ -17,7 +17,6 @@ class UserMailer < ApplicationMailer
   #
   def password_reset(user)
     @user = user
-    user.create_reset_digest
     mail to: user.email, subject: "【配当ノーティス】パスワードの再設定"
   end
 end

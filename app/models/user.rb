@@ -65,6 +65,7 @@ class User < ApplicationRecord
   def create_reset_digest
     self.reset_token  = User.new_token
     self.reset_digest = User.digest(reset_token)
+    self.reset_sent_at = Time.current
   end
 
   # 企業をWatchlistに登録する

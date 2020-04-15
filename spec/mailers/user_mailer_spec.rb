@@ -20,15 +20,14 @@ RSpec.describe UserMailer, type: :mailer do
   describe "password_reset" do
     let(:user) { FactoryBot.create(:user) }
     let(:mail) { UserMailer.password_reset(user) }
-
-    before do
-      user.reset_token = User.new_token
+    let(:mail_body) do
+      mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join
     end
 
     it { expect(mail.subject).to eq "【配当ノーティス】パスワードの再設定" }
     it { expect(mail.to[0]).to eq user.email }
     it { expect(mail.from[0]).to eq "noreply@example.com" }
-    it { expect(mail.body.encoded).to match user.reset_token }
-    it { expect(mail.body.encoded).to match CGI.escape(user.email) }
+    it { expect(mail_body).to match user.reset_token }
+    it { expect(mail_body).to match CGI.escape(user.email) }
   end
 end

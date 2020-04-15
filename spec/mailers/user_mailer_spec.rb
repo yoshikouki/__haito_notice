@@ -19,7 +19,10 @@ RSpec.describe UserMailer, type: :mailer do
 
   describe "password_reset" do
     let(:user) { FactoryBot.create(:user) }
-    let(:mail) { UserMailer.password_reset(user) }
+    let(:mail) do
+      user.create_reset_digest
+      UserMailer.password_reset(user)
+    end
     let(:mail_body) do
       mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join
     end

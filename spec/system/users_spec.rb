@@ -122,7 +122,7 @@ RSpec.describe "統合テスト : Users", type: :system do
         fill_in 'user-email', with: user.email
       end
       expect { click_on 'submit-password-reset' }.to \
-        chenge { ActionMailer::Base.deliveries.count }.by(1)
+        change { ActionMailer::Base.deliveries.count }.by(1)
       expect(page).to have_content "ご登録メールアドレスにパスワード再設定のURLを送信しました。"
     end
   end

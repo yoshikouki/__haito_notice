@@ -2,7 +2,7 @@
 
 %h1.h5.pb-4 パスワードをお忘れの方
 
-= form_with scope: :password_reset, url: password_resets_url, local: true, id: "new-password-reset-form" do |form|
+= form_with(url: password_resets_path, local: true, id: "new-password-reset-form") do |form|
   -# = render '/shared/form_errors'
 
   .mb-4

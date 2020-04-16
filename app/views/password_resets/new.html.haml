@@ -1,0 +1,16 @@
+- provide :title, 'パスワードをお忘れの方'
+
+%h1.h5.pb-4 パスワードをお忘れの方
+
+= form_with(url: password_resets_path, local: true, id: "new-password-reset-form") do |form|
+  -# = render '/shared/form_errors'
+
+  .mb-4
+    = form.label :email, "メールアドレス"
+    = form.text_field :email, id: "user-email", class: "form-control"
+
+  .mb-4
+    = form.submit "パスワードを再設定", id: "submit-password-reset", class: "btn btn-primary btn-block mb-2"
+
+.mb-3
+  = link_to 'キャンセル', login_path, role: "button",id: "cancel", class: "btn btn-outline-secondary btn-block"

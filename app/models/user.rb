@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # 仮想属性の宣言
   has_secure_password
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   
   # バリデーション
   validates :name,      presence: true, 
@@ -59,6 +59,20 @@ class User < ApplicationRecord
   # アカウントを有効化
   def activate
     update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  # パスワードリセット用のメールを、準備工程後に送信。
+  def send_reset_email
+    create_reset_digest
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  # パスワードリセットトークンとダイジェストを作成および代入する
+  def create_reset_digest
+    self.reset_token  = User.new_token
+    self.reset_digest = User.digest(reset_token)
+    self.reset_sent_at = Time.zone.now
+    self.save
   end
 
   # 企業をWatchlistに登録する

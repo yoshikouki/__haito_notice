@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= full_title(yield(:title))
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0", :name => "viewport"}/
+    /[if lt IE 9]
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+  %body
+    = render 'layouts/header'
+    .container
+      - flash.each do |message_type, message|
+        = content_tag(:div, message, class: "alert alert-#{message_type}")
+      = yield
+    = render 'layouts/footer'
+    - if Rails.env.development?
+      .alert.alert-info
+        = debug(params)

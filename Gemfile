@@ -24,6 +24,8 @@ gem 'kaminari'
 gem 'bcrypt',         '3.1.12'
 # BULK INSERTを実装する（Rails6からはGemは不要）
 gem 'activerecord-import'
+# テンプレートエンジンはHamlを使用
+gem 'haml-rails'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

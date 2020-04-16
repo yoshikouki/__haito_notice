@@ -14,7 +14,12 @@ RSpec.describe "統合テスト : Users", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let(:inact) { FactoryBot.build(:inact) }
 
-  describe "ユーザー基本機能" do
+  def extract_url(mail)
+    body = mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join
+    body[/href="(.+?)"/, 1]
+  end
+
+  describe "CRUD" do
     it "アカウント新規登録" do
       visit root_path
       click_on "ログイン"
@@ -34,38 +39,6 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect(find("header")).to have_content "ログイン"
       expect(page).to have_content "登録確認用のメールを送信しました。メールを確認し、アカウントを有効化してください"
       expect(ActionMailer::Base.deliveries.count).to eq 1
-    end
-
-    it "ログインからログアウトまで" do
-      visit root_path
-      within("header") do
-        expect(page).to have_content "ログイン"
-      end
-
-      click_on "ログイン"
-      within("#login-form") do
-        fill_in 'user-email', with: user.email
-        fill_in 'user-password', with: user.password
-        click_on 'commit'
-      end
-      within("header") do
-        expect(page).to have_content user.name
-      end
-
-      # ウォッチリストが空なら企業を探すが表示されている
-      # ホーム画面のフィード
-      expect(page).to have_content "企業を探す"
-      # マイページ画面のフィード
-      click_on user.name
-      expect(page).to have_content "企業を探す"
-      # フィード画面のフィード
-      click_on 'TDフィード'
-      expect(page).to have_content "企業を探す"
-
-      # ログアウト
-      within("header") { click_on user.name }
-      click_on "ログアウト"
-      expect(page).to have_content "ログアウトしました。"
     end
 
     it "マイページから基本情報を編集" do
@@ -110,6 +83,79 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect { click_on 'アカウントを削除' }.to \
         change(User, :count).by(-1)
       expect(page).to have_content "ユーザーは削除されました。"
+    end
+  end
+
+  describe "ユーザー関連機能" do
+    it "ログインからログアウトまで" do
+      visit root_path
+      within("header") do
+        expect(page).to have_content "ログイン"
+      end
+
+      click_on "ログイン"
+      within("#login-form") do
+        fill_in 'user-email', with: user.email
+        fill_in 'user-password', with: user.password
+        click_on 'commit'
+      end
+      within("header") do
+        expect(page).to have_content user.name
+      end
+
+      # ウォッチリストが空なら企業を探すが表示されている
+      # ホーム画面のフィード
+      expect(page).to have_content "企業を探す"
+      # マイページ画面のフィード
+      click_on user.name
+      expect(page).to have_content "企業を探す"
+      # フィード画面のフィード
+      click_on 'TDフィード'
+      expect(page).to have_content "企業を探す"
+
+      # ログアウト
+      within("header") { click_on user.name }
+      click_on "ログアウト"
+      expect(page).to have_content "ログアウトしました。"
+    end
+
+    it "パスワードの再設定" do
+      visit login_path
+
+      # new
+      click_on "password-reset-link"
+      expect(page).to have_current_path new_password_reset_path
+      within("#new-password-reset-form") do
+        fill_in 'user-email', with: user.email
+      end
+
+      # create
+      expect { click_on 'submit-password-reset' }.to \
+        change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(page).to have_content "ご登録メールアドレスにパスワード再設定のURLを送信しました。"
+
+      # edit
+      mail = ActionMailer::Base.deliveries.last
+      url = extract_url(mail)
+      visit url
+      expect(page).to have_content "新しいパスワードを設定"
+
+      # update（正常）
+      new_password = "newpassword"
+      within("#edit-password-reset-form") do
+        fill_in "user-password", with: new_password
+        fill_in "user-password-confirmation", with: new_password
+        click_on "submit-password-reset"
+      end
+      expect(page).to have_content "パスワードは再設定されました。"
+      within("#login-form") do
+        fill_in 'user-email', with: user.email
+        fill_in 'user-password', with: new_password
+        click_on 'commit'
+      end
+      within("header") do
+        expect(page).to have_content user.name
+      end
     end
   end
 end

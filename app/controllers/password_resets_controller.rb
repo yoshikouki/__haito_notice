@@ -15,8 +15,8 @@ class PasswordResetsController < ApplicationController
 
   def edit
     @user = User.find_by(email: params[:email])
-    if @user &.authenticated?(:reset, params[:id])
-      unless @user.reset_sent_at.since(1.hour) > Time.zone.now
+    if @user&.authenticated?(:reset, params[:id])
+      if @user.reset_sent_at.since(1.hour) < Time.zone.now
         flash[:danger] = "パスワード再設定URLの有効期限が切れています。"
         redirect_to login_path
       end

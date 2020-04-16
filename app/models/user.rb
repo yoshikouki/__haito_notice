@@ -63,7 +63,7 @@ class User < ApplicationRecord
 
   # パスワードリセット用のメールを、準備工程後に送信。
   def send_reset_email
-    self.create_reset_digest
+    create_reset_digest
     UserMailer.password_reset(self).deliver_now
   end
 
@@ -71,7 +71,8 @@ class User < ApplicationRecord
   def create_reset_digest
     self.reset_token  = User.new_token
     self.reset_digest = User.digest(reset_token)
-    self.reset_sent_at = Time.current
+    self.reset_sent_at = Time.zone.now
+    self.save
   end
 
   # 企業をWatchlistに登録する

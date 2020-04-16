@@ -14,6 +14,12 @@ RSpec.describe "統合テスト : Users", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let(:inact) { FactoryBot.build(:inact) }
 
+  def extract_url(mail)
+    body = mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join
+    # body[/http[^'']+edit\?email\=[^'']+/]
+    body[/href="(.+?)"/, 1]
+  end
+
   describe "CRUD" do
     it "アカウント新規登録" do
       visit root_path
@@ -124,6 +130,12 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect { click_on 'submit-password-reset' }.to \
         change { ActionMailer::Base.deliveries.count }.by(1)
       expect(page).to have_content "ご登録メールアドレスにパスワード再設定のURLを送信しました。"
+
+      mail = ActionMailer::Base.deliveries.last
+      url = extract_url(mail)
+      visit url
+      expect(page).to have_content "新しいパスワードを設定"
+      # expect(page).to have_current_path login_path
     end
   end
 end

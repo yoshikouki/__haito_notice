@@ -2,10 +2,11 @@
 
 %h1.h5.pb-4 新しいパスワードを設定
 
-= form_with(url: password_reset_url(@user), local: true, id: "edit_password_reset_form") do |form|
+= form_with(url: password_reset_url(@user), method: :patch, local: true, id: "edit-password-reset-form") do |form|
   -# = render '/shared/form_errors'
 
   = form.hidden_field :email, value: params[:email]
+  = form.hidden_field :reset_token, value: params[:id]
 
   .mb-4
     = form.label :password, "パスワード"

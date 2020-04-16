@@ -16,7 +16,6 @@ RSpec.describe "統合テスト : Users", type: :system do
 
   def extract_url(mail)
     body = mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join
-    # body[/http[^'']+edit\?email\=[^'']+/]
     body[/href="(.+?)"/, 1]
   end
 
@@ -122,20 +121,41 @@ RSpec.describe "統合テスト : Users", type: :system do
 
     it "パスワードの再設定" do
       visit login_path
+
+      # new
       click_on "password-reset-link"
       expect(page).to have_current_path new_password_reset_path
       within("#new-password-reset-form") do
         fill_in 'user-email', with: user.email
       end
+
+      # create
       expect { click_on 'submit-password-reset' }.to \
         change { ActionMailer::Base.deliveries.count }.by(1)
       expect(page).to have_content "ご登録メールアドレスにパスワード再設定のURLを送信しました。"
 
+      # edit
       mail = ActionMailer::Base.deliveries.last
       url = extract_url(mail)
       visit url
       expect(page).to have_content "新しいパスワードを設定"
-      # expect(page).to have_current_path login_path
+
+      # update（正常）
+      new_password = "newpassword"
+      within("#edit-password-reset-form") do
+        fill_in "user-password", with: new_password
+        fill_in "user-password-confirmation", with: new_password
+        click_on "submit-password-reset"
+      end
+      expect(page).to have_content "パスワードは再設定されました。"
+      within("#login-form") do
+        fill_in 'user-email', with: user.email
+        fill_in 'user-password', with: new_password
+        click_on 'commit'
+      end
+      within("header") do
+        expect(page).to have_content user.name
+      end
     end
   end
 end

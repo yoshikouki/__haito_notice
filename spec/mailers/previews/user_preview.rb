@@ -2,7 +2,7 @@
 class UserPreview < ActionMailer::Preview
   def password_reset
     @user = User.first
-    user.create_reset_digest
+    @user.create_reset_digest
     UserMailer.password_reset(@user)
   end
 end

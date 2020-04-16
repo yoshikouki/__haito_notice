@@ -2,7 +2,7 @@
 
 %h1.h5.pb-4 新しいパスワードを設定
 
-= form_with scope: :password_reset, url: password_reset_url(@user), local: true, id: "edit_password_reset_form" do |form|
+= form_with(url: password_reset_url(@user), local: true, id: "edit_password_reset_form") do |form|
   -# = render '/shared/form_errors'
 
   = form.hidden_field :email, params[:email]

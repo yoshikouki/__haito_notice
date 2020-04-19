@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '5.1.7'
+gem 'rails',        '5.2.4'
 gem 'bootstrap', '~> 4.4.1'
+gem 'bootsnap'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'jquery-rails', '4.3.1'
 gem 'puma',         '3.12.4'

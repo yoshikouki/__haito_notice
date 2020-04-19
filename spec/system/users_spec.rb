@@ -145,12 +145,12 @@ RSpec.describe "統合テスト : Users", type: :system do
 
       # update 例外
       within("#edit-password-reset-form") do
+        fill_in "user-password", with: ''
         click_on "submit-password-reset"
       end
       expect(page).to have_content "パスワードが空欄です。"
       within("#edit-password-reset-form") do
         fill_in "user-password", with: 'ne'
-        fill_in "user-password-confirmation", with: 'newpass'
         click_on "submit-password-reset"
       end
       expect(page).to have_content "不正な入力値です"
@@ -158,7 +158,6 @@ RSpec.describe "統合テスト : Users", type: :system do
       new_password = "newpassword"
       within("#edit-password-reset-form") do
         fill_in "user-password", with: new_password
-        fill_in "user-password-confirmation", with: new_password
         click_on "submit-password-reset"
       end
       expect(page).to have_content "パスワードは再設定されました。"

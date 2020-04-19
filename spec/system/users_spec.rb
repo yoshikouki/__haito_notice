@@ -120,16 +120,19 @@ RSpec.describe "統合テスト : Users", type: :system do
     end
 
     it "パスワードの再設定" do
-      visit login_path
-
       # new
+      visit login_path
       click_on "password-reset-link"
       expect(page).to have_current_path new_password_reset_path
+
+      # create 例外
+      click_on 'submit-password-reset'
+      expect(page).to have_current_path new_password_reset_path
+      expect(page).to have_content "不正なメールアドレスです"
+      # create 正常
       within("#new-password-reset-form") do
         fill_in 'user-email', with: user.email
       end
-
-      # create
       expect { click_on 'submit-password-reset' }.to \
         change { ActionMailer::Base.deliveries.count }.by(1)
       expect(page).to have_content "ご登録メールアドレスにパスワード再設定のURLを送信しました。"
@@ -140,7 +143,18 @@ RSpec.describe "統合テスト : Users", type: :system do
       visit url
       expect(page).to have_content "新しいパスワードを設定"
 
-      # update（正常）
+      # update 例外
+      within("#edit-password-reset-form") do
+        click_on "submit-password-reset"
+      end
+      expect(page).to have_content "パスワードが空欄です。"
+      within("#edit-password-reset-form") do
+        fill_in "user-password", with: 'ne'
+        fill_in "user-password-confirmation", with: 'newpass'
+        click_on "submit-password-reset"
+      end
+      expect(page).to have_content "不正な入力値です"
+      # update 正常
       new_password = "newpassword"
       within("#edit-password-reset-form") do
         fill_in "user-password", with: new_password

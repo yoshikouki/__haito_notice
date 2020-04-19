@@ -17,6 +17,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/tmp/pids/.keep
+!/tmp/sockets/.keep
 
 /node_modules
 /yarn-error.log

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '5.2.4'
-gem 'bootstrap', '~> 4.4.1'
+gem 'rails',        '5.2.4.2'
+gem 'bootstrap',    '~> 4.4.1'
 gem 'bootsnap'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'jquery-rails', '4.3.1'
@@ -15,14 +15,14 @@ gem 'execjs'
 # Ruby用のコード整形Gem
 gem 'rufo'
 # 開発・テスト環境のDBもpostgresへ移行
-gem 'pg', '0.20.0'
+gem 'pg',           '0.20.0'
 # Excel,CSVを開くことが可能
 gem 'roo'
 gem 'roo-xls'
 # paginate用のGem
 gem 'kaminari'
 # ハッシュ化する
-gem 'bcrypt',         '3.1.12'
+gem 'bcrypt',       '3.1.12'
 # BULK INSERTを実装する（Rails6からはGemは不要）
 gem 'activerecord-import'
 # テンプレートエンジンはHamlを使用

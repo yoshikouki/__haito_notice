@@ -8,15 +8,20 @@
 
 .mb-4.cleafix
   .float-left
-    = render 'shared/company_symbol', local_code: params[:id], market_division: @company.market_division
+    = render 'shared/company_symbol',
+        local_code: params[:id],
+        market_division: @company.market_division
   .d-flex.justify-content-end
     - if logged_in?
       = render 'shared/watch_form'
     - else
-      = link_to '/login', id: "login-to-watch", class: "text-center" do
+      = link_to '/login',
+          id: "login-to-watch", 
+          class: "text-center" do
         .btn.btn-outline-primary.btn-block
           = icon( "fas", "eye", class: 'mr-1')
           ログインしてウォッチ
 
 -# TDnet情報を表示
-= render 'companies/td_list_companypage'
+.tds-list.list.border-top
+  = render partial: 'td', collection: @tds

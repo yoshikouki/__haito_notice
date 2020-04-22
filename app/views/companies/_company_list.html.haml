@@ -1,0 +1,22 @@
+-# 企業一覧を表示
+.my-4
+  = paginate @companies
+
+%ul.list-group.list-group-flush.border-top
+  - @companies.each do |company|
+    - @company = company
+    = link_to(company_path(company.local_code), 
+              id: "company-link-#{company.local_code}", 
+              class: "list-group-item list-group-item-action flex-column align-items-start px-2") do
+      %span.company-name
+        %b= company.company_name
+      %div
+        = render partial: 'shared/company_symbol',
+                 locals: { local_code: company.local_code,
+                           market_division: company.market_division }
+
+    -# Ajaxが#watch-formをターゲットに動作しているため、リスト表示するとターゲットが複数存在するため正常に動作しない。今後の改善点。
+    -# = render 'shared/watch_form'
+
+.my-4
+  = paginate @companies

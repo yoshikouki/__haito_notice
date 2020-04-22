@@ -24,7 +24,7 @@ RSpec.describe "Companies", type: :system do
       expect(page).to \
         have_current_path company_path(company.local_code)
       expect(find("#company-name")).to \
-        have_content "フィードテスト株式会社1"
+        have_content company.company_name
       # 未ログインの場合はウォッチボタンが表示されない
       expect(find("#login-to-watch")).to \
         have_content "ログインしてウォッチ"
@@ -42,7 +42,7 @@ RSpec.describe "Companies", type: :system do
       expect(page).to \
         have_current_path company_path(company.local_code)
       expect(find("#company-name")).to \
-        have_content "フィードテスト株式会社1"
+        have_content company.company_name
     end
   end
 end

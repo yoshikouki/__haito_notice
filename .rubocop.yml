@@ -50,6 +50,14 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
+# For rubocop < new version
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# For rubocop < new version
+Style/ExponentialNotation:
+  Enabled: true
+
 Capybara/FeatureMethods:
   Enabled: false
 

@@ -35,10 +35,18 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect { click_on 'commit' }.to \
         change(User, :count).by(1)
 
-      # 有効化メールの送信
+      # 有効化メールの送信を確認
       expect(find("header")).to have_content "ログイン"
       expect(page).to have_content "登録確認用のメールを送信しました。メールを確認し、アカウントを有効化してください"
       expect(ActionMailer::Base.deliveries.count).to eq 1
+
+      # 有効化ステップ
+      mail = ActionMailer::Base.deliveries.last
+      url = extract_url(mail)
+      expect { visit url }.to \
+        change { User.find_by(email: inact.email).activated }.from(false).to(true)
+      expect(page).to have_content "正常にアカウントが有効化されました！"
+      expect(find('header')).to have_content inact.name
     end
 
     it "マイページから基本情報を編集" do

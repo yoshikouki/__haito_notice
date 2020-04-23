@@ -1,0 +1,17 @@
+%p#notice= notice
+%h1 Users
+= link_to 'New User', new_user_path
+.my-4
+  = paginate @users
+%table
+  %thead
+    %tr
+      %th Name
+  %tbody
+    - @users.each do |user|
+      %tr
+        = link_to 'Show', user do
+          %td= user.name
+.my-4
+  = paginate @users
+

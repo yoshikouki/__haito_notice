@@ -1,0 +1,33 @@
+/ Footer
+%footer.page-footer.font-small.my-5
+  / Footer Elements
+  .container
+    / Grid row
+    .row.align-items-center.py-4
+      .col
+      / Twitter
+      .col.text-center
+        = link_to "https://twitter.com/K2_Yoshiko", class: "tw-ic" do
+          = icon('fab', 'twitter',     |
+            target: "_blank",          |
+            class: "white-text fa-2x") |
+      / GitHub
+      .col.text-center
+        = link_to "https://github.com/yoshikouki", class: "github-ic" do
+          = icon('fab', 'github',      |
+            target: "_blank",          |
+            class: "white-text fa-2x") |
+      / Facebook
+      .col.text-center
+        = link_to "https://www.facebook.com/koki.yoshimoto.9", class: "fb-ic" do
+          = icon('fab', 'facebook-f',  |
+            target: "_blank",          |
+            class: "white-text fa-2x") |
+      .col
+    / Grid row
+  / Footer Elements
+  / Copyright
+  .footer-copyright.text-center.pt-4 © 2020 yoshiko
+  / Copyright
+/ Footer
+

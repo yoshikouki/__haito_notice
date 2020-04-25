@@ -5,29 +5,27 @@
   - company_name = td["Tdnet"]["company_name"]
 
 -# リストアイテム
-.border-bottom
+.border-bottom{ id: "#td-item-#{td_counter + 1}"}
   -# 企業情報
   .company-info.position-relative.bg-light
-    = link_to( { controller: 'companies',
-      action: 'show',
-      id: local_code },
-      id: "company-link-#{td_counter + 1}",
-      class: "stretched-link text-decoration-none" ) do
+    = link_to( { controller: 'companies', action: 'show', id: local_code },
+              id: "company-link-#{td_counter + 1}",
+              class: "stretched-link text-decoration-none" ) do
       .company.py-2.px-2
         -# 企業名
         %span.company-name.font-weight-bold.text-secondary
           = company_name
         -# 企業シンボル
-        = render 'shared/company_symbol',                |
-          local_code: local_code,                        |
-          market_division: td["Tdnet"]["markets_string"] |
+        = render 'shared/company_symbol',
+                 local_code: local_code,
+                 market_division: td["Tdnet"]["markets_string"]
 
   -# TD情報
   .doc-info.position-relative
-    = link_to( URI.parse(td["Tdnet"]["document_url"]).query,
-      target: "_blank",
-      id: "td-link-#{td_counter + 1}",
-      class: "stretched-link text-decoration-none" ) do
+    = link_to URI.parse(td["Tdnet"]["document_url"]).query,
+              target: "_blank",
+              id: "td-link-#{td_counter + 1}",
+              class: "stretched-link text-decoration-none" do
       .document.py-2.px-2
         -# ドキュメント名
         .doc-title.text-primary

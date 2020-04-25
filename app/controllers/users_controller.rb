@@ -92,11 +92,11 @@ class UsersController < ApplicationController
   def feed
     @user = current_user
     # ウォッチリスト登録されている企業のTD情報を取得
-    lcs = []
     wls = @user.watchlists
     if wls.empty?
       @tds = []
     else
+      lcs = []
       wls.each{ |wl| lcs << wl[:local_code] }
       ticker_symbol = lcs.join("-")
       get_tds(ticker_symbol, 30)

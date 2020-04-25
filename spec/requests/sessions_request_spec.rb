@@ -8,8 +8,8 @@ RSpec.describe "Sessions", type: :request do
   let(:params) do
     {
       session: {
-        email: user.email,
-        password: user.password,
+        email:       user.email,
+        password:    user.password,
         remember_me: 0
       }
     }

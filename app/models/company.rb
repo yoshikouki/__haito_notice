@@ -1,6 +1,6 @@
 class Company < ApplicationRecord
 
-  validates :local_code,    presence: true,
+  validates :local_code,    presence:     true,
                             numericality: { only_integer: true }
   validates :company_name, :market_division, :pub_date, presence: true
   

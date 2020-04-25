@@ -7,8 +7,8 @@ RSpec.describe "Watchlists", type: :request do
   let(:user_login_params) do
     {
       session: {
-        email: user.email,
-        password: user.password,
+        email:       user.email,
+        password:    user.password,
         remember_me: 0
       }
     }

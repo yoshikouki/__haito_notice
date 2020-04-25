@@ -30,6 +30,9 @@ Rails:
 Style/AsciiComments:
   Enabled: false
 
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+
 # For rubocop < 1.0.0
 Style/HashEachMethods:
   Enabled: true

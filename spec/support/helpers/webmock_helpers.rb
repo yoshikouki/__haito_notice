@@ -11,8 +11,8 @@ module WebmockHelpers
     response = Rails.root.join("spec/fixtures/", file_name)
     WebMock.stub_request(:any, request)
            .to_return(
-             body: File.read(response),
-             status: 200,
+             body:    File.read(response),
+             status:  200,
              headers: { 'Content_Type' => 'application/xml' }
            )
 

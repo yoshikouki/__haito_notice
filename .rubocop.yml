@@ -30,6 +30,7 @@ Rails:
 Style/AsciiComments:
   Enabled: false
 
+# Hashのコード整形はコロンスタイルかつテーブルスタイルで。
 Layout/HashAlignment:
   EnforcedColonStyle: table
 

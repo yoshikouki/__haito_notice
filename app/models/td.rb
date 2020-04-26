@@ -35,31 +35,46 @@ class Td
   end
 
   def converting_response(response)
-    # XMLをデコード、ハッシュ型に変換
-    res_hash = Hash.from_xml(response.body)
+    # TD情報のXMLをデコード、ハッシュ型に変換
+    item = Hash.from_xml(response.body)["TDnetList"]["items"]["item"]
 
-    # TD情報ハッシュを作成。keyをDBカラム名に変換
     # レスポンス（TD情報）の数が1つの場合階層が違う
-    item = res_hash["TDnetList"]["items"]["item"]
     if item.count >= 2
-      init_tds = item.map do |td|
-        td["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
+      init_tds = item.map do |hash|
+        hash["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
       end
     elsif item.count == 1
-      td = item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
-      init_tds = [td]
+      init_tds = [item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }]
     end
 
-    # TD情報ハッシュを変換
-    init_tds.each do |h|
+    convert_hash(init_tds)
+  end
+
+  # TD情報ハッシュを変換
+  def convert_hash(tds)
+    # 企業名をリスト化（準備工程）
+    local_codes = tds.map { |v| v["local_code"].chop }
+    name_list = Company
+                .select(:local_code, :company_name)
+                .where(local_code: local_codes)
+                .map do |v|
+                  [v.local_code, v.company_name]
+                end
+                .to_h
+
+    tds.each do |td|
       # info_urlを直URLに変換
-      h["info_url"] = URI.parse(h["info_url"]).query
+      td["info_url"] = URI.parse(td["info_url"]).query
       # market_divisionを変換
-      md = h["market_division"]
-      h["market_division"] = CONVERT_MARKET_DIVISION[md] || md
+      md = td["market_division"]
+      td["market_division"] = CONVERT_MARKET_DIVISION[md] || md
+      # local_code文末の0を削除
+      td["local_code"].chop!
+      # 企業名をDB登録名に変換
+      # レコードがない場合はそのまま使用
+      td["company_name"] = \
+        name_list[td["local_code"].to_i] || td["company_name"]
     end
-
-    init_tds
   end
 
   # APIレスポンスのキーとDBカラム名（予定）の対応表

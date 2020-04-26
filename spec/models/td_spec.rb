@@ -39,5 +39,11 @@ RSpec.describe Td, type: :model do
     it "APIレスポンスが一つでも正常に処理している" do
       expect(td[0]["info_title"]).to eq "1つだけのテストタイトル"
     end
+
+    it "企業名を変換している" do
+      company = FactoryBot.create(:company)
+      expect(td[0]["company_name"]).to eq company.company_name
+      # fixturesの企業名は"1つだけのテストタイトル"
+    end
   end
 end

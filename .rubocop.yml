@@ -87,6 +87,8 @@ RSpec/ExampleLength:
     - 'spec/system/*'
 
 # System SpecではExpectを複数記載できる
+# Rspec でexpectを2つまで記述できる
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/system/*'
+  Max: 2

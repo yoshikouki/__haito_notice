@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TDnetList>
-  <total_count>300</total_count>
+  <total_count>30</total_count>
   <condition_desc>最新順の適時開示情報一覧</condition_desc>
   <items>
     <item>
       <Tdnet>
         <id>688376</id>
         <pubdate>2020-04-09 17:50:00</pubdate>
-        <company_code>93080</company_code>
+        <company_code>10010</company_code>
         <company_name>テスト株式会社1</company_name>
         <title>テストタイトル1</title>
         <document_url>https://webapi.yanoshin.jp/rd.php?https://www.release.tdnet.info/inbs/140120200409491819.pdf</document_url>
@@ -48,7 +48,7 @@
         </url_report_type_expected_dividends>
         <url_xbrl>
         </url_xbrl>
-        <markets_string>東</markets_string>
+        <markets_string>東名</markets_string>
         <update_history>
         </update_history>
       </Tdnet>

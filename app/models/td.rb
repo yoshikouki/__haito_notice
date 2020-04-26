@@ -34,35 +34,6 @@ class Td
     response
   end
 
-  CONVERT_KEY = {
-    "pubdate" => "pub_date",
-    "company_code" => "local_code",
-    "company_name" => "company_name",
-    "title" => "info_title",
-    "document_url" => "info_url",
-    "markets_string" => "market_division"
-  }.freeze
-
-  CONVERT_MARKET_DIVISION = {
-    "東" => "東証",
-    "東名" => "名証",
-    "札" => "札証",
-    "福" => "福証",
-    "市場第一部（内国株）" => "東証1",
-    "市場第一部（外国株）" => "東証1",
-    "市場第二部（内国株）" => "東証2",
-    "市場第二部（外国株）" => "東証2",
-    "JASDAQ(スタンダード・内国株）" => "JASDAQ",
-    "JASDAQ(グロース・内国株）" => "JASDAQ",
-    "JASDAQ(スタンダード・外国株）" => "JASDAQ",
-    "マザーズ（外国株）" => "マザーズ",
-    "マザーズ（内国株）" => "マザーズ",
-    "ETF・ETN" => "ETF",
-    "REIT・ベンチャーファンド・カントリーファンド・インフラファンド" => "REIT",
-    "出資証券" => "証券",
-    "PRO Market" => "PRO"
-  }.freeze
-
   def converting_response(response)
     # XMLをデコード、ハッシュ型に変換
     res_hash = Hash.from_xml(response.body)
@@ -79,7 +50,7 @@ class Td
       init_tds = [td]
     end
 
-    # TD情報ハッシュを変換する
+    # TD情報ハッシュを変換
     init_tds.each do |h|
       # info_urlを直URLに変換
       h["info_url"] = URI.parse(h["info_url"]).query
@@ -87,5 +58,40 @@ class Td
       md = h["market_division"]
       h["market_division"] = CONVERT_MARKET_DIVISION[md] || md
     end
+
+    init_tds
   end
+
+  # APIレスポンスのキーとDBカラム名（予定）の対応表
+  CONVERT_KEY = {
+    "pubdate" => "pub_date",
+    "company_code" => "local_code",
+    "company_name" => "company_name",
+    "title" => "info_title",
+    "document_url" => "info_url",
+    "markets_string" => "market_division"
+  }.freeze
+
+  # 市場区分の対応表
+  CONVERT_MARKET_DIVISION = {
+    # WebAPIとの対応表
+    "東" => "東証",
+    "東名" => "名証",
+    "札" => "札証",
+    "福" => "福証",
+    # 東証公開の企業一覧との対応表
+    "市場第一部（内国株）" => "東証1",
+    "市場第一部（外国株）" => "東証1",
+    "市場第二部（内国株）" => "東証2",
+    "市場第二部（外国株）" => "東証2",
+    "JASDAQ(スタンダード・内国株）" => "JASDAQ",
+    "JASDAQ(グロース・内国株）" => "JASDAQ",
+    "JASDAQ(スタンダード・外国株）" => "JASDAQ",
+    "マザーズ（外国株）" => "マザーズ",
+    "マザーズ（内国株）" => "マザーズ",
+    "ETF・ETN" => "ETF",
+    "REIT・ベンチャーファンド・カントリーファンド・インフラファンド" => "REIT",
+    "出資証券" => "証券",
+    "PRO Market" => "PRO"
+  }.freeze
 end

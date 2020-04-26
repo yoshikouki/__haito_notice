@@ -66,26 +66,24 @@ class Td
   def converting_response(response)
     # XMLをデコード、ハッシュ型に変換
     res_hash = Hash.from_xml(response.body)
-    return unless res_hash["TDnetList"]["items"]["item"].count >= 2
 
-    # TDnet情報リスト
-    # Array配列の中にHashで情報が入っている。keyはAPI準拠。
-    init_tds = res_hash["TDnetList"]["items"]["item"].map do |v|
-      v["Tdnet"]
+    # TD情報ハッシュを作成。keyをDBカラム名に変換
+    # レスポンス（TD情報）の数が1つの場合階層が違う
+    item = res_hash["TDnetList"]["items"]["item"]
+    if item.count >= 2
+      init_tds = item.map do |td|
+        td["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
+      end
+    elsif item.count == 1
+      td = item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
+      init_tds = [td]
     end
 
-    # keysをDBカラムに変換
-    converted_keys = init_tds.map do |h|
-      h.transform_keys { |k| CONVERT_KEY[k] || k }
-    end
-
-    # info_urlを直URLに変換
-    converted_keys.each do |h|
+    # TD情報ハッシュを変換する
+    init_tds.each do |h|
+      # info_urlを直URLに変換
       h["info_url"] = URI.parse(h["info_url"]).query
-    end
-
-    # market_divisionをコンバート
-    converted_keys.each do |h|
+      # market_divisionを変換
       md = h["market_division"]
       h["market_division"] = CONVERT_MARKET_DIVISION[md] || md
     end

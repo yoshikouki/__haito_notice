@@ -45,6 +45,8 @@ class Td
       end
     elsif item.count == 1
       init_tds = [item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }]
+    else
+      return nil
     end
 
     convert_hash(init_tds)

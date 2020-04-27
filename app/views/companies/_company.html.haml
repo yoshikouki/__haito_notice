@@ -6,9 +6,7 @@
   %span.company-name
     %b= company.company_name
   %div
-    = render partial: 'shared/company_symbol',
-              locals: { local_code: company.local_code,
-                        market_division: company.market_division }
+    = render('shared/company_symbol', td: td)
 
 -# Ajaxが#watch-formをターゲットに動作しているため、リスト表示するとターゲットが複数存在するため正常に動作しない。今後の改善点。
 -# = render 'shared/watch_form'

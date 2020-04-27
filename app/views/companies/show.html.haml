@@ -8,9 +8,7 @@
 
 .mb-4.cleafix
   .float-left
-    = render('shared/company_symbol',
-              local_code: params[:id],
-              market_division: @company.market_division)
+    = render('shared/company_symbol', td: td)
   .d-flex.justify-content-end
     - if logged_in?
       = render('shared/watch_form')

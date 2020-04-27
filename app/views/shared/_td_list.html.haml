@@ -1,16 +1,4 @@
 -# TDnet情報をリスト表示
--# tds_hash()から取得
 
--# TDnetの戻り値は、複数の場合と単数の場合で配列階層が異なる
 %section.list.border-top
-  - if @tds.count >= 2
-    -# TD情報が（戻り値）が複数の場合
-    = render(partial: 'shared/td', collection: @tds)
-
-  - elsif @tds.count == 1
-    -# TD情報が一つだった場合
-    = render(partial: 'shared/td', td: @tds)
-
-  - else
-    -# TD情報がなかった場合
-    = render('shared/empty_td')
+  = render(partial: 'shared/td', collection: @tds) || render('shared/empty_td')

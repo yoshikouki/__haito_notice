@@ -1,10 +1,10 @@
 - provide(:title, 'ウォッチリスト')
 
 .my-4
-  = link_to mypage_path, class: 'text-decoration-none' do
+  = link_to(mypage_path, class: 'text-decoration-none') do
     -# <%# アカウント名 %>
     .h5.inline.mb-4
-      = icon 'fas', 'angle-left mr-1'
+      = icon('fas', 'angle-left mr-1')
       = @user.name
 
   .mb-4
@@ -16,37 +16,34 @@
         = "#{@user.watchlists.count} 社"
     -# フィードナビゲーション
     .container.mb-4
-      = render 'users/feed_nav'
+      = render('users/feed_nav')
 
     - if @companies.count > 0
       -# フィードのページネーション
       .my-4
-        = paginate @companies
+        = paginate(@companies)
       -# フィードリスト
       %ul.list-group.list-group-flush.border-top
         - @companies.each do |com|
-          = link_to( { controller: 'companies',                                                    |
-            action: 'show',                                                                        |
-            id: com.local_code },                                                                  |
-            class: "list-group-item list-group-item-action flex-column align-items-start px-2") do |
+          = link_to( { controller: 'companies',
+                        action: 'show',
+                        id: com.local_code },
+                    class: "list-group-item list-group-item-action flex-column align-items-start px-2") do
             %span.company-name
               %b= com.company_name
             %div
               = render('companies/company_information', company: com )
       -# フィードのページネーション
       .my-4
-        = paginate @companies
+        = paginate(@companies)
 
     - else
       -# ウォッチリストが空の場合
-      = link_to '/companies',   |
-        class: "text-center" do |
-        .border-top.border-bottom.px-2.py-4
-          = icon( "fas", "globe", class: 'mr-1')
-          企業を探す
+      = render('shared/empty_td')
 
   -# マイページへのリンク
-  = link_to mypage_path, class: "btn btn-outline-secondary btn-block", |
-    role: "button" do                                                  |
-    = icon 'fas', 'angle-left'
+  = link_to(mypage_path,
+            class: "btn btn-outline-secondary btn-block",
+            role: "button") do
+    = icon('fas', 'angle-left')
     マイページ

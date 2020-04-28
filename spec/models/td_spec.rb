@@ -7,8 +7,8 @@ RSpec.describe Td, type: :model do
   end
 
   describe "WebAPI関係" do
-    let(:tds) { Td.new.recent_tds(30) }
-    let(:td) { Td.new.recent_tds(1) }
+    let(:tds) { Td.new.recent(30) }
+    let(:td) { Td.new.recent(1) }
 
     it "APIレスポンスの数は正しい" do
       expect(tds.count).to be 30

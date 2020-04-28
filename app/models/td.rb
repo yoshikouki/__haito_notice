@@ -8,8 +8,21 @@ class Td
                 :info_url,
                 :market_division
 
-  def recent_tds(limit = 10)
-    res = call_api("recent", limit)
+  def recent(limit)
+    create_tds("recent", limit)
+  end
+
+  def company(local_code, limit)
+    create_tds(local_code, limit)
+  end
+
+  def daily(date, limit)
+    date ||= "today"
+    create_tds(date, limit)
+  end
+
+  def create_tds(key, limit = 10)
+    res = call_api(key, limit)
     converting_response(res)
   end
 
@@ -55,7 +68,7 @@ class Td
   # TD情報ハッシュを変換
   def convert_hash(tds)
     # 企業名をリスト化（準備工程）
-    local_codes = tds.map { |v| v["local_code"].chop }
+    local_codes = tds.map { |v| v["local_code"].chop }.uniq
     name_list = Company
                 .select(:local_code, :company_name)
                 .where(local_code: local_codes)

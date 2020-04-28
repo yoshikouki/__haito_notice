@@ -32,9 +32,7 @@
             %span.company-name
               %b= com.company_name
             %div
-              = render partial: 'shared/company_symbol', |
-                locals: { local_code: com.local_code,    |
-                market_division: com.market_division }   |
+              = render('companies/company_information', company: com )
       -# フィードのページネーション
       .my-4
         = paginate @companies

@@ -8,7 +8,8 @@ class CompaniesController < ApplicationController
 
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
-    unless get_tds(params["id"], 30)
+    @tds = Td.new.company(params["id"], 30)
+    unless @tds
       flash.now[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
     else

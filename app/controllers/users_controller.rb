@@ -77,14 +77,14 @@ class UsersController < ApplicationController
   def mypage
     @user = current_user
     # ウォッチリスト登録されている企業のTD情報を取得
-    lcs = []
     wls = @user.watchlists
     if wls.empty?
       @tds = []
     else
-      wls.each{ |wl| lcs << wl[:local_code] }
+      lcs = []
+      wls.each{ |v| lcs << v[:local_code] }
       ticker_symbol = lcs.join("-")
-      get_tds(ticker_symbol, 3)
+      @tds = Td.new.company(ticker_symbol, 3)
     end
   end
 
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
       lcs = []
       wls.each{ |wl| lcs << wl[:local_code] }
       ticker_symbol = lcs.join("-")
-      get_tds(ticker_symbol, 30)
+      @tds = Td.new.company(ticker_symbol, 30)
     end
   end
 

@@ -6,7 +6,7 @@
   %span.company-name
     %b= company.company_name
   %div
-    = render('shared/company_symbol', td: td)
+    = render('companies/company_information', company: company )
 
 -# Ajaxが#watch-formをターゲットに動作しているため、リスト表示するとターゲットが複数存在するため正常に動作しない。今後の改善点。
 -# = render 'shared/watch_form'

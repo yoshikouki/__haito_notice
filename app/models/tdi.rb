@@ -1,4 +1,4 @@
-class Td
+class Tdi
   include ActiveModel::Model
 
   attr_accessor :pub_date,
@@ -9,26 +9,26 @@ class Td
                 :market_division
 
   def recent(limit)
-    create_tds("recent", limit)
+    create_tdis("recent", limit)
   end
 
   def company(local_code, limit)
-    create_tds(local_code, limit)
+    create_tdis(local_code, limit)
   end
 
   def daily(date, limit)
     date ||= "today"
-    create_tds(date, limit)
+    create_tdis(date, limit)
   end
 
   def watching_tdis(user, limit)
     local_codes = user.watching_local_codes
     return false if local_codes.count.zero?
 
-    create_tds(local_codes.join("-"), limit)
+    create_tdis(local_codes.join("-"), limit)
   end
 
-  def create_tds(key, limit = 10)
+  def create_tdis(key, limit = 10)
     res = call_api(key, limit)
     converting_response(res)
   end
@@ -60,22 +60,22 @@ class Td
 
     # レスポンス（TD情報）の数が1つの場合階層が違う
     if item.count >= 2
-      init_tds = item.map do |hash|
+      init_tdis = item.map do |hash|
         hash["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
       end
     elsif item.count == 1
-      init_tds = [item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }]
+      init_tdis = [item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }]
     else
       return nil
     end
 
-    convert_hash(init_tds)
+    convert_hash(init_tdis)
   end
 
   # TD情報ハッシュを変換
-  def convert_hash(tds)
+  def convert_hash(tdis)
     # 企業名をリスト化（準備工程）
-    local_codes = tds.map { |v| v["local_code"].chop }.uniq
+    local_codes = tdis.map { |v| v["local_code"].chop }.uniq
     name_list = Company
                 .select(:local_code, :company_name)
                 .where(local_code: local_codes)
@@ -84,18 +84,18 @@ class Td
                 end
                 .to_h
 
-    tds.each do |td|
+    tdis.each do |tdi|
       # info_urlを直URLに変換
-      td["info_url"] = URI.parse(td["info_url"]).query
+      tdi["info_url"] = URI.parse(tdi["info_url"]).query
       # market_divisionを変換
-      md = td["market_division"]
-      td["market_division"] = CONVERT_MARKET_DIVISION[md] || md
+      md = tdi["market_division"]
+      tdi["market_division"] = CONVERT_MARKET_DIVISION[md] || md
       # local_code文末の0を削除
-      td["local_code"].chop!
+      tdi["local_code"].chop!
       # 企業名をDB登録名に変換
       # レコードがない場合はそのまま使用
-      td["company_name"] = \
-        name_list[td["local_code"].to_i] || td["company_name"]
+      tdi["company_name"] = \
+        name_list[tdi["local_code"].to_i] || tdi["company_name"]
     end
   end
 

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Tds", type: :system do
+RSpec.describe "Tdis", type: :system do
   before do
     driven_by(:rack_test)
-    create_webmock("today.xml?limit=30", "recent_tds.xml")
+    create_webmock("today.xml?limit=30", "recent_tdis.xml")
   end
 
   it "本日分のTD情報" do

@@ -5,7 +5,7 @@ module WebmockHelpers
 
     # 引数の初期化
     url ||= "recent.xml?limit=10"
-    file_name ||= "recent_tds.xml"
+    file_name ||= "recent_tdis.xml"
 
     request = "https://webapi.yanoshin.jp/webapi/tdnet/list/" + url
     response = Rails.root.join("spec/fixtures/", file_name)

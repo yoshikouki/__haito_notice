@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class TdsControllerTest < ActionDispatch::IntegrationTest
+class TdisControllerTest < ActionDispatch::IntegrationTest
   test "should get daily" do
-    get tds_daily_url
+    get tdis_daily_url
     assert_response :success
   end
 

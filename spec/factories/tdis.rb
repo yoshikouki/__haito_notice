@@ -1,4 +1,4 @@
 FactoryBot.define do
-  factory :td do
+  factory :tdi do
   end
 end

@@ -6,7 +6,7 @@ RSpec.describe "統合テスト : Users", type: :system do
   before do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
-    create_webmock("recent.xml?limit=10", "recent_tds.xml")
+    create_webmock("recent.xml?limit=10", "recent_tdis.xml")
     # メールのテストのため、送信済みメールを初期化
     ActionMailer::Base.deliveries.clear
   end

@@ -11,17 +11,18 @@
         Email
       = @user.email
     .d-flex.justify-content-end
-      = link_to '登録情報を変更', edit_user_path(@user),               |
-        class: "inline-block btn btn-outline-secondary btn-sm", |
-        role: "button"                                          |
+      = link_to('登録情報を変更', 
+                edit_user_path(@user),
+                class: "inline-block btn btn-outline-secondary btn-sm",
+                role: "button")
 
   -# ウォッチリスト
   .mb-4
-    = link_to watchlist_path,                |
-      id: "watchlist-link",                  |
-      class: "btn btn-secondary btn-block ", |
-      role: "button" do                      |
-      = icon 'fas', 'building'
+    = link_to(watchlist_path,
+              id: "watchlist-link",
+              class: "btn btn-secondary btn-block ",
+              role: "button") do
+      = icon('fas', 'building')
       ウォッチリスト
       %span.badge.badge-pill.badge-light
         = @user.watchlists.count
@@ -29,25 +30,25 @@
 
   -# フィード（TDリスト）
   .mb-4
-    = link_to feed_path, id: "feed-link" do
+    = link_to(feed_path, id: "feed-link") do
       .w-auto.p-2.border-top.rounded-top.text-white.bg-secondary.text-center
-        = icon 'fas', 'rss'
+        = icon('fas', 'rss')
         TDフィード
-    = link_to feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle" do
     = render('shared/tdi_list')
+    = link_to(feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle") do
       %span.small.mr-1 もっと見る
-      = icon 'fas', 'angle-right'
+      = icon('fas', 'angle-right')
 
   -# ログアウト・アカウント削除
   .destroy-content.mt-5.mb-4
-    = link_to '/logout',                                        |
-      class: "btn btn-outline-secondary btn-block btn-sm mb-4", |
-      method: :delete,                                          |
-      role: "button" do                                         |
+    = link_to('/logout',
+              class: "btn btn-outline-secondary btn-block btn-sm mb-4",
+              method: :delete,
+              role: "button") do
       = icon( "fas", "sign-out-alt")
       ログアウト
-    = link_to @user,                                             |
-      method: :delete,                                           |
-      class: "text-danger small",                                |
-      data: { confirm: "本当にアカウントを削除しますか？この操作はやり直すことができません。" } do |
+    = link_to(@user,
+      method: :delete,
+      class: "text-danger small",
+      data: { confirm: "本当にアカウントを削除しますか？この操作はやり直すことができません。" } ) do
       アカウントを削除

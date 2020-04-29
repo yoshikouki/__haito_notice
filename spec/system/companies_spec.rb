@@ -60,11 +60,11 @@ RSpec.describe "Companies", type: :system do
       expect(page).to \
         have_content "銘柄コードが不正です"
 
-      # visit company_path(1)
-      # expect(page).to \
-      #   have_current_path root_path
-      # expect(page).to \
-      #   have_content "銘柄コードが不正です"
+      visit company_path(1)
+      expect(page).to \
+        have_current_path root_path
+      expect(page).to \
+        have_content "銘柄コードが不正です"
     end
   end
 end

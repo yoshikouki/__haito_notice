@@ -7,15 +7,7 @@ class StaticPagesController < ApplicationController
     # ウォッチリスト登録されている企業のTD情報を取得
     if logged_in?
       @user = current_user
-      wls = @user.watchlists
-      if wls.empty?
-        @tds = []
-      else
-        lcs = []
-        wls.each{ |wl| lcs << wl[:local_code] }
-        param = lcs.join("-")
-        @tds = Td.new.company(param, 10)
-      end
+      @tds = Td.new.watching_tdis(@user, 10)
     end
   end
 end

@@ -21,6 +21,11 @@ class Td
     create_tds(date, limit)
   end
 
+  def watching_tdis(user, limit)
+    local_codes = user.watching_local_codes
+    create_tds(local_codes.join("-"), limit)
+  end
+
   def create_tds(key, limit = 10)
     res = call_api(key, limit)
     converting_response(res)

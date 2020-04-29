@@ -101,6 +101,12 @@ class User < ApplicationRecord
     !watchlists.where(local_code: company.local_code).empty?
   end
 
+  # watchlistに登録されているlocal_codeを返す
+  def watching_local_codes
+    wls = watchlists
+    wls.empty? ? @tds = [] : wls.map { |v| v[:local_code] }
+  end
+
   private
     # emailを全て小文字化
     def downcase_email

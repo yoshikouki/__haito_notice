@@ -23,6 +23,8 @@ class Td
 
   def watching_tdis(user, limit)
     local_codes = user.watching_local_codes
+    return false if local_codes.count.zero?
+
     create_tds(local_codes.join("-"), limit)
   end
 

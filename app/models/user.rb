@@ -104,7 +104,7 @@ class User < ApplicationRecord
   # watchlistに登録されているlocal_codeを返す
   def watching_local_codes
     wls = watchlists
-    wls.empty? ? @tds = [] : wls.map { |v| v[:local_code] }
+    wls.empty? ? [] : wls.map { |v| v[:local_code] }
   end
 
   private

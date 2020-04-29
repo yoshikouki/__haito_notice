@@ -8,6 +8,7 @@ RSpec.describe "Companies", type: :system do
     create_webmock("recent.xml?limit=10", "recent_tdis.xml")
     create_webmock("#{company.local_code}.xml?limit=30", "feed_tdis.xml")
     create_webmock("1.xml?limit=30", "Invalid_Request.xml")
+    create_webmock("#{CGI.escape('あいうえお')}.xml?limit=30", "Invalid_Request.xml")
   end
 
   describe "企業一覧" do
@@ -60,7 +61,15 @@ RSpec.describe "Companies", type: :system do
       expect(page).to \
         have_content "銘柄コードが不正です"
 
+      # URLに直接入力
       visit company_path(1)
+      expect(page).to \
+        have_current_path root_path
+      expect(page).to \
+        have_content "銘柄コードが不正です"
+
+      # ASCII以外の文字入力
+      visit company_path("あいうえお")
       expect(page).to \
         have_current_path root_path
       expect(page).to \

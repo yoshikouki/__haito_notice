@@ -41,7 +41,7 @@ class Tdi
   def call_api(company = "recent", limit = 30)
     # 銘柄コード（もしくは条件）とオプションをまとめる
     params = {
-      company: company,
+      company: CGI.escape(company),
       format:  ".xml"
     }.values.join
     query = {

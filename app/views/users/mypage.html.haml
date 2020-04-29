@@ -33,8 +33,8 @@
       .w-auto.p-2.border-top.rounded-top.text-white.bg-secondary.text-center
         = icon 'fas', 'rss'
         TDフィード
-    = render 'shared/td_list'
     = link_to feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle" do
+    = render('shared/tdi_list')
       %span.small.mr-1 もっと見る
       = icon 'fas', 'angle-right'
 

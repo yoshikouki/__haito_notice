@@ -5,7 +5,7 @@
 .mb-5
   %h1.h5.mb-4 適時開示情報（ウォッチ中）
   - if logged_in?
-    = render('shared/td_list')
+    = render('shared/tdi_list')
     = link_to(feed_path, 
               class: "text-muted d-flex justify-content-end my-2 align-middle") do
       %span.small.mr-1 もっと見る
@@ -21,7 +21,7 @@
 .mb-4
   %h1.h5.mb-4
     適時開示情報（最新）
-  = render(partial: 'shared/td', collection: @recent)
+  = render(partial: 'shared/tdi', collection: @recent)
   = link_to(daily_path, 
             class: "text-muted d-flex justify-content-end my-2 align-middle") do
     %span.mr-1

@@ -30,7 +30,7 @@ class Tdi
 
   def create_tdis(key, limit = 10)
     res = call_api(key, limit)
-    converting_response(res)
+    converting_response(res) if res
   end
 
   private

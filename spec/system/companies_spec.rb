@@ -46,7 +46,7 @@ RSpec.describe "Companies", type: :system do
         have_content company.company_name
     end
 
-    it "企業検索で失敗する" do
+    it "不正な銘柄コードの企業検索でのエラー処理" do
       visit companies_path
       # 企業検索バーから銘柄コードで検索
       within("#ts-search") do

@@ -30,46 +30,44 @@ class Tdi
 
   def create_tdis(key, limit = 10)
     res = call_api(key, limit)
-    converting_response(res) if res
+    return false if res.body.include?("Invalid Request")
+
+    init_tdis = convert_response(res)
+    convert_hash(init_tdis)
   end
 
   private
 
   def call_api(company = "recent", limit = 30)
     # 銘柄コード（もしくは条件）とオプションをまとめる
-    params = { company: company,
-               format:  ".xml" }
-    pr = params.values.join
-    query = { limit: limit }
-    qu = query.to_query
+    params = {
+      company: company,
+      format:  ".xml"
+    }.values.join
+    query = {
+      limit: limit
+    }.to_query
 
     # WebAPIを呼び出す
-    uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/#{pr}?#{qu}")
+    uri = URI("https://webapi.yanoshin.jp/webapi/tdnet/list/#{params}?#{query}")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    req = Net::HTTP::Get.new(uri)
-    response = http.request(req)
-    return false if response.body == "Invalid Request"
-
-    response
+    request = Net::HTTP::Get.new(uri)
+    http.request(request)
   end
 
-  def converting_response(response)
+  def convert_response(response)
     # TD情報のXMLをデコード、ハッシュ型に変換
     item = Hash.from_xml(response.body)["TDnetList"]["items"]["item"]
 
     # レスポンス（TD情報）の数が1つの場合階層が違う
     if item.count >= 2
-      init_tdis = item.map do |hash|
-        hash["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }
+      item.map do |hash|
+        hash["Tdnet"].transform_keys { |k| CONVERT_TABLE_KEY[k] || k }
       end
     elsif item.count == 1
-      init_tdis = [item["Tdnet"].transform_keys { |k| CONVERT_KEY[k] || k }]
-    else
-      return nil
+      [item["Tdnet"].transform_keys { |k| CONVERT_TABLE_KEY[k] || k }]
     end
-
-    convert_hash(init_tdis)
   end
 
   # TD情報ハッシュを変換
@@ -79,9 +77,7 @@ class Tdi
     name_list = Company
                 .select(:local_code, :company_name)
                 .where(local_code: local_codes)
-                .map do |v|
-                  [v.local_code, v.company_name]
-                end
+                .map { |v| [v.local_code, v.company_name] }
                 .to_h
 
     tdis.each do |tdi|
@@ -89,7 +85,7 @@ class Tdi
       tdi["info_url"] = URI.parse(tdi["info_url"]).query
       # market_divisionを変換
       md = tdi["market_division"]
-      tdi["market_division"] = CONVERT_MARKET_DIVISION[md] || md
+      tdi["market_division"] = CONVERT_TABLE_MARKET_DIVISION[md] || md
       # local_code文末の0を削除
       tdi["local_code"].chop!
       # 企業名をDB登録名に変換
@@ -100,7 +96,7 @@ class Tdi
   end
 
   # APIレスポンスのキーとDBカラム名（予定）の対応表
-  CONVERT_KEY = {
+  CONVERT_TABLE_KEY = {
     "pubdate" => "pub_date",
     "company_code" => "local_code",
     "company_name" => "company_name",
@@ -110,7 +106,7 @@ class Tdi
   }.freeze
 
   # 市場区分の対応表
-  CONVERT_MARKET_DIVISION = {
+  CONVERT_TABLE_MARKET_DIVISION = {
     # WebAPIとの対応表
     "東" => "東証",
     "東名" => "名証",

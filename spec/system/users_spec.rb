@@ -118,7 +118,7 @@ RSpec.describe "統合テスト : Users", type: :system do
       click_on user.name
       expect(page).to have_content "企業を探す"
       # フィード画面のフィード
-      click_on 'TDフィード'
+      click_on 'TDIフィード'
       expect(page).to have_content "企業を探す"
 
       # ログアウト

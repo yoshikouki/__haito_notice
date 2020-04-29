@@ -6,7 +6,7 @@ RSpec.describe "統合テスト : Users", type: :system do
   before do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
-    create_webmock("recent.xml?limit=10", "recent_tds.xml")
+    create_webmock("recent.xml?limit=10", "recent_tdis.xml")
     # メールのテストのため、送信済みメールを初期化
     ActionMailer::Base.deliveries.clear
   end
@@ -35,10 +35,18 @@ RSpec.describe "統合テスト : Users", type: :system do
       expect { click_on 'commit' }.to \
         change(User, :count).by(1)
 
-      # 有効化メールの送信
+      # 有効化メールの送信を確認
       expect(find("header")).to have_content "ログイン"
       expect(page).to have_content "登録確認用のメールを送信しました。メールを確認し、アカウントを有効化してください"
       expect(ActionMailer::Base.deliveries.count).to eq 1
+
+      # 有効化ステップ
+      mail = ActionMailer::Base.deliveries.last
+      url = extract_url(mail)
+      expect { visit url }.to \
+        change { User.find_by(email: inact.email).activated }.from(false).to(true)
+      expect(page).to have_content "正常にアカウントが有効化されました！"
+      expect(find('header')).to have_content inact.name
     end
 
     it "マイページから基本情報を編集" do
@@ -110,7 +118,7 @@ RSpec.describe "統合テスト : Users", type: :system do
       click_on user.name
       expect(page).to have_content "企業を探す"
       # フィード画面のフィード
-      click_on 'TDフィード'
+      click_on 'TDIフィード'
       expect(page).to have_content "企業を探す"
 
       # ログアウト

@@ -1,0 +1,13 @@
+-# Companyの個別ページでTDnet情報をリスト表示
+-# tdis_hash()から取得
+
+.list-item.doc-info.position-relative.py-3.px-2.border-bottom
+  = link_to(tdi["info_url"],
+            target: "_blank",
+            class: "stretched-link text-decoration-none" ) do
+    .tdi-item.pub-date.badge.badge-pill.badge-info.px-2.mb-1
+      = tdi["pub_date"]
+    .tdi-item.doc-title
+      = tdi["info_title"]
+      = icon("far", "clone", class: "caption-icon")
+

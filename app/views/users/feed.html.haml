@@ -1,0 +1,29 @@
+- provide(:title, '適時開示情報（ウォッチ中）')
+
+.my-4
+  -# アカウント・ページ名
+  = link_to(mypage_path, class: 'text-decoration-none') do
+    .h5.inline.mb-4
+      = icon('fas', 'angle-left mr-1')
+      = @user.name
+
+  .mb-4
+    %h1.h5.d-inline-block
+      適時開示情報（ウォッチ中）
+    %span.badge.badge-pill.badge-secondary
+      = "#{@user.watchlists.count} 社"
+
+  -# フィードナビゲーション
+  .container.mb-4
+    = render('users/feed_nav')
+
+  -# フィードリスト
+  .mb-4
+    = render('shared/tdi_list')
+
+  -# マイページへのリンク
+  = link_to(mypage_path,
+            class: "btn btn-outline-secondary btn-block",
+            role: "button") do
+    = icon('fas', 'angle-left')
+    マイページ

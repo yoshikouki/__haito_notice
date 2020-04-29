@@ -30,6 +30,10 @@ Rails:
 Style/AsciiComments:
   Enabled: false
 
+# Hashのコード整形はコロンスタイルかつテーブルスタイルで。
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+
 # For rubocop < 1.0.0
 Style/HashEachMethods:
   Enabled: true
@@ -48,6 +52,14 @@ Lint/RaiseException:
 
 # For rubocop < 1.0.0
 Lint/StructNewOverride:
+  Enabled: true
+
+# For rubocop < new version
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# For rubocop < new version
+Style/ExponentialNotation:
   Enabled: true
 
 Capybara/FeatureMethods:
@@ -75,6 +87,8 @@ RSpec/ExampleLength:
     - 'spec/system/*'
 
 # System SpecではExpectを複数記載できる
+# Rspec でexpectを2つまで記述できる
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/system/*'
+  Max: 2

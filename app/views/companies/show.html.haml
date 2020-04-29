@@ -1,0 +1,25 @@
+-# 企業の個別ページ
+- provide(:title, "#{@company.company_name}の適時開示情報")
+
+%h1.h5 適時開示情報（企業別）
+
+%h2#company-name.font-weight-bold
+  = @company.company_name
+
+.mb-4.cleafix
+  .float-left
+    = render('companies/company_information', company: @company )
+  .d-flex.justify-content-end
+    - if logged_in?
+      = render('shared/watch_form')
+    - else
+      = link_to('/login',
+                id: "login-to-watch", 
+                class: "text-center") do
+        .btn.btn-outline-primary.btn-block
+          = icon( "fas", "eye", class: 'mr-1')
+          ログインしてウォッチ
+
+-# TDnet情報を表示
+.tdis-list.list.border-top
+  = render(partial: 'tdi', collection: @tdis)

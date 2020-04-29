@@ -1,0 +1,6 @@
+= form_with( url: watch_path,  |
+  method: :post,               |
+  class: "watch-form" ) do |f| |
+  %div= hidden_field_tag :local_code, @company.local_code
+  = button_tag type: "submit", id: "watch-btn", class: "btn btn-primary" do
+    = icon('fa', 'eye')

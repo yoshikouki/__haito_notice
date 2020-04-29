@@ -1,0 +1,33 @@
+-# 企業情報 ＋ TD情報 の二行構成
+- count = tdi_counter + 1
+
+-# リストアイテム
+.border-bottom{ id: "#tdi-item-#{count}"}
+  -# 企業情報
+  .company-info.position-relative.bg-light
+    = link_to( { controller: 'companies', 
+                 action: 'show',
+                 id: tdi["local_code"] },
+              id: "company-link-#{count}",
+              class: "stretched-link text-decoration-none" ) do
+      .company.py-2.px-2
+        -# 企業名
+        %span.company-name.font-weight-bold.text-secondary
+          = tdi["company_name"]
+        -# 企業シンボル
+        = render('shared/company_symbol', tdi: tdi)
+
+  -# TD情報
+  .doc-info.position-relative
+    = link_to(tdi["info_url"],
+              target: "_blank",
+              id: "tdi-link-#{count}",
+              class: "stretched-link text-decoration-none") do
+      .document.py-2.px-2
+        -# ドキュメント名
+        .doc-title.text-primary
+          = tdi["info_title"]
+          = icon("far", "clone", class: "caption-icon")
+        -# 公開日時
+        .pub-date.caption-text
+          = tdi["pub_date"]

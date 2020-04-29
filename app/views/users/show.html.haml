@@ -1,0 +1,9 @@
+- provide(:title, 'マイページ')
+.my-4
+  %h1.h5= @user.name
+  = link_to users_path,                          |
+    class: "btn btn-secondary btn-block btn-sm", |
+    method: :delete,                             |
+    role: "button" do                            |
+    = icon( "fas", "angle-left")
+    一覧へ戻る

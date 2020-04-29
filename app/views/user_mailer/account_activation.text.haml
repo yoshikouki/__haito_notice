@@ -1,0 +1,6 @@
+= "#{@user.name}さん、配当ノーティスへようこそ"
+
+アカウントを有効化するために次のURLへアクセスしてください
+
+= edit_account_activation_url(@user.activation_token, email: @user.email)
+

@@ -52,7 +52,7 @@ class PasswordResetsController < ApplicationController
 
   # before_action #edit #update
   def check_expiration
-    return if @user.reset_sent_at > 1.hour .ago
+    return if @user.reset_sent_at > 1.hour.ago
 
     flash[:danger] = "パスワード再設定URLの有効期限が切れています。"
     redirect_to new_password_reset_url

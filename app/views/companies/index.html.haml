@@ -1,0 +1,21 @@
+- provide(:title, '上場企業一覧')
+
+.content-title.mb-4
+  %h1.h5 企業一覧（全て）
+
+-# 銘柄コード検索フォーム
+= render 'shared/ts_search'
+
+-# セクターをリスト表示
+= render 'sector_list'
+
+-# 企業一覧を表示
+= render 'companies/company_list'
+
+-# 企業一覧インポート機能
+-# = form_tag import_from_companies_path, multipart: true do
+-#   = file_field_tag :file
+  -# = submit_tag "インポート"
+
+
+

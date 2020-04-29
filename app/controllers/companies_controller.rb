@@ -3,12 +3,15 @@ class CompaniesController < ApplicationController
   before_action :sector_list, only:[:index, :sectors]
 
   def index
-    @companies = Company.order(:tsi_code).page(params[:page]).per(50)
+    @companies = Company.order(:tsi_code)
+                        .page(params[:page])
+                        .per(50)
   end
 
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
-    unless get_tds(params["id"], 30)
+    @tdis = Tdi.new.company(params["id"], 30)
+    unless @tdis
       flash.now[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
     else
@@ -24,7 +27,9 @@ class CompaniesController < ApplicationController
   # 東証33業種で検索
   def sectors
     tsi_code = params[:id]
-    @companies = Company.where(tsi_code: tsi_code).page(params[:page]).per(50)
+    @companies = Company.where(tsi_code: tsi_code)
+                        .page(params[:page])
+                        .per(50)
     if @companies.empty?
       flash[:warning] = "セクターコードが不正です"
       redirect_to companies_url 

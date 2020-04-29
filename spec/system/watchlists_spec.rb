@@ -7,10 +7,10 @@ RSpec.describe "Watchlists", type: :system do
   before do
     driven_by(:rack_test)
     # 外部APIへのアクセスをモック化
-    create_webmock("recent.xml?limit=10", "recent_tds.xml")
-    create_webmock("#{company.local_code}.xml?limit=30", "feed_tds.xml")
-    create_webmock("#{company.local_code}.xml?limit=10", "feed_tds.xml")
-    create_webmock("#{company.local_code}.xml?limit=3", "feed_tds.xml")
+    create_webmock("recent.xml?limit=10", "recent_tdis.xml")
+    create_webmock("#{company.local_code}.xml?limit=30", "feed_tdis.xml")
+    create_webmock("#{company.local_code}.xml?limit=10", "feed_tdis.xml")
+    create_webmock("#{company.local_code}.xml?limit=3", "feed_tdis.xml")
   end
 
   describe "ウォッチリスト機能" do
@@ -29,7 +29,7 @@ RSpec.describe "Watchlists", type: :system do
       end
       expect(page).to \
         have_current_path company_path(company.local_code)
-      expect(page).to have_content "フィードテスト株式会社1"
+      expect(page).to have_content company.company_name
       # ウォッチする
       expect { click_on 'watch-btn' }.to \
         change { user.watchlists.count }.by(1)

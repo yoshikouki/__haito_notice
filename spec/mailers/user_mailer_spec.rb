@@ -4,6 +4,9 @@ RSpec.describe UserMailer, type: :mailer do
   describe "account_activation" do
     let(:user) { FactoryBot.create(:inact) }
     let(:mail) { UserMailer.account_activation(user) }
+    let(:mail_body) do
+      mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join
+    end
 
     before do
       user.activation_token = User.new_token
@@ -12,9 +15,9 @@ RSpec.describe UserMailer, type: :mailer do
     it { expect(mail.subject).to eq "配当ノーティスへのご登録をありがとうございます！" }
     it { expect(mail.to[0]).to eq user.email }
     it { expect(mail.from[0]).to eq "noreply@example.com" }
-    it { expect(mail.body.encoded).to match user.name }
-    it { expect(mail.body.encoded).to match user.activation_token }
-    it { expect(mail.body.encoded).to match CGI.escape(user.email) }
+    it { expect(mail_body).to match user.name }
+    it { expect(mail_body).to match user.activation_token }
+    it { expect(mail_body).to match CGI.escape(user.email) }
   end
 
   describe "password_reset" do

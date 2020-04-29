@@ -1,0 +1,9 @@
+- provide(:title, 'アカウント変更')
+
+-# formパーシャル用
+- provide(:button_text, '保存')
+- provide(:form_id, 'edit-user-form')
+
+%h1.h5.pb-4 アカウント変更
+
+= render 'form', user: @user

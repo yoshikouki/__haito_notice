@@ -1,0 +1,20 @@
+-# マイページのフィードとウォッチリストに表示するナビゲーション
+
+.row.bg-light.rounded-lg.p-1
+  -# フィードへのナビボタン
+  = link_to feed_path,                                                 |
+      id: "feed-link",                                                   |
+      class: "btn btn-sm col                                             |
+      btn-#{controller.action_name == 'feed' ? 'secondary' : 'light' }", |
+      role: "button" do                                                  |
+    = icon 'fas', 'rss'
+    TDIフィード
+
+  -# ウォッチリストへのナビボタン
+  = link_to watchlist_path,                                                 |
+      id: "watchlist-link",                                                   |
+      class: "btn btn-sm col                                                  |
+      btn-#{controller.action_name == 'watchlist' ? 'secondary' : 'light' }", |
+      role: "button" do                                                       |
+    = icon 'fas', 'building'
+    ウォッチリスト

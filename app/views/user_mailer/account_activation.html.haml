@@ -1,0 +1,17 @@
+%h1
+  = "#{@user.name}さん、ご登録ありがとうございます！"
+
+%p{:style => "margin: 0 0 10px;"}
+  アカウントを有効化するために、下のボタンをクリックしてください。
+
+- url = edit_account_activation_url(@user.activation_token, email: @user.email)
+
+= link_to "アカウントの有効化", 
+          url, 
+          class: "button-a button-a-primary btn-block btn-lg", 
+          style: "background: #222222; border: 1px solid #000000; font-family: sans-serif; font-size: 15px; line-height: 15px; text-decoration: none; padding: 13px 17px; color: #ffffff; display: block; border-radius: 4px;"
+
+%p{:style => "margin: 0 0 10px 0;"}
+  もし、上記のボタンが利用できなければ、こちらをURLを使用してください
+
+= link_to url.to_s, url, style: "padding: 13px 17px;"

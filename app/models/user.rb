@@ -12,16 +12,16 @@ class User < ApplicationRecord
   
   # バリデーション
   validates :name,      presence: true, 
-                        length: { maximum: 50 }
+                        length:   { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email,
-            presence: true,
-            length: { maximum: 255 },
-            format: { with: VALID_EMAIL_REGEX },
+            presence:   true,
+            length:     { maximum: 255 },
+            format:     { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
   validates :password,
-            presence: true,
-            length: { minimum: 6 },
+            presence:  true,
+            length:    { minimum: 6 },
             allow_nil: true
 
   # 文字列をハッシュ化
@@ -99,6 +99,12 @@ class User < ApplicationRecord
   # 企業がWatchlistに登録されていたらtrue
   def watching?(company)
     !watchlists.where(local_code: company.local_code).empty?
+  end
+
+  # watchlistに登録されているlocal_codeを返す
+  def watching_local_codes
+    wls = watchlists
+    wls.empty? ? [] : wls.map { |v| v[:local_code] }
   end
 
   private

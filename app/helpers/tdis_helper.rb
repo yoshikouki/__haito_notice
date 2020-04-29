@@ -1,2 +1,2 @@
-module TdsHelper
+module TdisHelper
 end

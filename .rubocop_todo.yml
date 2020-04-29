@@ -68,7 +68,7 @@ Layout/EmptyLinesAroundClassBody:
     - 'test/controllers/companies_controller_test.rb'
     - 'test/controllers/sessions_controller_test.rb'
     - 'test/controllers/static_pages_controller_test.rb'
-    - 'test/controllers/tds_controller_test.rb'
+    - 'test/controllers/tdis_controller_test.rb'
     - 'test/mailers/previews/user_mailer_preview.rb'
     - 'test/mailers/user_mailer_test.rb'
 
@@ -198,7 +198,7 @@ Layout/SpaceInsideParens:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/controllers/static_pages_controller.rb'
-    - 'app/controllers/tds_controller.rb'
+    - 'app/controllers/tdis_controller.rb'
     - 'app/controllers/users_controller.rb'
 
 # Offense count: 2

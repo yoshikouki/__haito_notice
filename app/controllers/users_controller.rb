@@ -77,14 +77,14 @@ class UsersController < ApplicationController
   def mypage
     @user = current_user
     # ウォッチリスト登録されている企業のTD情報を取得
-    @tds = Td.new.watching_tdis(@user, 3)
+    @tdis = Tdi.new.watching_tdis(@user, 3)
   end
 
   # GET /feed
   def feed
     @user = current_user
     # ウォッチリスト登録されている企業のTD情報を取得
-    @tds = Td.new.watching_tdis(@user, 30)
+    @tdis = Tdi.new.watching_tdis(@user, 30)
   end
 
   # GET /feed/watchlist

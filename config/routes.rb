@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'tds/daily'
+  get 'tdis/daily'
 
   root 'static_pages#home'
   
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get '/feed/watchlist', to: 'users#watchlist', as: 'watchlist'
 
   # TDコントローラー
-  get '/daily', to: 'tds#daily'
+  get '/daily', to: 'tdis#daily'
 
   
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]

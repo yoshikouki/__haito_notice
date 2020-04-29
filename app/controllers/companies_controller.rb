@@ -10,12 +10,13 @@ class CompaniesController < ApplicationController
 
   def show
     # 証券コードを取得し、その証券コードでTDnetから情報を取得
-    @tdis = Tdi.new.company(params["id"], 30)
+    local_code = params["id"]
+    @tdis = Tdi.new.company(local_code, 30)
     unless @tdis
-      flash.now[:warning] = "銘柄コードが不正です"
+      flash[:warning] = "銘柄コードが不正です"
       redirect_to controller: 'static_pages', action: 'home' 
     else
-      @company = Company.find_by(local_code: params["id"])
+      @company = Company.find_by(local_code: local_code)
     end
   end
   

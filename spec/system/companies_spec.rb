@@ -7,6 +7,7 @@ RSpec.describe "Companies", type: :system do
     driven_by(:rack_test)
     create_webmock("recent.xml?limit=10", "recent_tdis.xml")
     create_webmock("#{company.local_code}.xml?limit=30", "feed_tdis.xml")
+    create_webmock("1.xml?limit=30", "Invalid_Request.xml")
   end
 
   describe "企業一覧" do
@@ -43,6 +44,27 @@ RSpec.describe "Companies", type: :system do
         have_current_path company_path(company.local_code)
       expect(find("#company-name")).to \
         have_content company.company_name
+    end
+
+    it "不正な銘柄コードの企業検索でのエラー処理" do
+      visit companies_path
+      # 企業検索バーから銘柄コードで検索
+      within("#ts-search") do
+        fill_in 'ts-search-bar', with: 1
+        click_on 'ts-search-submit'
+      end
+
+      # ルートパスへ
+      expect(page).to \
+        have_current_path root_path
+      expect(page).to \
+        have_content "銘柄コードが不正です"
+
+      visit company_path(1)
+      expect(page).to \
+        have_current_path root_path
+      expect(page).to \
+        have_content "銘柄コードが不正です"
     end
   end
 end

@@ -7,3 +7,6 @@ ja:
     new:
       title: ログイン
       submit: ログイン
+      remember_me: ログインを記憶する
+      forget_password: パスワードをお忘れの方
+      new_account: 新規アカウントを作成

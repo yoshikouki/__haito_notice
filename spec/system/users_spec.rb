@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "統合テスト : Users", type: :system do
+RSpec.describe "SystemSpec Users", type: :system do
   include SessionsHelper
 
   before do
@@ -25,7 +25,7 @@ RSpec.describe "統合テスト : Users", type: :system do
       click_on "ログイン"
 
       # アカウントを新規作成
-      click_on "アカウント登録"
+      click_on "新規アカウントを作成"
       within("#signup-form") do
         fill_in "user-name", with: inact.name
         fill_in 'user-email', with: inact.email

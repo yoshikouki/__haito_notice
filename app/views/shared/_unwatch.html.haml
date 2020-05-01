@@ -1,9 +1,11 @@
-= form_with( url: unwatch_path,  |
-  method: :delete,               |
-  class: "unwatch-form" ) do |f| |
+= form_with(url: unwatch_path,
+            method: :delete,
+            class: "unwatch-form" ) do |f|
 
   %div
-    = hidden_field_tag :local_code, @company.local_code
+    = hidden_field_tag(:local_code, @company.local_code)
 
-  = button_tag type: "submit", id: "unwatch-btn", class: "btn btn-secondary" do
+  = button_tag(type: "submit",
+               id: "unwatch-btn",
+               class: "btn btn-secondary") do
     = icon('fa', 'eye-slash')

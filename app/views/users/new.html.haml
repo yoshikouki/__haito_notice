@@ -1,9 +1,10 @@
-- provide(:title, '新規アカウント')
+- provide(:title, t('.title'))
 
 -# formパーシャル用
 - provide(:form_id, 'signup-form')
-- provide(:button_text, 'アカウントを作成')
+- provide(:submit_text, t('.submit'))
 
-%h1.h5.pb-4 配当ノーティスに登録
+%h1.h5.pb-4
+  = t('.title')
 
 = render 'form', user: @user

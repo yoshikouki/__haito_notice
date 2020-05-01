@@ -1,1 +1,9 @@
 ja:
+  users:
+    new:
+      title: 新規アカウントを作成
+      submit: アカウントを作成
+  sessions:
+    new:
+      title: ログイン
+      submit: ログイン

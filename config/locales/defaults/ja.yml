@@ -1,5 +1,7 @@
---- # GitHub svenfuchs/rails-i18n/rails/locale/ja.yml から引用
 ja:
+  helpers:
+    cancel: キャンセル
+--- # GitHub svenfuchs/rails-i18n/rails/locale/ja.yml から引用
   attributes:
     errors:
       messages:

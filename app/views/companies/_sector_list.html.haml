@@ -12,7 +12,7 @@
         %li{class: "sector-list-item btn btn-outline-secondary py-1 px-2 #{frag}"}
           -# <%# セクター名 %>
           %span.sector-name.font-weight-bold
-            = tsi == "-" ? "未分類" : tsi
+            = tsi == "-" ? t('companies.tsi.uncategorized') : tsi
           -# <%# セクターに属している企業数 %>
           %span.sector-count.small.font-weight-light
             = @tsi_count[tsi]

@@ -27,6 +27,13 @@ ja:
     daily:
       title: 適時開示情報（本日分）
   companies:
+    index:
+      title: 上場企業一覧（全企業）
+    sectors:
+      title: "セクター別の企業一覧 : %{tsi}"
+      sub_title: セクター別
     show:
       title: "%{company_name} の適時開示情報"
       sub_title: "適時開示情報（企業別）"
+    tsi:
+      uncategorized: 未分類

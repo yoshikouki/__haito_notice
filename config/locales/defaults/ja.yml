@@ -2,6 +2,9 @@ ja:
   haito_notice: 配当ノーティス
   nav:
     login: ログイン
+  link:
+    empty_tdi: 企業を探す
+    login_to_watch: ログインしてウォッチ
   helpers:
     cancel: キャンセル
   placeholder:

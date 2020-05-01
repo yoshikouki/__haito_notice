@@ -24,3 +24,6 @@ ja:
       login_to_watch: ログインしてウォッチ
       recent_title: 適時開示情報（最新）
       today_tdis_link: 本日分
+  tdis:
+    daily:
+      title: 適時開示情報（本日分）

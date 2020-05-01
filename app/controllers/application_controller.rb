@@ -4,11 +4,6 @@ class ApplicationController < ActionController::Base
   # ログイン機能
   include SessionsHelper
 
-  # url_for関係メソッドでロケールを設定するよう上書き
-  def default_url_options
-    { locale: I18n.locale }
-  end
-
   # WebAPIからXML取得後、Hash化
   # TDnet（適時開示情報）のWEB-APIプロジェクト（非公式）by Yanoshin
   # https://webapi.yanoshin.jp/tdnet/

@@ -2,19 +2,19 @@
 -# WebAPIに直接GETする。200218現在
 
 .ts-search.mb-4
-  = form_with(url: "/search", method: :get, |
-    local: true,                            |
-    id: "ts-search") do |form|              |
+  = form_with(url: "/search", method: :get,
+              local: true,
+              id: "ts-search") do |form|
 
     .input-group.mb-3
-      = form.text_field :ticker_symbol,
-        id: "ts-search-bar",
-        class: "form-control",
-        placeholder: "銘柄コード（４桁）"
+      = form.text_field(:ticker_symbol,
+                        id: "ts-search-bar",
+                        class: "form-control",
+                        placeholder: t('placeholder.seatch_bar'))
 
       %span.input-group-append
-        = button_tag type: "submit",
-          id: "ts-search-submit",
-          class: "btn btn-outline-secondary" do
+        = button_tag(type: "submit",
+                     id: "ts-search-submit",
+                     class: "btn btn-outline-secondary") do
           = icon( 'fas', 'search')
 

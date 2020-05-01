@@ -3,27 +3,29 @@
 
 -# TDリスト（ウォッチリスト）
 .mb-5
-  %h1.h5.mb-4 適時開示情報（ウォッチ中）
+  %h1.h5.mb-4
+    = t('.feed_title')
   - if logged_in?
     = render('shared/tdi_list')
     = link_to(feed_path, 
               class: "text-muted d-flex justify-content-end my-2 align-middle") do
-      %span.small.mr-1 もっと見る
+      %span.small.mr-1
+        = t('.more_feed')
       = icon('fas', 'angle-right')
   - else
     = link_to('/login',
               class: "text-center") do
       .btn.btn-outline-primary.btn-block
         = icon( "fas", "eye", class: 'mr-1')
-        ログインしてウォッチ
+        = t('.login_to_watch')
 
 -# TDnet情報を表示
 .mb-4
   %h1.h5.mb-4
-    適時開示情報（最新）
+    = t('.recent_title')
   = render(partial: 'shared/tdi', collection: @recent)
   = link_to(daily_path, 
             class: "text-muted d-flex justify-content-end my-2 align-middle") do
     %span.mr-1
-      本日分
+      = t('.today_tdis_link')
       = icon('fas', 'angle-right')

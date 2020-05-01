@@ -10,3 +10,10 @@ ja:
       remember_me: ログインを記憶する
       forget_password: パスワードをお忘れの方
       new_account: 新規アカウントを作成
+  static_pages:
+    home:
+      feed_title: 適時開示情報（ウォッチ中）
+      more_feed: もっと見る
+      login_to_watch: ログインしてウォッチ
+      recent_title: 適時開示情報（最新）
+      today_tdis_link: 本日分

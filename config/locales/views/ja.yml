@@ -10,6 +10,13 @@ ja:
       remember_me: ログインを記憶する
       forget_password: パスワードをお忘れの方
       new_account: 新規アカウントを作成
+  password_resets:
+    new:
+      title: パスワードをお忘れの方
+      submit: パスワードを再設定
+    edit:
+      title: パスワードの再設定
+      submit: 新しいパスワードを設定
   static_pages:
     home:
       feed_title: 適時開示情報（ウォッチ中）

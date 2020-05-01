@@ -149,7 +149,7 @@ RSpec.describe "SystemSpec Users", type: :system do
       mail = ActionMailer::Base.deliveries.last
       url = extract_url(mail)
       visit url
-      expect(page).to have_content "新しいパスワードを設定"
+      expect(page).to have_content "パスワードの再設定"
 
       # update 例外
       within("#edit-password-reset-form") do

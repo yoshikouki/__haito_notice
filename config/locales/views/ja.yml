@@ -21,9 +21,12 @@ ja:
     home:
       feed_title: 適時開示情報（ウォッチ中）
       more_feed: もっと見る
-      login_to_watch: ログインしてウォッチ
       recent_title: 適時開示情報（最新）
       today_tdis_link: 本日分
   tdis:
     daily:
       title: 適時開示情報（本日分）
+  companies:
+    show:
+      title: "%{company_name} の適時開示情報"
+      sub_title: "適時開示情報（企業別）"

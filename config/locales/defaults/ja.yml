@@ -1,4 +1,7 @@
 ja:
+  haito_notice: 配当ノーティス
+  nav:
+    login: ログイン
   helpers:
     cancel: キャンセル
   placeholder:

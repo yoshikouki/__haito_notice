@@ -92,3 +92,7 @@ RSpec/MultipleExpectations:
   Exclude:
     - 'spec/system/*'
   Max: 2
+
+# ActionDispatch::Routingのようなclass定義を可能にする
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact

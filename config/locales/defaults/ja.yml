@@ -2,14 +2,22 @@ ja:
   haito_notice: 配当ノーティス
   nav:
     login: ログイン
+    logout: ログアウト
+    user_edit: 登録情報を変更
+    user_delete: アカウントを削除
     sector_list: セクター一覧
+    tdi_feed: TDIフィード
+    watchlist: ウォッチリスト
   link:
     empty_tdi: 企業を探す
     login_to_watch: ログインしてウォッチ
+    more: もっと見る
   helpers:
     cancel: キャンセル
   placeholder:
     seatch_bar: 銘柄コード（４桁）
+  number:
+    companies: "%{count} 社"
 --- # GitHub svenfuchs/rails-i18n/rails/locale/ja.yml から引用
   attributes:
     errors:

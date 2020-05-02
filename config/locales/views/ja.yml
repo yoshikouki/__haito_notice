@@ -3,6 +3,9 @@ ja:
     new:
       title: 新規アカウントを作成
       submit: アカウントを作成
+    mypage:
+      title: マイページ
+      confirm_to_delete_user: 本当にアカウントを削除しますか？この操作はやり直すことができません。
     edit:
       title: アカウント情報を変更
       submit: 変更の保存
@@ -34,7 +37,6 @@ ja:
   static_pages:
     home:
       feed_title: 適時開示情報（ウォッチ中）
-      more_feed: もっと見る
       recent_title: 適時開示情報（最新）
       today_tdis_link: 本日分
   tdis:

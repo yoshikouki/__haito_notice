@@ -1,17 +1,18 @@
-- provide(:title, 'マイページ')
+- provide(:title, t('.title'))
 
 .my-4
   -# アカウント名
-  %h1.h5= @user.name
+  %h1.h5
+    = @user.name
 
   -# 登録情報
   .mb-4
     .email
       %span.badge.badge-pill.badge-secondary
-        Email
+        = t('user.email', scope: 'activerecord.models')
       = @user.email
     .d-flex.justify-content-end
-      = link_to('登録情報を変更', 
+      = link_to(t('nav.user_edit'),
                 edit_user_path(@user),
                 class: "inline-block btn btn-outline-secondary btn-sm",
                 role: "button")
@@ -23,20 +24,21 @@
               class: "btn btn-secondary btn-block ",
               role: "button") do
       = icon('fas', 'building')
-      ウォッチリスト
+      = t('nav.watchlist')
       %span.badge.badge-pill.badge-light
-        = @user.watchlists.count
-        社
+        = t('number.companies', count: @user.watchlists.count)
 
   -# フィード（TDリスト）
   .mb-4
     = link_to(feed_path, id: "feed-link") do
       .w-auto.p-2.border-top.rounded-top.text-white.bg-secondary.text-center
         = icon('fas', 'rss')
-        TDIフィード
+        = t('nav.tdi_feed')
     = render('shared/tdi_list')
-    = link_to(feed_path, class: "text-muted d-flex justify-content-end my-2 align-middle") do
-      %span.small.mr-1 もっと見る
+    = link_to(feed_path, 
+              class: "text-muted d-flex justify-content-end my-2 align-middle") do
+      %span.small.mr-1
+        = t('link.more')
       = icon('fas', 'angle-right')
 
   -# ログアウト・アカウント削除
@@ -46,9 +48,9 @@
               method: :delete,
               role: "button") do
       = icon( "fas", "sign-out-alt")
-      ログアウト
+      = t('nav.logout')
     = link_to(@user,
-      method: :delete,
-      class: "text-danger small",
-      data: { confirm: "本当にアカウントを削除しますか？この操作はやり直すことができません。" } ) do
-      アカウントを削除
+              method: :delete,
+              class: "text-danger small",
+              data: { confirm: t('.confirm_to_delete_user') } ) do
+      = t('nav.user_delete')

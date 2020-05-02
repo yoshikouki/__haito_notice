@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
   # ログイン機能
   include SessionsHelper
 
+  # url_for関係メソッドでロケールを設定するよう上書き
+  def default_url_options
+    { locale: I18n.locale }
+  end
+
   private
     # ログアウトしている場合、ログインページにリダイレクト
     def logged_in_user

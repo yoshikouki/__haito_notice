@@ -1,6 +1,6 @@
-= "#{@user.name}さん、配当ノーティスへようこそ"
+= t('user_mailer.account_activation.title', user_name: @user.name)
 
-アカウントを有効化するために次のURLへアクセスしてください
+= t('user_mailer.account_activation.text_mail_click_url')
 
-= edit_account_activation_url(@user.activation_token, email: @user.email)
+= @url
 

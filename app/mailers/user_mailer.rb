@@ -7,6 +7,7 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user)
     @user = user
+    @url = edit_account_activation_url(user.activation_token, email: user.email)
     mail to: user.email, subject: "配当ノーティスへのご登録をありがとうございます！"
   end
 

@@ -10,6 +10,13 @@ ja:
       remember_me: ログインを記憶する
       forget_password: パスワードをお忘れの方
       new_account: 新規アカウントを作成
+  user_mailer:
+    account_activation:
+      title: "%{user_name}さん、ご登録ありがとうございます！"
+      click_button: アカウントを有効化するために、下のボタンをクリックしてください。
+      activation_button: アカウントの有効化
+      or_use_url: もし、ボタンが利用できない場合は、下記のURLを使用してください。
+      text_mail_click_url: アカウントを有効化するために次のURLへアクセスしてください
   password_resets:
     new:
       title: パスワードをお忘れの方

@@ -9,6 +9,8 @@ ja:
     sector_list: セクター一覧
     tdi_feed: TDIフィード
     watchlist: ウォッチリスト
+    translate_to_en: English
+    translate_to_ja: Japanese
   link:
     empty_tdi: 企業を探す
     login_to_watch: ログインしてウォッチ

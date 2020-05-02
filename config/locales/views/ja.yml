@@ -17,6 +17,10 @@ ja:
       activation_button: アカウントの有効化
       or_use_url: もし、ボタンが利用できない場合は、下記のURLを使用してください。
       text_mail_click_url: アカウントを有効化するために次のURLへアクセスしてください
+    password_reset:
+      title: パスワード再設定のお手続きをありがとうございます。
+      click_url: 下記のURLから、パスワードの再設定が可能です。
+      note_expiration_date: ※ URLの有効期限は、1時間です。有効期限を過ぎると、URLは無効となります。
   password_resets:
     new:
       title: パスワードをお忘れの方

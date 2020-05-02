@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
 
   # url_for関係メソッドでロケールを設定するよう上書き
   def default_url_options
+    return {} if params[:locale].blank?
+
     { locale: I18n.locale }
   end
 

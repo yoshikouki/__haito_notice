@@ -3,6 +3,9 @@ ja:
     new:
       title: 新規アカウントを作成
       submit: アカウントを作成
+    edit:
+      title: アカウント情報を変更
+      submit: 変更の保存
   sessions:
     new:
       title: ログイン

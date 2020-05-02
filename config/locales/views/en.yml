@@ -1,0 +1,59 @@
+en:
+  users:
+    new:
+      title: New account
+      submit: Create account
+    mypage:
+      title: Mypage
+      confirm_to_delete_user: Are you sure to delete account?
+    edit:
+      title: Edit account
+      submit: Save
+    feed:
+      title: Watching TDIs
+    watchlist:
+      title: Watchlist
+  sessions:
+    new:
+      title: Signin
+      submit: Signin
+      remember_me: Remember me
+      forget_password: Forget password
+      new_account: New account
+  user_mailer:
+    account_activation:
+      title: "Thank you for your registration!!"
+      click_button: Click bellow button to activation your account.
+      activation_button: Activation
+      or_use_url: Access below URL when the button can't be used.
+      text_mail_click_url: Access below URL to activation your account.
+    password_reset:
+      title: Thank you for reseting password.
+      click_url: Access the URL to reset password.
+      note_expiration_date: ※ What's out for the 1 hour expiration.
+  password_resets:
+    new:
+      title: Forget password
+      submit: Reset password
+    edit:
+      title: Reset password
+      submit: Save password
+  static_pages:
+    home:
+      feed_title: Watching TDIs
+      recent_title: Recent TDIs
+      today_tdis_link: Today
+  tdis:
+    daily:
+      title: TDIs in today
+  companies:
+    index:
+      title: TSE-listed companies
+    sectors:
+      title: 'companies in "%{tsi}"'
+      sub_title: Sector
+    show:
+      title: "TDIs from %{company_name}"
+      sub_title: "TDIs（by company）"
+    tsi:
+      uncategorized: Uncate

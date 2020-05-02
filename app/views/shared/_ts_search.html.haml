@@ -2,12 +2,12 @@
 -# WebAPIに直接GETする。200218現在
 
 .ts-search.mb-4
-  = form_with(url: "/search", method: :get,
+  = form_with(url: search_path, method: :get,
               local: true,
               id: "ts-search") do |form|
 
     .input-group.mb-3
-      = form.text_field(:ticker_symbol,
+      = form.text_field(:local_code,
                         id: "ts-search-bar",
                         class: "form-control",
                         placeholder: t('placeholder.seatch_bar'))

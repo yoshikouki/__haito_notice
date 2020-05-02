@@ -4,13 +4,13 @@
     %nav.navbar.navbar-expand-sm.px-0
       -# サービスロゴの表示
       = link_to(t('haito_notice'),
-                '/',
+                root_path,
                 id: "logo",
                 class: "navbar-brand p-0")
 
       -# ナビゲーションメニュー
       %ul.nav.justify-content-end.h-100
-        = link_to('/companies',
+        = link_to(companies_path,
                   id: "companies-link",
                   class: "nav-item nav-link") do
           %li.text-center.align-middle
@@ -18,7 +18,7 @@
 
         - if logged_in?
           -# ログイン時
-          = link_to('/mypage',
+          = link_to(mypage_path,
                     id: "mypage-link",
                     class: "nav-item nav-link") do
             %li.text-center.align-middle
@@ -26,7 +26,7 @@
               = @current_user.name
         - else
           -# ログアウト時
-          = link_to('/login',
+          = link_to(login_path,
                     class: "nav-item nav-link") do
             %li.text-center.align-middle
               = icon( "fas", "sign-in-alt")

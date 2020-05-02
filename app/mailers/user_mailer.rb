@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user)
     @user = user
-    @url = edit_account_activation_url(user.activation_token, email: user.email)
+    @url = edit_account_activation_url(id: user.activation_token, email: user.email)
     mail to: user.email, subject: "配当ノーティスへのご登録をありがとうございます！"
   end
 
@@ -18,7 +18,7 @@ class UserMailer < ApplicationMailer
   #
   def password_reset(user)
     @user = user
-    @url = edit_password_reset_url(@user.reset_token, email: @user.email)
+    @url = edit_password_reset_url(id: user.reset_token, email: user.email)
     mail to: user.email, subject: "【配当ノーティス】パスワードの再設定"
   end
 end

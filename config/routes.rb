@@ -1,38 +1,40 @@
 Rails.application.routes.draw do
-  root 'static_pages#home'
-  get 'tdis/daily'
+  scope "(:locale)", locale: /#{I18n.available_locales.map(&:to_s).join('|')}/ do
+    root 'static_pages#home'
+    get 'tdis/daily'
 
-  
-  # 企業一覧・検索
-  get '/search', to: 'companies#search'
-  get '/sectors/:id', to: 'companies#sectors', as: 'sectors'
+    
+    # 企業一覧・検索
+    get '/search', to: 'companies#search'
+    get '/sectors/:id', to: 'companies#sectors', as: 'sectors'
 
-  # ユーザー機能
-  get '/signup', to: 'users#new'
-  get '/mypage', to: 'users#mypage'
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+    # ユーザー機能
+    get '/signup', to: 'users#new'
+    get '/mypage', to: 'users#mypage'
+    get '/login', to: 'sessions#new'
+    post '/login', to: 'sessions#create'
+    delete '/logout', to: 'sessions#destroy'
 
-  # ウォッチリスト
-  get '/feed', to: 'users#feed', as: 'feed'
-  get '/feed/watchlist', to: 'users#watchlist', as: 'watchlist'
+    # ウォッチリスト
+    get '/feed', to: 'users#feed', as: 'feed'
+    get '/feed/watchlist', to: 'users#watchlist', as: 'watchlist'
 
-  # TDコントローラー
-  get '/daily', to: 'tdis#daily'
+    # TDコントローラー
+    get '/daily', to: 'tdis#daily'
 
-  
-  resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :account_activations, only: [:edit]
-  resources :password_resets, only: [:new, :create, :edit, :update]
+    
+    resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
+    resources :account_activations, only: [:edit]
+    resources :password_resets, only: [:new, :create, :edit, :update]
 
-  post 'watchlists/:id', to: 'watchlists#create', as: 'watch'
-  delete 'watchlists/:id', to: 'watchlists#destroy', as: 'unwatch'
+    post 'watchlists/:id', to: 'watchlists#create', as: 'watch'
+    delete 'watchlists/:id', to: 'watchlists#destroy', as: 'unwatch'
 
-  resources :companies, only: [:index, :show] do
-    # Companyテーブルのインポート機能のため
-    collection { post :import_from }
+    resources :companies, only: [:index, :show] do
+      # Companyテーブルのインポート機能のため
+      collection { post :import_from }
+    end
+
+    get '/:locale', to: 'static_pages#home'
   end
-
-  get '/:locale', to: 'static_pages#home'
 end

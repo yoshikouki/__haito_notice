@@ -11,6 +11,8 @@ ja:
       submit: 変更の保存
     feed:
       title: ウォッチ中の適時開示情報
+    watchlist:
+      title: ウォッチリスト
   sessions:
     new:
       title: ログイン

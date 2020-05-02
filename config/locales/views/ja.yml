@@ -9,6 +9,8 @@ ja:
     edit:
       title: アカウント情報を変更
       submit: 変更の保存
+    feed:
+      title: ウォッチ中の適時開示情報
   sessions:
     new:
       title: ログイン

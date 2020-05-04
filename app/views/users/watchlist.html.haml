@@ -1,4 +1,4 @@
-- provide(:title, 'ウォッチリスト')
+- provide(:title, t('.title'))
 
 .my-4
   = link_to(mypage_path, class: 'text-decoration-none') do
@@ -11,9 +11,9 @@
     -# ウォッチリスト
     .mb-4
       %h1.h5.d-inline-block
-        ウォッチリスト
+        = t('.title')
       %span.badge.badge-pill.badge-secondary
-        = "#{@user.watchlists.count} 社"
+        = t('number.companies', count: @user.watchlists.count)
     -# フィードナビゲーション
     .container.mb-4
       = render('users/feed_nav')
@@ -25,9 +25,8 @@
       -# フィードリスト
       %ul.list-group.list-group-flush.border-top
         - @companies.each do |com|
-          = link_to( { controller: 'companies',
-                        action: 'show',
-                        id: com.local_code },
+          = link_to( { controller: 'companies', action: 'show',
+                       id: com.local_code },
                     class: "list-group-item list-group-item-action flex-column align-items-start px-2") do
             %span.company-name
               %b= com.company_name
@@ -46,4 +45,4 @@
             class: "btn btn-outline-secondary btn-block",
             role: "button") do
     = icon('fas', 'angle-left')
-    マイページ
+    = t('nav.mypage')

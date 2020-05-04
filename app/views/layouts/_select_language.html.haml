@@ -1,0 +1,22 @@
+-# 言語選択ナビゲーション
+
+- f_ja, f_en = 'light'
+- if params['locale'] == 'en'
+  - f_en = 'secondary'
+- else
+  - f_ja = 'secondary'
+
+.row.bg-light.rounded-lg.p-1.my-4.mx-5
+  -# 日本語での表示
+  = link_to(root_path(locale: "ja"),
+            id: "japanese-link",
+            class: "btn btn-sm col btn-#{f_ja}",
+            role: "button") do
+    = t('nav.translate_to_ja')
+
+  -# 英語での表示
+  = link_to(root_path(locale: "en"),
+            id: "english-link",
+            class: "btn btn-sm col btn-#{f_en}",
+            role: "button") do
+    = t('nav.translate_to_en')

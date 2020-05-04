@@ -1,18 +1,30 @@
-- provide :title, 'パスワードの再設定'
+- provide(:title, t('.title'))
 
-%h1.h5.pb-4 新しいパスワードを設定
+%h1.h5.pb-4
+  = t('.title')
 
-= form_with(url: password_reset_url(params[:id]), method: :patch, local: true, id: "edit-password-reset-form") do |form|
-  -# = render '/shared/form_errors'
+= form_with(url: password_reset_url(params[:id]),
+            method: :patch,
+            local: true,
+            id: "edit-password-reset-form") do |form|
 
-  = form.hidden_field :email, value: @user.email
+  = form.hidden_field(:email, value: @user.email)
 
   .mb-4
-    = form.label :password, "パスワード"
-    = form.text_field :password, id: "user-password", class: "form-control"
+    = form.label(:password,
+                 t('user.password', scope: 'activerecord.models'))
+    = form.text_field(:password,
+                      id: "user-password",
+                      class: "form-control")
 
   .mb-4
-    = form.submit "新しいパスワードを登録", id: "submit-password-reset", class: "btn btn-primary btn-block mb-2"
+    = form.submit(t('.submit'),
+                  id: "submit-password-reset",
+                  class: "btn btn-primary btn-block mb-2")
 
 .mb-3
-  = link_to 'キャンセル', login_path, role: "button",id: "cancel", class: "btn btn-outline-secondary btn-block"
+  = link_to(t('helpers.cancel'),
+            login_path,
+            role: "button",
+            id: "cancel",
+            class: "btn btn-outline-secondary btn-block")

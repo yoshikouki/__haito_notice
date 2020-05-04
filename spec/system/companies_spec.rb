@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Companies", type: :system do
+RSpec.describe "SystemSpec Companies", type: :system do
   let(:company) { FactoryBot.create(:company) }
 
   before do

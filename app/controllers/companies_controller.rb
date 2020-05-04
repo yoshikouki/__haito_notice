@@ -14,7 +14,7 @@ class CompaniesController < ApplicationController
     @tdis = Tdi.new.company(local_code, 30)
     unless @tdis
       flash[:warning] = "銘柄コードが不正です"
-      redirect_to controller: 'static_pages', action: 'home' 
+      redirect_to root_path
     else
       @company = Company.find_by(local_code: local_code)
     end
@@ -22,7 +22,7 @@ class CompaniesController < ApplicationController
   
   # 銘柄コード検索で呼び出し
   def search
-    redirect_to "/companies/#{params['ticker_symbol']}"
+    redirect_to company_path(id: params[:local_code])
   end
 
   # 東証33業種で検索

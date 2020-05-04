@@ -1,7 +1,8 @@
-- provide(:title, '上場企業一覧')
+- provide(:title, t('.title'))
 
 .content-title.mb-4
-  %h1.h5 企業一覧（全て）
+  %h1.h5
+    = t('.title')
 
 -# 銘柄コード検索フォーム
 = render 'shared/ts_search'

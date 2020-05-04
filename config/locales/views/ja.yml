@@ -1,0 +1,59 @@
+ja:
+  users:
+    new:
+      title: 新規アカウントを作成
+      submit: アカウントを作成
+    mypage:
+      title: マイページ
+      confirm_to_delete_user: 本当にアカウントを削除しますか？この操作はやり直すことができません。
+    edit:
+      title: アカウント情報を変更
+      submit: 変更の保存
+    feed:
+      title: ウォッチ中の適時開示情報
+    watchlist:
+      title: ウォッチリスト
+  sessions:
+    new:
+      title: ログイン
+      submit: ログイン
+      remember_me: ログインを記憶する
+      forget_password: パスワードをお忘れの方
+      new_account: 新規アカウントを作成
+  user_mailer:
+    account_activation:
+      title: "%{user_name}さん、ご登録ありがとうございます！"
+      click_button: アカウントを有効化するために、下のボタンをクリックしてください。
+      activation_button: アカウントの有効化
+      or_use_url: もし、ボタンが利用できない場合は、下記のURLを使用してください。
+      text_mail_click_url: アカウントを有効化するために次のURLへアクセスしてください
+    password_reset:
+      title: パスワード再設定のお手続きをありがとうございます。
+      click_url: 下記のURLから、パスワードの再設定が可能です。
+      note_expiration_date: ※ URLの有効期限は、1時間です。有効期限を過ぎると、URLは無効となります。
+  password_resets:
+    new:
+      title: パスワードをお忘れの方
+      submit: パスワードを再設定
+    edit:
+      title: パスワードの再設定
+      submit: 新しいパスワードを設定
+  static_pages:
+    home:
+      feed_title: 適時開示情報（ウォッチ中）
+      recent_title: 適時開示情報（最新）
+      today_tdis_link: 本日分
+  tdis:
+    daily:
+      title: 適時開示情報（本日分）
+  companies:
+    index:
+      title: 上場企業一覧（全企業）
+    sectors:
+      title: "セクター別の企業一覧 : %{tsi}"
+      sub_title: セクター別
+    show:
+      title: "%{company_name} の適時開示情報"
+      sub_title: "適時開示情報（企業別）"
+    tsi:
+      uncategorized: 未分類

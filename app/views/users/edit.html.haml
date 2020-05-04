@@ -1,9 +1,10 @@
-- provide(:title, 'アカウント変更')
+- provide(:title, t('.title'))
 
 -# formパーシャル用
-- provide(:button_text, '保存')
 - provide(:form_id, 'edit-user-form')
+- provide(:submit_text, t('.submit'))
 
-%h1.h5.pb-4 アカウント変更
+%h1.h5.pb-4
+  = t('.title')
 
 = render 'form', user: @user

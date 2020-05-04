@@ -1,7 +1,8 @@
 -# 企業の個別ページ
-- provide(:title, "#{@company.company_name}の適時開示情報")
+- provide(:title, t('.title', company_name: @company.company_name))
 
-%h1.h5 適時開示情報（企業別）
+%h1.h5
+= t('.sub_title')
 
 %h2#company-name.font-weight-bold
   = @company.company_name
@@ -18,7 +19,7 @@
                 class: "text-center") do
         .btn.btn-outline-primary.btn-block
           = icon( "fas", "eye", class: 'mr-1')
-          ログインしてウォッチ
+          = t('link.login_to_watch')
 
 -# TDnet情報を表示
 .tdis-list.list.border-top

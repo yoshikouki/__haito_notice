@@ -27,6 +27,8 @@ gem 'bcrypt',       '3.1.12'
 gem 'activerecord-import'
 # テンプレートエンジンはHamlを使用
 gem 'haml-rails'
+# 多言語化（ローカライズ）のため
+gem 'rails-i18n'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

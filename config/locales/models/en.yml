@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      user:
+        other: user
+        name: Account name
+        email: Email
+        password: Password
+        password_confirmation: Confirmation Password
+      company:
+        tsi:
+          uncategorized: Uncate
+    attributes:
+      user:
+        name: Account name
+        email: Email
+        password: Password
+        password_confirmation: Confirmation Password

@@ -1,6 +1,6 @@
 -# 企業一覧のリストアイテム
 
-= link_to(company_path(company.local_code), 
+= link_to(company_path(id: company.local_code), 
           id: "company-link-#{company.local_code}", 
           class: "list-group-item list-group-item-action flex-column align-items-start px-2") do
   %span.company-name

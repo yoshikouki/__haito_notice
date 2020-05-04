@@ -2,33 +2,32 @@
 %header.sticky-top.navbar-light.bg-light.mb-4
   .container
     %nav.navbar.navbar-expand-sm.px-0
-
       -# サービスロゴの表示
-      = link_to "配当ノーティス",
-        '/',
-        id: "logo",
-        class: "navbar-brand p-0"
+      = link_to(t('haito_notice'),
+                root_path,
+                id: "logo",
+                class: "navbar-brand p-0")
 
       -# ナビゲーションメニュー
       %ul.nav.justify-content-end.h-100
-        = link_to '/companies',
-          id: "companies-link",
-          class: "nav-item nav-link" do
+        = link_to(companies_path,
+                  id: "companies-link",
+                  class: "nav-item nav-link") do
           %li.text-center.align-middle
             = icon( "fas", "globe")
 
         - if logged_in?
           -# ログイン時
-          = link_to '/mypage',
-            id: "mypage-link",
-            class: "nav-item nav-link" do
+          = link_to(mypage_path,
+                    id: "mypage-link",
+                    class: "nav-item nav-link") do
             %li.text-center.align-middle
               = icon( "fas", "user")
               = @current_user.name
         - else
           -# ログアウト時
-          = link_to '/login',
-              class: "nav-item nav-link" do
+          = link_to(login_path,
+                    class: "nav-item nav-link") do
             %li.text-center.align-middle
               = icon( "fas", "sign-in-alt")
-              ログイン
+              = t('nav.login')

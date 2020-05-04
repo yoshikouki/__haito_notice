@@ -1,4 +1,6 @@
-- provide(:title, '適時開示情報（ウォッチ中）')
+-# TDIフィード画面
+
+- provide(:title, t('.title'))
 
 .my-4
   -# アカウント・ページ名
@@ -9,9 +11,9 @@
 
   .mb-4
     %h1.h5.d-inline-block
-      適時開示情報（ウォッチ中）
+      = t('.title')
     %span.badge.badge-pill.badge-secondary
-      = "#{@user.watchlists.count} 社"
+      = t('number.companies', count: @user.watchlists.count)
 
   -# フィードナビゲーション
   .container.mb-4
@@ -26,4 +28,4 @@
             class: "btn btn-outline-secondary btn-block",
             role: "button") do
     = icon('fas', 'angle-left')
-    マイページ
+    = t('nav.mypage')

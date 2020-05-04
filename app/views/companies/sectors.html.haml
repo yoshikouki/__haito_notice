@@ -1,18 +1,25 @@
 -# 各セクターの企業一覧
-- topix_sector_indices = @companies[0][:topix_sector_indices] == "-" ? "未分類" : @companies[0][:topix_sector_indices]
-- provide(:title, "セクター別の企業一覧 : #{topix_sector_indices}")
+- flag = @companies[0][:topix_sector_indices]
+- tsi = flag == "-" ? t('companies.tsi.uncategorized') : flag
+- provide(:title, t('.title', tsi: tsi))
 
+-# ページタイトル
 .content-title.mb-4
   %h1.h5
-    セクター別
+    = t('.sub_title')
   %h2.font-weight-bold
-    = topix_sector_indices
+    = tsi
+
+-# セクター一覧の開閉ボタン
+- c = "btn btn-block btn-sm btn-outline-secondary"
+%button{ class: c,
+aria: { controls: "sector-list", expand: "false" },
+data: { target: "#sector-list", toggle: "collapse" } }
+  = t('nav.sector_list')
 
 -# セクターをリスト表示
-%button.btn.btn-outline-secondary.btn-block.btn-sm{"aria-controls" => "sector-list", "aria-expand" => "false", "data-target" => "#sector-list", "data-toggle" => "collapse"}
-  セクター一覧
 #sector-list.collapse.pt-3
-  = render 'sector_list'
+  = render('sector_list')
 
 -# 企業一覧を表示
-= render 'companies/company_list'
+= render('companies/company_list')

@@ -2,15 +2,17 @@
 .container
   %ul.row.list-inline.mb-4
     - @tsi.each do |v|
+    - tsi = v[:topix_sector_indices]
 
       -# <%# リストアイテム %>
-      = link_to sectors_path(v[:tsi_code]), |
-        id: "tsi-code-#{v[:tsi_code]}",     |
-        class: "m-1" do                     |
-        %li{:class => "sector-list-item btn btn-outline-secondary py-1 px-2 #{params[:id].to_s == v[:tsi_code].to_s ? "active" : nil}"}
+      = link_to(sectors_path(id: v[:tsi_code]),
+                id: "tsi-code-#{v[:tsi_code]}",
+                class: "m-1") do
+        - frag = "active" if params[:id] == v[:tsi_code]
+        %li{class: "sector-list-item btn btn-outline-secondary py-1 px-2 #{frag}"}
           -# <%# セクター名 %>
           %span.sector-name.font-weight-bold
-            = v[:topix_sector_indices] == "-" ? "未分類" : v[:topix_sector_indices]
+            = tsi == "-" ? t('companies.tsi.uncategorized') : tsi
           -# <%# セクターに属している企業数 %>
           %span.sector-count.small.font-weight-light
-            = @tsi_count[v[:topix_sector_indices]]
+            = @tsi_count[tsi]

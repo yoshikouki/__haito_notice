@@ -1,11 +1,11 @@
 -# TDリスト（ウォッチリスト）
-- provide(:title, '適時開示情報（本日分）')
+- provide(:title, t('.title'))
 
 %section.mb-5
   .mb-4
     %h1.h5.mb-4.d-inline.align-middle
-      適時開示情報（本日分）
+      = t('.title')
     %span.badge.badge-pill.badge-secondary
-      = "#{@tdis.count} 件"
+      = "TDI #{@tdis.count}"
 
   = render 'shared/tdi_list'

@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      user:
+        other: user
+        name: アカウント名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+      company:
+        tsi:
+          uncategorized: 未分類
+    attributes:
+      user:
+        name: アカウント名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード

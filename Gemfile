@@ -29,6 +29,8 @@ gem 'activerecord-import'
 gem 'haml-rails'
 # 多言語化（ローカライズ）のため
 gem 'rails-i18n'
+# ユーザー機能をGemに移行し強化
+gem 'devise'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

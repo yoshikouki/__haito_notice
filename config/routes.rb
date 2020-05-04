@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   locales = I18n.available_locales.map(&:to_s).join('|')
   scope "(:locale)", locale: /#{locales}/ do
+    # ユーザー機能（devise）
+    devise_for :users
+
     # ユーザー機能
     get '/signup', to: 'users#new'
     get '/mypage', to: 'users#mypage'

@@ -6,7 +6,7 @@ class WatchlistsController < ApplicationController
     @company = Company.find_by(local_code: params[:local_code])
     current_user.watch(@company)
     respond_to do |format|
-      format.html { redirect_to company_path(params[:local_code]) }
+      format.html { redirect_to company_path(id: params[:local_code]) }
       format.js
     end
   end
@@ -15,7 +15,7 @@ class WatchlistsController < ApplicationController
     @company = Company.find_by(local_code: params[:local_code])
     current_user.unwatch(@company)
     respond_to do |format|
-      format.html { redirect_to company_path(params[:local_code]) }
+      format.html { redirect_to company_path(id: params[:local_code]) }
       format.js 
     end
   end

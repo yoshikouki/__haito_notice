@@ -22,7 +22,7 @@ class CompaniesController < ApplicationController
   
   # 銘柄コード検索で呼び出し
   def search
-    redirect_to company_path(params[:local_code])
+    redirect_to company_path(id: params[:local_code])
   end
 
   # 東証33業種で検索

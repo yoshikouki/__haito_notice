@@ -13,7 +13,7 @@
       = @user.email
     .d-flex.justify-content-end
       = link_to(t('nav.user_edit'),
-                edit_user_path(@user),
+                edit_user_path(id: @user),
                 class: "inline-block btn btn-outline-secondary btn-sm",
                 role: "button")
 
@@ -43,14 +43,16 @@
 
   -# ログアウト・アカウント削除
   .destroy-content.mt-5.mb-4
-    = link_to('/logout',
+    = link_to(logout_path,
               class: "btn btn-outline-secondary btn-block btn-sm mb-4",
               method: :delete,
               role: "button") do
       = icon( "fas", "sign-out-alt")
       = t('nav.logout')
-    = link_to(@user,
+
+    = link_to(user_path(id: @user),
               method: :delete,
+              id: "delete-user",
               class: "text-danger small",
               data: { confirm: t('.confirm_to_delete_user') } ) do
       = t('nav.user_delete')

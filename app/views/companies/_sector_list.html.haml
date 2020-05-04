@@ -5,7 +5,7 @@
     - tsi = v[:topix_sector_indices]
 
       -# <%# リストアイテム %>
-      = link_to(sectors_path(v[:tsi_code]),
+      = link_to(sectors_path(id: v[:tsi_code]),
                 id: "tsi-code-#{v[:tsi_code]}",
                 class: "m-1") do
         - frag = "active" if params[:id] == v[:tsi_code]

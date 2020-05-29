@@ -1,0 +1,26 @@
+- bs_c = @bootstrap_class_list
+- bs_c.merge!({ s: '',
+    v: '' })
+
+%h2{ class: bs_c[:page_title] }
+  アカウント凍結解除のメールを再送
+
+= form_for(resource,
+           as: resource_name,
+           url: unlock_path(resource_name),
+           html: { method: :post,
+                   class: bs_c[:form] }) do |f|
+  = render "devise/shared/error_messages", resource: resource
+
+  .field{ class: bs_c[:form_group] }
+    = f.label :email, 'メールアドレス'
+    = f.email_field :email,
+                    autofocus: true,
+                    autocomplete: "email",
+                    class: bs_c[:form_field]
+
+  .actions{ class: bs_c[:form_group] }
+    = f.submit "凍結解除メールを再送",
+                    class: bs_c[:form_submit]
+
+= render "devise/shared/links"

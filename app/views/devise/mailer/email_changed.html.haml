@@ -1,0 +1,13 @@
+%p
+  #{@email}さん
+
+- if @resource.try(:unconfirmed_email?)
+  %p
+    下記メールアドレスへの変更手続きを受け付けましたので連絡いたします。
+
+- else
+  %p
+    下記のメールアドレスへの変更手続きが完了しましたので連絡いたします。
+
+%p
+  = @resource.unconfirmed_email

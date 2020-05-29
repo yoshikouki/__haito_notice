@@ -1,0 +1,50 @@
+- bs_c = @bootstrap_class_list
+
+%h2{ class: bs_c[:page_title] }
+  新規アカウント
+
+#sign-up-form{ class: bs_c[:form] }
+  = form_for(resource,
+             as: resource_name,
+             url: registration_path(resource_name)) do |f|
+    = render "devise/shared/error_messages", resource: resource
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :email, "メールアドレス"
+      = f.email_field :email,
+                      autofocus: true,
+                      autocomplete: "email",
+                      placeholder: "example@email.com",
+                      id: 'form-email',
+                      class: bs_c[:form_field]
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :password, "パスワード"
+      = f.password_field :password,
+                         autocomplete: "new-password",
+                         id: 'form-password',
+                         class: bs_c[:form_field]
+      - if @minimum_password_length
+        %small #{@minimum_password_length}文字以上
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :password_confirmation, "確認用パスワード"
+      = f.password_field :password_confirmation,
+                         autocomplete: "new-password",
+                         id: 'form-password-confirmation',
+                         class: bs_c[:form_field]
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :username, "ユーザー名"
+      = f.text_field :username,
+                     autocomplete: "user-name",
+                     id: 'form-username',
+                     class: bs_c[:form_field]
+
+
+    .actions{ class: bs_c[:form_group] }
+      = f.submit "アカウント作成",
+                 id: 'form-submit',
+                 class: bs_c[:form_submit]
+
+= render "devise/shared/links"

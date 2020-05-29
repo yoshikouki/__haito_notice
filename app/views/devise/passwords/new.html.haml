@@ -1,0 +1,25 @@
+- bs_c = @bootstrap_class_list
+- bs_c.merge!({ s: '',
+    v: '' })
+
+%h2{ class: bs_c[:page_title] }
+  パスワードをお忘れの方
+= form_for(resource,
+           as: resource_name,
+           url: password_path(resource_name),
+           html: { method: :post,
+                   class: bs_c[:form] }) do |f|
+  = render "devise/shared/error_messages", resource: resource
+
+  .field{ class: bs_c[:form_group] }
+    = f.label :email, 'メールアドレス'
+    = f.email_field :email,
+                    autofocus: true,
+                    autocomplete: "email",
+                    class: bs_c[:form_field]
+
+  .actions{ class: bs_c[:form_group] }
+    = f.submit "パスワード再設定URLを送信",
+               class: bs_c[:form_submit]
+
+= render "devise/shared/links"

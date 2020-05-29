@@ -1,0 +1,83 @@
+- bs_c = @bootstrap_class_list
+- bs_c.merge!({ s: '',
+    delete_account_btn: "text-danger",
+    v: '' })
+
+%h2{ class: bs_c[:page_title] }
+  アカウント情報 変更
+
+#edit-user-registration-form
+  = form_for(resource,
+             as: resource_name,
+             url: registration_path(resource_name),
+             html: { method: :put,
+                     class: bs_c[:form] }) do |f|
+    = render "devise/shared/error_messages",
+             resource: resource
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :email,
+                'メールアドレス'
+      = f.email_field :email,
+                      autofocus: true,
+                      autocomplete: "email",
+                      id: 'form-email',
+                      class: bs_c[:form_field]
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      %div
+        Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :username,
+                'アカウント名'
+      = f.text_field :username,
+                     autocomplete: "user-name",
+                     id: 'form-username',
+                     class: bs_c[:form_field]
+
+    .field{ class: bs_c[:form_group] }
+      .password-list.row
+        %span.col-6
+          = f.label :password,
+                    '新しいパスワード'
+          = f.password_field :password,
+                             autocomplete: "new-password",
+                             placeholder: "変更しない場合は空欄",
+                             id: 'form-new-password',
+                             class: bs_c[:form_field]
+          %small{ class: bs_c[:form_small_text] }
+            #{@minimum_password_length}文字以内
+        %span.col-6
+          = f.label :password_confirmation,
+                    '確認用パスワード'
+          = f.password_field :password_confirmation,
+                             autocomplete: "new-password",
+                             id: 'form-new-password-confirmation',
+                             class: bs_c[:form_field]
+
+    .field{ class: bs_c[:form_group] }
+      = f.label :current_password,
+                '現在のパスワード'
+      = f.password_field :current_password,
+                         autocomplete: "current-password",
+                         placeholder: "",
+                         id: 'form-password',
+                         class: bs_c[:form_field]
+
+    .action{ class: bs_c[:form_group] }
+      = f.submit "変更を登録",
+                 id: 'form-submit',
+                 class: bs_c[:form_submit]
+
+.destroy-content.my-5
+  = link_to registration_path(resource_name),
+              data: { confirm: "本当にアカウントを削除されますか？ この実行は取り消されません。" },
+              method: :delete,
+              id: "delete-user",
+              class: bs_c[:delete_account_btn] do
+    アカウント削除
+
+= link_to :back,
+          class: bs_c[:link_btn_secondary] do
+  %i.fas.fa-angle-left
+  戻る

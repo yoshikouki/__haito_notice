@@ -1,0 +1,41 @@
+- bs_c = @bootstrap_class_list
+
+- if controller_name != 'sessions'
+  .div{ class: bs_c[:link_list] }
+    = link_to new_session_path(resource_name),
+              class: bs_c[:link_list_btn] do
+      %i.fas.fa-sign-in-alt
+      ログイン
+
+- if devise_mapping.omniauthable?
+  .div{ class: bs_c[:link_list] }
+    - resource_class.omniauth_providers.each do |provider|
+      = link_to omniauth_authorize_path(resource_name, provider),
+                class: bs_c[:link_list_btn] do
+        %i.fab.fa-twitter
+        #{OmniAuth::Utils.camelize(provider)}でログイン
+
+- if devise_mapping.registerable? && controller_name != 'registrations'
+  .div{ class: bs_c[:link_list] }
+    = link_to new_registration_path(resource_name),
+              class: bs_c[:link_list_btn] do
+      %i.fas.fa-user-plus
+      アカウント作成
+
+- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+  .div{ class: bs_c[:link_list] }
+    = link_to new_password_path(resource_name),
+              class: bs_c[:link_list_text] do
+      パスワードをお忘れの方
+
+- if devise_mapping.confirmable? && controller_name != 'confirmations'
+  .div{ class: bs_c[:link_list] }
+    = link_to new_confirmation_path(resource_name),
+              class: bs_c[:link_list_text] do
+      アカウント有効化のメールが届かない
+
+- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+  .div{ class: bs_c[:link_list] }
+    = link_to new_unlock_path(resource_name),
+              class: bs_c[:link_list_text] do
+      アカウント凍結解除のメールが届かない

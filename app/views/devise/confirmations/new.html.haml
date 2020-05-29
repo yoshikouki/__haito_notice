@@ -1,0 +1,27 @@
+- bs_c = @bootstrap_class_list
+- bs_c.merge!({ s: '',
+    v: '' })
+
+%h2{ class: bs_c[:page_title] }
+  アカウント有効化メールの再送
+
+= form_for(resource,
+           as: resource_name,
+           url: confirmation_path(resource_name),
+           html: { method: :post,
+                   class: bs_c[:form] }) do |f|
+  = render "devise/shared/error_messages", resource: resource
+
+  .field{ class: bs_c[:form_group] }
+    = f.label :email, 'メールアドレス'
+    = f.email_field :email,
+                    autofocus: true,
+                    autocomplete: "email",
+                    class: bs_c[:form_field],
+                    value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+
+  .actions{ class: bs_c[:form_group] }
+    = f.submit "有効化メールを再送",
+               class: bs_c[:form_submit]
+
+= render "devise/shared/links"

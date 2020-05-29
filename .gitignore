@@ -40,3 +40,7 @@
 /.env.production
 
 /spec/examples.txt
+
+.generators
+.idea/
+.rakeTasks
